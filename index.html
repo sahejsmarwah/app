@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Friendship & Vibes</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
@@ -10,124 +10,296 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 100vh;
       background: linear-gradient(135deg, #ffe6f0, #e0f7ff);
       font-family: 'Poppins', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     .screen {
       display: none;
       opacity: 0;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 2rem;
-      background: linear-gradient(135deg, #ffffff, #f9f9f9);
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-      max-width: 90%;
-      width: 350px;
+      padding: 3vw;
+      background: #fff;
+      width: 100vw;
+      min-height: 100vh;
       transition: opacity 0.5s ease;
+      position: relative;
     }
     .screen.active {
       display: flex;
       opacity: 1;
     }
-    h1 { margin: 0 0 1rem; color: #333; font-weight: 600; }
-    p { margin: 0 0 1.5rem; color: #555; line-height: 1.4; font-weight: 300; }
+    h1, p {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards;
+    }
+    h1 {
+      margin: 0 0 1.5rem;
+      color: #333;
+      font-weight: 600;
+      font-size: 2.2rem;
+      animation-delay: 0.1s;
+    }
+    p {
+      margin: 0 0 2rem;
+      color: #555;
+      line-height: 1.4;
+      font-weight: 300;
+      font-size: 1.2rem;
+      animation-delay: 0.3s;
+    }
     button {
       padding: 0.8rem 1.5rem;
+      margin: 0.5rem;
       border: none;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 1rem;
       font-weight: 500;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.15s ease;
+      width: 100%;
+      position: relative;
     }
-    .next {
+    .next, .yes {
       background: #ff85b3;
       color: #fff;
+      padding: 1.2rem 2.5rem;
+      font-size: 1.4rem;
+      max-width: 300px;
+      animation: pulse 2s infinite ease-in-out;
     }
-    .yes {
+    .no {
       background: #6c5ce7;
       color: #fff;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      max-width: 120px;
     }
-    button:hover {
-      transform: translateY(-3px) scale(1.03);
+    button:hover:not(.no), button:focus:not(.no) {
+      transform: translateY(-3px) scale(1.05);
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      animation: none;
+    }
+    .no:hover, .no:focus {
+      transition: transform 0.15s ease;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 400px;
+      align-items: center;
+      position: relative;
     }
     .wave {
-      width: 50px;
-      height: 10px;
+      width: 60px;
+      height: 12px;
       background: linear-gradient(90deg, #6c5ce7, #ff85b3);
       animation: wave 1.5s infinite;
       margin: 10px auto;
+      opacity: 0;
+      animation-delay: 0.5s;
+      animation-fill-mode: forwards;
+    }
+    .glowing-heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ff6f91;
+      transform: rotate(45deg);
+      top: 20px;
+      right: 20px;
+      opacity: 0;
+      animation: glow 1.5s infinite ease-in-out, slideUp 0.5s ease forwards 0.5s;
+    }
+    .glowing-heart:before, .glowing-heart:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ff6f91;
+      border-radius: 50%;
+    }
+    .glowing-heart:before { top: -15px; }
+    .glowing-heart:after { left: -15px; }
+    .creature {
+      position: absolute;
+      font-size: 50px;
+      opacity: 0;
+      animation: jump 2s ease forwards;
+      pointer-events: none;
+    }
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
     }
     @keyframes wave {
       0% { transform: scaleY(1); }
       50% { transform: scaleY(1.5); }
       100% { transform: scaleY(1); }
     }
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px #ff6f91; }
+      50% { box-shadow: 0 0 20px #ff6f91, 0 0 30px rgba(255, 111, 145, 0.5); }
+      100% { box-shadow: 0 0 5px #ff6f91; }
+    }
+    @keyframes jump {
+      0% { opacity: 0; transform: scale(0) translateY(0) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.5) translateY(-60px) rotate(15deg); }
+      100% { opacity: 0; transform: scale(1) translateY(-120px) rotate(-15deg); }
+    }
+    @media (max-width: 600px) {
+      .screen {
+        padding: 2vw;
+      }
+      h1 { font-size: 1.8rem; }
+      p { font-size: 1.1rem; }
+      .next, .yes { padding: 1.1rem 2.3rem; font-size: 1.3rem; max-width: 280px; }
+      .no { padding: 0.4rem 0.8rem; font-size: 0.75rem; max-width: 100px; }
+      .wave { width: 50px; height: 10px; }
+      .glowing-heart { top: 15px; right: 15px; width: 25px; height: 25px; }
+      .glowing-heart:before, .glowing-heart:after { width: 25px; height: 25px; }
+      .glowing-heart:before { top: -12.5px; }
+      .glowing-heart:after { left: -12.5px; }
+      .creature { font-size: 40px; }
+    }
     @media (max-width: 400px) {
-      .screen { width: 90%; padding: 1.5rem; }
+      .screen { padding: 1.5vw; }
       h1 { font-size: 1.5rem; }
-      button { padding: 0.6rem 1.2rem; }
+      p { font-size: 1rem; }
+      .next, .yes { padding: 1rem 2rem; font-size: 1.2rem; max-width: 260px; }
+      .no { padding: 0.3rem 0.6rem; font-size: 0.7rem; max-width: 80px; }
+      .creature { font-size: 30px; }
     }
   </style>
 </head>
 <body>
   <div id="screen1" class="screen active">
     <h1>Hey Sifat 🌸</h1>
-    <p>I wanted to reach out and ask if you’d like to be friends. I think we could have a great connection, and I’d love to get to know you better!</p>
-    <button class="next" data-screen="2" aria-label="Go to next screen">Sounds good! ✨</button>
+    <p>I’m buzzing with excitement to connect with you! 😊 Say hi back?</p>
+    <button class="next" data-screen="2" aria-label="Say hi back">Hi! 👋</button>
   </div>
 
   <div id="screen2" class="screen">
-    <h1>Quick Q:</h1>
-    <p>By the way, I heard you’re into Arjan Dhillon 🎵<br>Got any fave tracks you’d love to share?</p>
-    <div class="wave"></div>
-    <button class="yes" data-screen="3" aria-label="Share favorite tracks">Sure, I’ll share! 🎧</button>
+    <h1>Be My Friend?</h1>
+    <p>Sifat, I’m genuinely thrilled at the idea of us sharing laughs and building something special. Wanna be friends?</p>
+    <div class="button-group">
+      <button class="yes" data-screen="4" aria-label="Accept friendship">Yes! 😄</button>
+      <button class="no" data-screen="3" aria-label="Think it over">Hmm, not sure... 😕</button>
+    </div>
   </div>
 
   <div id="screen3" class="screen">
-    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-    <h1>Awesome! 🤝</h1>
-    <p>Sifat, let’s chat soon and maybe vibe over those tunes too! 😊<br>How about we grab coffee sometime?</p>
-    <button class="next" data-screen="4" aria-label="Plan to meet up">Let’s do it! ☕</button>
+    <h1>Hold Up, Sifat! 😅</h1>
+    <p>I’m so excited about the fun we could have—coffee, chats, maybe even some UI/UX magic together! Ready to give it a go?</p>
+    <div class="wave"></div>
+    <button class="yes" data-screen="4" aria-label="Give friendship a try">C’mon, let’s try! ✨</button>
   </div>
 
   <div id="screen4" class="screen">
-    <h1>Can’t Wait!</h1>
-    <p>Thanks for being open to this, Sifat. I’ll reach out soon to set something up. ✨</p>
+    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+    <div class="glowing-heart"></div>
+    <h1>You’re Incredible! 🤝</h1>
+    <p>Sifat, my heart’s doing a happy dance knowing we’re starting this friendship! I heard you’re all about Arjan Dhillon’s vibes—let’s share playlists and spark moments that’ll stay with us forever. Here’s to us! 🎵💖</p>
   </div>
 
   <script>
-    document.querySelectorAll('.next').forEach(btn => btn.addEventListener('click', () => goToScreen(btn.dataset.screen)));
-    document.querySelectorAll('.yes').forEach(btn => btn.addEventListener('click', () => {
-      goToScreen(btn.dataset.screen);
-      setTimeout(() => {
-        const confetti = new ConfettiGenerator({
-          target: 'confetti-canvas',
-          max: 100,
-          clock: 30
-        });
-        confetti.render();
-        setTimeout(() => confetti.clear(), 3000);
-      }, 510);
+    let dodgeCount = 0;
+    const maxDodges = 5;
+
+    document.querySelectorAll('.next, .yes').forEach(btn => btn.addEventListener('click', () => {
+      const screenNum = btn.dataset.screen;
+      goToScreen(screenNum);
+      if (screenNum === '4') {
+        setTimeout(() => {
+          // Spawn confetti
+          const confetti = new ConfettiGenerator({
+            target: 'confetti-canvas',
+            max: 150,
+            colors: [['#ff6f91', '#ff85b3'], ['#6c5ce7', '#a29bfe']],
+            clock: 35
+          });
+          confetti.render();
+          setTimeout(() => confetti.clear(), 4000);
+
+          // Spawn happy creatures
+          const creatures = ['🐶', '🐱', '🦄', '🐶', '🐱', '🦄'];
+          creatures.forEach((emoji, index) => {
+            const creature = document.createElement('div');
+            creature.className = 'creature';
+            creature.textContent = emoji;
+            creature.style.left = `${10 + Math.random() * 80}%`;
+            creature.style.top = `${10 + Math.random() * 80}%`;
+            creature.style.animationDelay = `${index * 0.2}s`;
+            document.getElementById('screen4').appendChild(creature);
+            setTimeout(() => creature.remove(), 2000);
+          });
+        }, 510);
+      }
     }));
+
+    document.querySelectorAll('.no').forEach(btn => {
+      let isDodging = false;
+
+      // Handle mouse hover on desktop
+      btn.addEventListener('mouseenter', () => {
+        if (dodgeCount < maxDodges && !isDodging) {
+          isDodging = true;
+          dodgeButton(btn);
+          setTimeout(() => { isDodging = false; }, 400);
+        }
+      });
+
+      // Handle touch on mobile
+      btn.addEventListener('touchstart', (e) => {
+        if (dodgeCount < maxDodges && !isDodging) {
+          e.preventDefault();
+          isDodging = true;
+          dodgeButton(btn);
+          setTimeout(() => { isDodging = false; }, 400);
+        }
+      });
+
+      btn.addEventListener('click', () => {
+        dodgeCount = 0;
+        goToScreen(btn.dataset.screen);
+      });
+    });
+
+    function dodgeButton(btn) {
+      if (dodgeCount < maxDodges) {
+        const maxMove = 80;
+        const x = (Math.random() - 0.5) * maxMove;
+        const y = (Math.random() - 0.5) * maxMove;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+        dodgeCount++;
+        setTimeout(() => {
+          btn.style.transform = 'translate(0, 0)';
+        }, Math.random() * 200 + 100);
+        if (dodgeCount === maxDodges) {
+          setTimeout(() => { dodgeCount = 0; }, 1000);
+        }
+      }
+    }
 
     function goToScreen(n) {
       const screens = document.querySelectorAll('.screen');
       screens.forEach(s => {
         s.classList.remove('active');
-        s.style.display = 'none'; // Hide immediately
+        s.style.display = 'none';
       });
       const nextScreen = document.getElementById('screen' + n);
       nextScreen.style.display = 'flex';
-      setTimeout(() => nextScreen.classList.add('active'), 10); // Small delay for opacity transition
+      setTimeout(() => nextScreen.classList.add('active'), 10);
     }
   </script>
 </body>
