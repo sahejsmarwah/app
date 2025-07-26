@@ -1,56 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>If-Else: A Love Story</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friendship & Vibes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; display: flex; height: 100vh; margin: 0; justify-content: center; align-items: center; background: #f0f4f8; }
-    .screen { display: none; text-align: center; padding: 20px; }
-    .active { display: block; }
-    button { padding: 10px 20px; margin: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-    .next { background: #007bff; color: #fff; }
-    .yes { background: #28a745; color: #fff; }
-    .no { background: #dc3545; color: #fff; }
-    h1 { margin-bottom: 10px; }
-    p { margin-bottom: 20px; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffe6f0, #e0f7ff);
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+    .screen {
+      display: none;
+      opacity: 0;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #ffffff, #f9f9f9);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      max-width: 90%;
+      width: 350px;
+      transition: opacity 0.5s ease;
+    }
+    .screen.active {
+      display: flex;
+      opacity: 1;
+    }
+    h1 { margin: 0 0 1rem; color: #333; font-weight: 600; }
+    p { margin: 0 0 1.5rem; color: #555; line-height: 1.4; font-weight: 300; }
+    button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .next {
+      background: #ff85b3;
+      color: #fff;
+    }
+    .yes {
+      background: #6c5ce7;
+      color: #fff;
+    }
+    button:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .wave {
+      width: 50px;
+      height: 10px;
+      background: linear-gradient(90deg, #6c5ce7, #ff85b3);
+      animation: wave 1.5s infinite;
+      margin: 10px auto;
+    }
+    @keyframes wave {
+      0% { transform: scaleY(1); }
+      50% { transform: scaleY(1.5); }
+      100% { transform: scaleY(1); }
+    }
+    @media (max-width: 400px) {
+      .screen { width: 90%; padding: 1.5rem; }
+      h1 { font-size: 1.5rem; }
+      button { padding: 0.6rem 1.2rem; }
+    }
   </style>
 </head>
 <body>
   <div id="screen1" class="screen active">
-    <h1>Hey Sifat! 💻❤️</h1>
-    <p>I built this little project with code... and a lot of feelings.</p>
-    <button class="next" onclick="goToScreen(2)">Continue</button>
+    <h1>Hey Sifat 🌸</h1>
+    <p>I wanted to reach out and ask if you’d like to be friends. I think we could have a great connection, and I’d love to get to know you better!</p>
+    <button class="next" data-screen="2">Sounds good! ✨</button>
   </div>
 
   <div id="screen2" class="screen">
-    <h1>if (feelings === true)</h1>
-    <p>You've made me smile more than any DSA challenge. 😊</p>
-    <button class="next" onclick="goToScreen(3)">Next</button>
+    <h1>Quick Q:</h1>
+    <p>By the way, I heard you’re into Arjan Dhillon 🎵<br>Got any fave tracks you’d love to share?</p>
+    <div class="wave"></div>
+    <button class="yes" data-screen="3">Sure, I’ll share! 🎧</button>
   </div>
 
   <div id="screen3" class="screen">
-    <h1>Will you go out with me?</h1>
-    <button class="yes" onclick="onChoice(true)">Yes, I’d love to!</button>
-    <button class="no" onclick="onChoice(false)">Maybe not now...</button>
+    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+    <h1>Awesome! 🤝</h1>
+    <p>Sifat, let’s chat soon and maybe vibe over those tunes too! 😊<br>How about we grab coffee sometime?</p>
+    <button class="next" data-screen="4">Let’s do it! ☕</button>
+  </div>
+
+  <div id="screen4" class="screen">
+    <h1>Can’t Wait!</h1>
+    <p>Thanks for being open to this, Sifat. I’ll reach out soon to set something up. ✨</p>
   </div>
 
   <script>
-    function goToScreen(num) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('screen' + num).classList.add('active');
-    }
+    document.querySelectorAll('.next').forEach(btn => btn.addEventListener('click', () => goToScreen(btn.dataset.screen)));
+    document.querySelectorAll('.yes').forEach(btn => btn.addEventListener('click', () => {
+      goToScreen(btn.dataset.screen);
+      setTimeout(() => {
+        const confetti = new ConfettiGenerator({
+          target: 'confetti-canvas',
+          max: 100,
+          clock: 30
+        });
+        confetti.render();
+        setTimeout(() => confetti.clear(), 3000);
+      }, 510);
+    }));
 
-    function onChoice(isYes) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      const resultScreen = document.createElement('div');
-      resultScreen.className = 'screen active';
-      if (isYes) {
-        resultScreen.innerHTML = '<h1>🎉 Yay! 🎉</h1><p>So happy you said yes! Lets make this the start of something special. 😊</p>';
-      } else {
-        resultScreen.innerHTML = '<h1>Thank you!</h1><p>No worries, still happy to be friends. Youre amazing. 😊</p>';
-      }
-      document.body.appendChild(resultScreen);
+    function goToScreen(n) {
+      const screens = document.querySelectorAll('.screen');
+      screens.forEach(s => {
+        s.classList.remove('active');
+        setTimeout(() => s.style.display = 'none', 500);
+      });
+      const nextScreen = document.getElementById('screen' + n);
+      nextScreen.style.display = 'flex';
+      setTimeout(() => nextScreen.classList.add('active'), 10);
     }
   </script>
 </body>
