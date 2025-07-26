@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>If-Else: A Love Story</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; height: 100vh; margin: 0; justify-content: center; align-items: center; background: #f0f4f8; }
+    .screen { display: none; text-align: center; padding: 20px; }
+    .active { display: block; }
+    button { padding: 10px 20px; margin: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    .next { background: #007bff; color: #fff; }
+    .yes { background: #28a745; color: #fff; }
+    .no { background: #dc3545; color: #fff; }
+    h1 { margin-bottom: 10px; }
+    p { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div id="screen1" class="screen active">
+    <h1>Hey Sifat! 💻❤️</h1>
+    <p>I built this little project with code... and a lot of feelings.</p>
+    <button class="next" onclick="goToScreen(2)">Continue</button>
+  </div>
+
+  <div id="screen2" class="screen">
+    <h1>if (feelings === true)</h1>
+    <p>You've made me smile more than any DSA challenge. 😊</p>
+    <button class="next" onclick="goToScreen(3)">Next</button>
+  </div>
+
+  <div id="screen3" class="screen">
+    <h1>Will you go out with me?</h1>
+    <button class="yes" onclick="onChoice(true)">Yes, I’d love to!</button>
+    <button class="no" onclick="onChoice(false)">Maybe not now...</button>
+  </div>
+
+  <script>
+    function goToScreen(num) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen' + num).classList.add('active');
+    }
+
+    function onChoice(isYes) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const resultScreen = document.createElement('div');
+      resultScreen.className = 'screen active';
+      if (isYes) {
+        resultScreen.innerHTML = '<h1>🎉 Yay! 🎉</h1><p>So happy you said yes! Lets make this the start of something special. 😊</p>';
+      } else {
+        resultScreen.innerHTML = '<h1>Thank you!</h1><p>No worries, still happy to be friends. Youre amazing. 😊</p>';
+      }
+      document.body.appendChild(resultScreen);
+    }
+  </script>
+</body>
+</html>
