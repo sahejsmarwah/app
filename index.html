@@ -14,21 +14,62 @@
       background: #000000;
       font-family: 'VT323', monospace;
       overflow-x: hidden;
-      color: #00ff00;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="%2300ff00"/></svg>'), auto;
+      color: #00b7eb;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="%2300b7eb"/></svg>'), auto;
       transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    /* Modern theme styles */
     body.modern-theme {
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 192, 203, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 218, 185, 0.2) 0%, transparent 50%),
-        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #ffffff;
       font-family: 'Inter', sans-serif;
-      color: #2d3748;
+      color: #1a252f;
       cursor: default;
+    }
+
+    .color-transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0;
+      background: linear-gradient(45deg, 
+        #00b7eb, #1e90ff, #ff8c00, #ffa500, 
+        #00ced1, #4682b4, #ffd700, #87ceeb, 
+        #ff4500, #1e90ff, #00b7eb, #ffa07a);
+      background-size: 400% 400%;
+      animation: colorWave 4s ease-in-out infinite;
+      transition: opacity 1s ease;
+    }
+
+    .color-transition-overlay.active {
+      opacity: 0.9;
+    }
+
+    .color-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .color-particles.active {
+      opacity: 1;
+    }
+
+    .color-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: particleFloat 6s linear infinite;
     }
     
     .crt-overlay {
@@ -42,8 +83,8 @@
           0deg,
           transparent,
           transparent 2px,
-          rgba(0, 255, 0, 0.03) 2px,
-          rgba(0, 255, 0, 0.03) 4px
+          rgba(0, 183, 235, 0.03) 2px,
+          rgba(0, 183, 235, 0.03) 4px
         );
       pointer-events: none;
       z-index: 1000;
@@ -55,7 +96,10 @@
       opacity: 0;
     }
     
-    /* Cute floating elements overlay */
+    body.modern-theme #screen4 .crt-overlay {
+      display: none;
+    }
+    
     .cute-overlay {
       position: fixed;
       top: 0;
@@ -65,7 +109,7 @@
       pointer-events: none;
       z-index: 999;
       opacity: 0;
-      transition: opacity 3s ease 1s;
+      transition: opacity 3s ease;
     }
     
     body.modern-theme .cute-overlay {
@@ -96,14 +140,13 @@
     
     .matrix-char {
       position: absolute;
-      color: #003300;
+      color: #003366;
       font-family: 'VT323', monospace;
       font-size: 14px;
       opacity: 0.3;
       animation: matrixRain 8s linear infinite;
     }
     
-    /* Floating hearts for modern theme */
     .floating-hearts {
       position: fixed;
       top: 0;
@@ -113,7 +156,7 @@
       z-index: 1;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 3s ease 2s;
+      transition: opacity 3s ease;
     }
     
     body.modern-theme .floating-hearts {
@@ -122,22 +165,22 @@
     
     .heart {
       position: absolute;
-      color: rgba(255, 182, 193, 0.7);
+      color: rgba(255, 165, 0, 0.7);
       font-size: 20px;
       animation: floatUp 6s linear infinite;
     }
     
     .terminal-window {
       background: #000000;
-      border: 3px solid #00ff00;
+      border: 3px solid #00b7eb;
       border-radius: 0;
       margin: 20px;
       min-height: calc(100vh - 40px);
       position: relative;
       z-index: 2;
       box-shadow: 
-        0 0 20px #00ff00,
-        inset 0 0 20px rgba(0, 255, 0, 0.1);
+        0 0 20px #00b7eb,
+        inset 0 0 20px rgba(0, 183, 235, 0.1);
       transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       transform: scale(1);
     }
@@ -155,7 +198,7 @@
     }
     
     .terminal-header {
-      background: #00ff00;
+      background: #00b7eb;
       color: #000000;
       padding: 8px 15px;
       font-weight: 700;
@@ -168,7 +211,7 @@
     }
     
     body.modern-theme .terminal-header {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #1e90ff, #ff8c00);
       color: white;
       border-radius: 24px 24px 0 0;
       font-family: 'Inter', sans-serif;
@@ -177,7 +220,6 @@
       padding: 12px 20px;
     }
     
-    /* Cute header decoration */
     .terminal-header::after {
       content: '';
       position: absolute;
@@ -187,7 +229,7 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
       transform: translateX(100%);
-      transition: transform 3s ease 1s;
+      transition: transform 3s ease;
     }
     
     body.modern-theme .terminal-header::after {
@@ -203,25 +245,25 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #ff0000;
+      background: #ff4500;
       transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       position: relative;
     }
     
-    .terminal-btn:nth-child(2) { background: #ffff00; }
-    .terminal-btn:nth-child(3) { background: #00ff00; }
+    .terminal-btn:nth-child(2) { background: #ffd700; }
+    .terminal-btn:nth-child(3) { background: #00b7eb; }
     
     body.modern-theme .terminal-btn:nth-child(1) { 
-      background: #ff5f57; 
-      box-shadow: 0 0 8px rgba(255, 95, 87, 0.4);
+      background: #ff4500; 
+      box-shadow: 0 0 8px rgba(255, 69, 0, 0.4);
     }
     body.modern-theme .terminal-btn:nth-child(2) { 
-      background: #ffbd2e; 
-      box-shadow: 0 0 8px rgba(255, 189, 46, 0.4);
+      background: #ffd700; 
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
     body.modern-theme .terminal-btn:nth-child(3) { 
-      background: #28ca42; 
-      box-shadow: 0 0 8px rgba(40, 202, 66, 0.4);
+      background: #00b7eb; 
+      box-shadow: 0 0 8px rgba(0, 183, 235, 0.4);
     }
     
     .screen {
@@ -242,7 +284,7 @@
       font-family: 'Courier Prime', monospace;
       font-size: 12px;
       line-height: 1.2;
-      color: #00ffff;
+      color: #1e90ff;
       text-align: center;
       margin: 20px 0;
       white-space: pre;
@@ -252,12 +294,12 @@
       margin-left: auto;
       margin-right: auto;
       font-weight: bold;
-      text-shadow: 0 0 5px #00ffff;
+      text-shadow: 0 0 5px #1e90ff;
       transition: all 2s ease;
     }
     
     body.modern-theme .ascii-art {
-      color: #667eea;
+      color: #1e90ff;
       text-shadow: none;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
@@ -265,11 +307,11 @@
     }
     
     h1 {
-      color: #00ff00;
+      color: #00b7eb;
       font-family: 'VT323', monospace;
       font-size: 2.5rem;
       margin: 20px 0;
-      text-shadow: 0 0 10px #00ff00;
+      text-shadow: 0 0 10px #00b7eb;
       animation: glow 2s ease-in-out infinite alternate;
       text-align: center;
       transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -277,22 +319,22 @@
     }
     
     body.modern-theme h1 {
-      color: #2d3748;
+      color: #1a252f;
       font-family: 'Playfair Display', serif;
       font-weight: 600;
       text-shadow: none;
       animation: none;
       font-size: 3rem;
-      background: linear-gradient(135deg, #667eea, #764ba2, #ff6b9d);
+      background: linear-gradient(135deg, #1e90ff, #ff8c00);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      transform: translateY(-10px);
+      transform: translateY(0);
       filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
     }
     
     .terminal-text {
-      color: #00ff00;
+      color: #00b7eb;
       font-family: 'VT323', monospace;
       font-size: 1.3rem;
       line-height: 1.4;
@@ -305,7 +347,7 @@
     }
     
     body.modern-theme .terminal-text {
-      color: #4a5568;
+      color: #2d3748;
       font-family: 'Inter', sans-serif;
       font-size: 1.1rem;
       font-weight: 400;
@@ -315,9 +357,31 @@
       overflow: visible;
       animation: none;
     }
+
+    .color-transition-text {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10001;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: all 1s ease;
+      pointer-events: none;
+    }
+
+    .color-transition-text.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
     
     .prompt {
-      color: #ffff00;
+      color: #ffd700;
       margin: 30px 0 20px 0;
       font-size: 1.2rem;
       transition: all 2s ease;
@@ -325,12 +389,12 @@
     
     .prompt::before {
       content: "$ ";
-      color: #00ff00;
+      color: #00b7eb;
       transition: all 2s ease;
     }
     
     body.modern-theme .prompt {
-      color: #2d3748;
+      color: #1a252f;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
     }
@@ -342,8 +406,8 @@
     
     button {
       background: #000000;
-      border: 2px solid #00ff00;
-      color: #00ff00;
+      border: 2px solid #00b7eb;
+      color: #00b7eb;
       font-family: 'VT323', monospace;
       font-size: 1.2rem;
       padding: 12px 25px;
@@ -356,7 +420,7 @@
     }
     
     body.modern-theme button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #1e90ff, #ff8c00);
       border: none;
       color: white;
       font-family: 'Inter', sans-serif;
@@ -364,25 +428,25 @@
       text-transform: none;
       letter-spacing: 0;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 15px rgba(30, 144, 255, 0.4);
       transform: translateY(0);
     }
     
     button:hover, button:focus {
-      background: #00ff00;
+      background: #00b7eb;
       color: #000000;
-      box-shadow: 0 0 15px #00ff00;
+      box-shadow: 0 0 15px #00b7eb;
       text-shadow: none;
     }
     
     body.modern-theme button:hover {
-      background: linear-gradient(135deg, #5a67d8, #6b46c1);
+      background: linear-gradient(135deg, #1c86ee, #ff7f50);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+      box-shadow: 0 8px 25px rgba(30, 144, 255, 0.6);
     }
     
     .yes-btn {
-      border-color: #00ff00;
+      border-color: #00b7eb;
       animation: pulse 2s infinite;
     }
     
@@ -391,23 +455,23 @@
     }
     
     .no-btn {
-      border-color: #ff0000;
-      color: #ff0000;
+      border-color: #ff4500;
+      color: #ff4500;
     }
     
     body.modern-theme .no-btn {
-      background: linear-gradient(135deg, #fc8181, #f56565);
+      background: linear-gradient(135deg, #ff4500, #ff7f50);
       color: white;
     }
     
     .no-btn:hover {
-      background: #ff0000;
+      background: #ff4500;
       color: #000000;
-      box-shadow: 0 0 15px #ff0000;
+      box-shadow: 0 0 15px #ff4500;
     }
     
     body.modern-theme .no-btn:hover {
-      background: linear-gradient(135deg, #e53e3e, #c53030);
+      background: linear-gradient(135deg, #e43d12, #ff6347);
     }
     
     .button-container {
@@ -419,9 +483,9 @@
     }
     
     .error-msg {
-      color: #ff0000;
-      background: rgba(255, 0, 0, 0.1);
-      border: 1px dashed #ff0000;
+      color: #ff4500;
+      background: rgba(255, 69, 0, 0.1);
+      border: 1px dashed #ff4500;
       padding: 10px 15px;
       margin: 15px 0;
       font-family: 'VT323', monospace;
@@ -437,10 +501,10 @@
     }
     
     body.modern-theme .error-msg {
-      background: rgba(254, 202, 202, 0.9);
-      border: 1px solid #fc8181;
+      background: rgba(255, 99, 71, 0.9);
+      border: 1px solid #ff4500;
       border-radius: 8px;
-      color: #742a2a;
+      color: #4a1a1a;
       font-family: 'Inter', sans-serif;
       animation: none;
     }
@@ -448,7 +512,7 @@
     .progress-bar {
       width: 100%;
       height: 20px;
-      border: 2px solid #00ff00;
+      border: 2px solid #00b7eb;
       margin: 20px 0;
       position: relative;
       overflow: hidden;
@@ -464,118 +528,137 @@
     
     .progress-fill {
       height: 100%;
-      background: #00ff00;
+      background: #00b7eb;
       width: 0%;
       animation: loading 3s ease-in-out forwards;
       transition: all 2s ease;
     }
     
     body.modern-theme .progress-fill {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #1e90ff, #ff8c00);
       border-radius: 10px;
     }
     
-    .success-screen {
-      text-align: center;
-      animation: celebration 2s ease-in-out infinite;
-    }
-    
-    body.modern-theme .success-screen {
-      animation: none;
-    }
-    
-    .blink-text {
-      animation: blink 1s infinite;
-    }
-    
-    body.modern-theme .blink-text {
-      animation: none;
-    }
-    
     .retro-heart {
-      color: #ff00ff;
+      color: #ff8c00;
       font-size: 2rem;
-      animation: heartbeat 1.5s ease-in-out infinite;
       transition: all 2s ease;
     }
     
     body.modern-theme .retro-heart {
-      color: #e53e3e;
-      animation: modernHeartbeat 2s ease-in-out infinite;
+      color: #ff4500;
     }
     
-    /* Modern success screen styles */
-    .modern-success-content {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3s;
+    .friendship-hero {
+      text-align: center;
+      margin: 30px 0 40px 0;
     }
-    
-    body.modern-theme .modern-success-content {
-      opacity: 1;
+
+    .hero-emoji {
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: #1a252f;
+      margin: 10px 0;
+      background: linear-gradient(135deg, #1e90ff, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #718096;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      margin-top: 8px;
+    }
+
+    .friendship-cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 40px 0;
+    }
+
+    .friendship-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      min-width: 140px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
       transform: translateY(0);
     }
-    
-    .cute-illustration {
-      font-size: 4rem;
-      margin: 20px 0;
-      opacity: 0;
-      transform: scale(0) rotate(-180deg);
-      transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 3.5s;
+
+    .friendship-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(30, 144, 255, 0.15);
     }
-    
-    body.modern-theme .cute-illustration {
-      opacity: 1;
-      transform: scale(1) rotate(0deg);
-      animation: gentleBounce 3s ease-in-out infinite;
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
     }
-    
+
+    .card-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #4a5568;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
     .friendship-message {
-      background: linear-gradient(135deg, 
-        rgba(255, 182, 193, 0.4), 
-        rgba(255, 192, 203, 0.4),
-        rgba(255, 218, 185, 0.3)
-      );
-      padding: 30px;
-      border-radius: 20px;
-      margin: 25px 0;
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-      transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 4s;
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      text-align: center;
+      margin: 40px 0;
     }
     
-    body.modern-theme .friendship-message {
-      opacity: 1;
-      transform: translateY(0) scale(1);
+    .main-message {
+      font-size: 1.3rem;
+      color: #1a252f;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      line-height: 1.6;
+      margin: 0 0 30px 0;
     }
-    
-    /* Cute minimal decorations */
-    .friendship-message::before {
-      content: '✨';
-      position: absolute;
-      top: -10px;
-      left: 20px;
-      font-size: 24px;
-      opacity: 0;
-      animation: sparkleIn 2s ease-in-out 4.5s forwards;
+
+    .sub-message {
+      font-size: 1.1rem;
+      color: #718096;
+      font-weight: 400;
+      display: block;
+      margin-top: 8px;
     }
-    
-    .friendship-message::after {
-      content: '💝';
-      position: absolute;
-      bottom: -10px;
-      right: 20px;
-      font-size: 24px;
-      opacity: 0;
-      animation: sparkleIn 2s ease-in-out 5s forwards;
+
+    .cute-sign-off {
+      margin-top: 35px;
     }
-    
-    /* Sparkle animation */
+
+    .sign-off-text {
+      font-size: 1.1rem;
+      color: #1e90ff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .floating-hearts-inline {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-size: 1.5rem;
+    }
+
     .sparkles {
       position: absolute;
       width: 100%;
@@ -590,6 +673,46 @@
       font-size: 12px;
       animation: sparkleMove 3s linear infinite;
       opacity: 0;
+    }
+
+    /* New styles for the poem */
+    .poem-container {
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      color: #1a252f;
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    @keyframes colorWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(200px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
     }
     
     @keyframes flicker {
@@ -649,18 +772,18 @@
     }
     
     @keyframes glow {
-      0% { text-shadow: 0 0 10px #00ff00; }
-      100% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+      0% { text-shadow: 0 0 10px #00b7eb; }
+      100% { text-shadow: 0 0 20px #00b7eb, 0 0 30px #00b7eb; }
     }
     
     @keyframes pulse {
       0%, 100% { 
-        border-color: #00ff00; 
-        box-shadow: 0 0 5px #00ff00;
+        border-color: #00b7eb; 
+        box-shadow: 0 0 5px #00b7eb;
       }
       50% { 
-        border-color: #00ffff; 
-        box-shadow: 0 0 20px #00ffff;
+        border-color: #1e90ff; 
+        box-shadow: 0 0 20px #1e90ff;
       }
     }
     
@@ -671,47 +794,6 @@
     
     @keyframes loading {
       to { width: 100%; }
-    }
-    
-    @keyframes celebration {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-    
-    @keyframes modernHeartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-20px); }
-      60% { transform: translateY(-10px); }
-    }
-    
-    @keyframes gentleBounce {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-8px) scale(1.05); }
-    }
-    
-    @keyframes sparkleIn {
-      0% {
-        opacity: 0;
-        transform: scale(0) rotate(0deg);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.2) rotate(180deg);
-      }
-      100% {
-        opacity: 0.8;
-        transform: scale(1) rotate(360deg);
-      }
     }
     
     @keyframes sparkleMove {
@@ -741,7 +823,14 @@
       .terminal-text { font-size: 1.1rem; }
       .ascii-art { font-size: 8px; }
       button { padding: 10px 20px; font-size: 1rem; }
-      .cute-illustration { font-size: 3rem; }
+      .color-transition-text { font-size: 2rem; }
+      
+      .hero-title { font-size: 1.8rem; }
+      .hero-emoji { font-size: 3rem; }
+      .friendship-cards { gap: 15px; }
+      .friendship-card { min-width: 120px; padding: 16px 12px; }
+      .main-message { font-size: 1.1rem; }
+      .poem-container { font-size: 1rem; padding: 15px; }
     }
   </style>
 </head>
@@ -750,6 +839,13 @@
   <div class="matrix-bg" id="matrix-bg"></div>
   <div class="floating-hearts" id="floating-hearts"></div>
   <div class="cute-overlay" id="cute-overlay"></div>
+  
+  <div class="color-transition-overlay" id="color-transition-overlay"></div>
+  <div class="color-particles" id="color-particles"></div>
+  <div class="color-transition-text" id="color-transition-text">
+    ✨ Filling up my life with colours ✨<br>
+    <span style="font-size: 1.5rem; opacity: 0.8;">Adding magic to every moment</span>
+  </div>
   
   <div class="terminal-window">
     <div class="terminal-header">
@@ -778,7 +874,7 @@
       
       <div class="prompt" style="animation-delay: 3s;">Ready to establish connection?</div>
       <div class="button-container" style="animation-delay: 3.5s;">
-        <button class="yes-btn" data-screen="2">EXECUTE</button>
+        <button class="2">EXECUTE</button>
       </div>
     </div>
     
@@ -835,48 +931,98 @@
       </div>
     </div>
     
-    <div id="screen4" class="screen success-screen">
+    <div id="screen4" class="screen">
       <div class="sparkles" id="sparkles"></div>
       
-      <div class="ascii-art">
-    ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
-    ♥                                    ♥
-    ♥        FRIENDSHIP ESTABLISHED!     ♥
-    ♥                                    ♥
-    ♥     STATUS: CONNECTION ACTIVE      ♥
-    ♥                                    ♥
-    ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+      <h1>YAY! <span class="retro-heart">♥</span></h1>
+      
+      <div class="poem-container">
+        <!-- Punjabi poem will go here -->
+        <p>ਪੰਜਾਬੀ ਕਵਿਤਾ ਇੱਥੇ ਆਵੇਗੀ</p>
       </div>
       
-      <h1>&gt; SUCCESS! <span class="retro-heart">♥</span></h1>
+      <div class="friendship-hero">
+        <div class="hero-emoji">🎉</div>
+        <h1 class="hero-title">Hey there, friend! 👋</h1>
+        <div class="hero-subtitle">Welcome to our amazing friendship journey</div>
+      </div>
       
-      <div class="modern-success-content">
-        <div class="cute-illustration">🌟💝🎉</div>
+      <div class="friendship-cards">
+        <div class="friendship-card">
+          <div class="card-icon">☕</div>
+          <div class="card-text">Coffee dates & deep chats</div>
+        </div>
         
-        <div class="friendship-message">
-          <h2 style="margin: 0 0 15px 0; color: #2d3748; font-family: 'Playfair Display', serif;">Yay! We're Friends Now! 🎊</h2>
-          <p style="margin: 0; color: #4a5568; font-family: 'Inter', sans-serif; line-height: 1.6;">
-            This is the beginning of something beautiful, Sifat! Ready for adventures, endless laughs, 
-            amazing conversations, and all the good vibes that come with an awesome friendship like ours! ✨
-          </p>
+        <div class="friendship-card">
+          <div class="card-icon">🎵</div>
+          <div class="card-text">Sharing our favorite songs</div>
+        </div>
+        
+        <div class="friendship-card">
+          <div class="card-icon">😄</div>
+          <div class="card-text">Endless laughs together</div>
         </div>
       </div>
       
-      <div class="terminal-text">Friendship protocol successfully executed</div>
-      <div class="terminal-text" style="animation-delay: 0.5s;">User: Sifat - Status: AWESOME NEW FRIEND</div>
-      <div class="terminal-text" style="animation-delay: 1s;">Syncing music libraries... Arjan Dhillon detected!</div>
-      <div class="terminal-text" style="animation-delay: 1.5s;">Loading shared memory banks...</div>
-      <div class="terminal-text" style="animation-delay: 2s;">Ready for adventures, laughs, and endless good vibes!</div>
-      
-      <div class="prompt blink-text" style="animation-delay: 3s;">FRIENDSHIP.EXE running successfully</div>
-      <div class="terminal-text" style="animation-delay: 3.5s; color: #00ffff;">Welcome to our friendship journey, Sifat! ♥</div>
+      <div class="friendship-message">
+        <p class="main-message">
+          So excited to have you as a friend, Sifat! 💫<br>
+          <span class="sub-message">Ready to create some beautiful memories together?</span>
+        </p>
+        
+        <div class="cute-sign-off">
+          <div class="sign-off-text">Let's make this friendship amazing! ✨</div>
+          <div class="floating-hearts-inline">
+            <span>💕</span>
+            <span>🌟</span>
+            <span>💕</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
   <script>
     let clickAttempts = 0;
-    
-    // Create matrix rain effect
+    const clickLogs = []; // Array to store click logs locally
+
+    // Function to log button clicks locally and send to server
+    async function logButtonClick(buttonType, screenNum, attempt = null) {
+      const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+      const logEntry = {
+        button: buttonType,
+        screen: screenNum,
+        timestamp: timestamp,
+        noAttempt: attempt !== null ? attempt : undefined
+      };
+      clickLogs.push(logEntry);
+      console.log(`Button Click Log: ${JSON.stringify(logEntry)}`);
+
+      // Send log to serverless function
+      try {
+        const response = await fetch('/api/log', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(logEntry)
+        });
+        if (!response.ok) {
+          console.error('Failed to send log to server:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error sending log to server:', error);
+      }
+    }
+
+    // Function to retrieve logs locally (for debugging)
+    function getClickLogs() {
+      return clickLogs;
+    }
+
+    // Make logs accessible in the console
+    window.getClickLogs = getClickLogs;
+
     function createMatrixChar() {
       const chars = '01ＨＡＣＫＥＲ♥♦♣♠';
       const char = document.createElement('div');
@@ -890,7 +1036,6 @@
       setTimeout(() => char.remove(), 8000);
     }
     
-    // Create floating hearts for modern theme
     function createFloatingHeart() {
       const hearts = ['💕', '💖', '💗', '💝', '🌸', '✨', '💫', '🦋'];
       const heart = document.createElement('div');
@@ -904,7 +1049,6 @@
       setTimeout(() => heart.remove(), 10000);
     }
     
-    // Create cute floating elements
     function createCuteElement() {
       const cuteElements = ['🌙', '⭐', '🌟', '✨', '🎀', '🧚‍♀️', '🦄', '💫'];
       const element = document.createElement('div');
@@ -919,7 +1063,6 @@
       setTimeout(() => element.remove(), 10000);
     }
     
-    // Create sparkles
     function createSparkle() {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
@@ -931,52 +1074,76 @@
       
       setTimeout(() => sparkle.remove(), 3000);
     }
+
+    function createColorParticle() {
+      const colors = ['#00b7eb', '#1e90ff', '#ff8c00', '#ffa500', '#00ced1', '#4682b4', '#ffd700', '#87ceeb', '#ff4500', '#1e90ff', '#00b7eb', '#ffa07a'];
+      const particle = document.createElement('div');
+      particle.className = 'color-particle';
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      particle.style.animationDelay = Math.random() * 2 + 's';
+      document.getElementById('color-particles').appendChild(particle);
+      
+      setTimeout(() => particle.remove(), 7000);
+    }
+
+    function startColorTransition() {
+      document.getElementById('color-transition-overlay').classList.add('active');
+      document.getElementById('color-transition-text').classList.add('active');
+      document.getElementById('color-particles').classList.add('active');
+      
+      const particleInterval = setInterval(createColorParticle, 150);
+      
+      setTimeout(() => {
+        document.body.classList.add('modern-theme');
+        
+        const headerText = document.querySelector('.terminal-header span');
+        setTimeout(() => {
+          headerText.style.opacity = '0';
+          setTimeout(() => {
+            headerText.textContent = 'Friendship Connection Established 💝';
+            headerText.style.opacity = '1';
+          }, 500);
+        }, 1500);
+        
+        setTimeout(() => {
+          document.getElementById('color-transition-overlay').classList.remove('active');
+          document.getElementById('color-transition-text').classList.remove('active');
+          document.getElementById('color-particles').classList.remove('active');
+          clearInterval(particleInterval);
+          
+          setTimeout(() => {
+            setInterval(createSparkle, 400);
+          }, 500);
+        }, 2000);
+      }, 4000);
+    }
     
-    // Create matrix effect
     setInterval(createMatrixChar, 200);
     
-    // Initialize with some matrix chars
     for (let i = 0; i < 20; i++) {
       setTimeout(createMatrixChar, i * 100);
     }
     
-    // Start floating hearts (will be invisible until modern theme)
     setInterval(createFloatingHeart, 1200);
     
-    // Start cute elements
     setInterval(createCuteElement, 2000);
     
-    // Initialize some cute elements
     for (let i = 0; i < 8; i++) {
       setTimeout(createCuteElement, i * 300);
     }
     
     document.querySelectorAll('.yes-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const screenNum = btn.dataset.screen;
+        // Log the Yes button click
+        await logButtonClick('Yes', screenNum);
         
-        // If going to success screen, start the modern transformation
         if (screenNum === '4') {
           setTimeout(() => {
-            // Start the transformation to modern theme
-            document.body.classList.add('modern-theme');
-            
-            // Update header text with a smoother transition
-            const headerText = document.querySelector('.terminal-header span');
-            setTimeout(() => {
-              headerText.style.opacity = '0';
-              setTimeout(() => {
-                headerText.textContent = 'Friendship Connection Established 💝';
-                headerText.style.opacity = '1';
-              }, 500);
-            }, 1500);
-            
-            // Start sparkle effects with delay
-            setTimeout(() => {
-              setInterval(createSparkle, 400);
-            }, 2000);
-            
             goToScreen(screenNum);
+            setTimeout(startColorTransition, 1000);
           }, 500);
         } else {
           setTimeout(() => goToScreen(screenNum), 500);
@@ -985,8 +1152,10 @@
     });
     
     document.querySelectorAll('.no-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', async (e) => {
         clickAttempts++;
+        // Log the No button click
+        await logButtonClick('No', btn.dataset.screen, clickAttempts);
         
         if (clickAttempts < 5) {
           e.preventDefault();
@@ -1008,7 +1177,6 @@
           btn.parentElement.appendChild(errorDiv);
           setTimeout(() => errorDiv.remove(), 2000);
           
-          // Make button "glitch"
           btn.style.animation = 'blink 0.5s infinite';
           setTimeout(() => {
             btn.style.animation = '';
@@ -1032,7 +1200,6 @@
       nextScreen.style.display = 'block';
       setTimeout(() => nextScreen.classList.add('active'), 50);
       
-      // Reset animations
       const animatedElements = nextScreen.querySelectorAll('[style*="animation-delay"]');
       animatedElements.forEach(el => {
         el.style.animation = 'none';
@@ -1042,7 +1209,6 @@
       });
     }
     
-    // Add some retro sound effects (visual)
     document.addEventListener('click', () => {
       document.body.style.filter = 'brightness(1.1)';
       setTimeout(() => {
