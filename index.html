@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
+    
     body {
       margin: 0;
       min-height: 100vh;
@@ -14,24 +15,28 @@
       font-family: 'VT323', monospace;
       overflow-x: hidden;
       color: #00ff00;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="4" y="12" width="8" height="2" fill="%2300ff00"/></svg>'), auto;
-      transition: background 0.5s, color 0.5s;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="%2300ff00"/></svg>'), auto;
     }
-    body.high-contrast {
-      background: #ffffff;
-      color: #000000;
-    }
+    
     .crt-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.03) 2px, rgba(0, 255, 0, 0.03) 4px);
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 255, 0, 0.03) 2px,
+          rgba(0, 255, 0, 0.03) 4px
+        );
       pointer-events: none;
       z-index: 1000;
       animation: flicker 0.15s infinite linear alternate;
     }
+    
     .matrix-bg {
       position: fixed;
       top: 0;
@@ -41,6 +46,7 @@
       z-index: 1;
       pointer-events: none;
     }
+    
     .matrix-char {
       position: absolute;
       color: #003300;
@@ -48,45 +54,48 @@
       font-size: 14px;
       opacity: 0.3;
       animation: matrixRain 8s linear infinite;
-      will-change: transform;
     }
+    
     .terminal-window {
       background: #000000;
       border: 3px solid #00ff00;
+      border-radius: 0;
       margin: 20px;
       min-height: calc(100vh - 40px);
       position: relative;
       z-index: 2;
-      box-shadow: 0 0 20px #00ff00, inset 0 0 20px rgba(0, 255, 0, 0.1);
+      box-shadow: 
+        0 0 20px #00ff00,
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
     }
-    body.high-contrast .terminal-window {
-      background: #ffffff;
-      border-color: #000000;
-      box-shadow: 0 0 20px #000000;
-    }
+    
     .terminal-header {
-      background: linear-gradient(90deg, #00ff00, #00cc00, #009900);
+      background: linear-gradient(90deg, #00ff00, #00cc00);
       color: #000000;
       padding: 12px 20px;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid #00ff00;
       font-size: 14px;
       letter-spacing: 0.5px;
     }
+    
     .terminal-info {
       display: flex;
       align-items: center;
       gap: 15px;
       font-family: 'JetBrains Mono', monospace;
     }
+    
     .status-indicator {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 12px;
     }
+    
     .status-dot {
       width: 8px;
       height: 8px;
@@ -94,22 +103,22 @@
       background: #00ff00;
       animation: pulse 2s infinite;
     }
+    
     .terminal-buttons {
       display: flex;
       gap: 5px;
     }
+    
     .terminal-btn {
       width: 12px;
       height: 12px;
       border-radius: 50%;
       background: #ff0000;
     }
+    
     .terminal-btn:nth-child(2) { background: #ffff00; }
     .terminal-btn:nth-child(3) { background: #00ff00; }
-    .mute-toggle {
-      cursor: pointer;
-      font-size: 16px;
-    }
+    
     .screen {
       display: none;
       opacity: 0;
@@ -118,26 +127,29 @@
       position: relative;
       transition: opacity 0.5s ease;
     }
+    
     .screen.active {
       display: block;
       opacity: 1;
     }
+    
     .ascii-art {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'Courier Prime', monospace;
       font-size: 12px;
       line-height: 1.2;
       color: #00ffff;
       text-align: center;
       margin: 20px 0;
       white-space: pre;
+      animation: typewriter 2s steps(50) forwards;
       overflow: hidden;
       width: 0;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: bold;
+      text-shadow: 0 0 5px #00ffff;
     }
-    .ascii-art.line-1 { animation: typewriter 1s steps(50) forwards 0.5s; }
-    .ascii-art.line-2 { animation: typewriter 1s steps(50) forwards 1s; }
-    .ascii-art.line-3 { animation: typewriter 1s steps(50) forwards 1.5s; }
-    .ascii-art.line-4 { animation: typewriter 1s steps(50) forwards 2s; }
-    .ascii-art.line-5 { animation: typewriter 1s steps(50) forwards 2.5s; }
+    
     h1 {
       color: #00ff00;
       font-family: 'VT323', monospace;
@@ -146,45 +158,37 @@
       text-shadow: 0 0 10px #00ff00;
       animation: glow 2s ease-in-out infinite alternate;
       text-align: center;
-      position: relative;
-      z-index: 2;
     }
-    .name-text {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typeName 1s steps(10) forwards;
-    }
+    
     .terminal-text {
       color: #00ff00;
       font-family: 'VT323', monospace;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       line-height: 1.4;
       margin: 20px 0;
-      animation: typeText 2s steps(50) forwards;
+      animation: typeText 3s steps(100) forwards;
       overflow: hidden;
       white-space: nowrap;
       width: 0;
-      position: relative;
-      z-index: 2;
     }
+    
     .prompt {
       color: #ffff00;
       margin: 30px 0 20px 0;
-      font-size: 1.3rem;
-      position: relative;
-      z-index: 2;
+      font-size: 1.2rem;
     }
+    
     .prompt::before {
       content: "$ ";
       color: #00ff00;
     }
+    
     button {
       background: linear-gradient(145deg, #001100, #000000);
       border: 2px solid #00ff00;
       color: #00ff00;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
       padding: 14px 28px;
       margin: 12px;
@@ -194,13 +198,9 @@
       letter-spacing: 1.5px;
       border-radius: 3px;
       position: relative;
-      z-index: 2;
+      overflow: hidden;
     }
-    body.high-contrast button {
-      background: linear-gradient(145deg, #f0f0f0, #ffffff);
-      border-color: #000000;
-      color: #000000;
-    }
+    
     button::before {
       content: '';
       position: absolute;
@@ -211,44 +211,45 @@
       background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
       transition: left 0.5s;
     }
+    
     button:hover::before {
       left: 100%;
     }
+    
     button:hover, button:focus {
       background: linear-gradient(145deg, #00ff00, #00cc00);
       color: #000000;
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.6), 0 4px 15px rgba(0, 255, 0, 0.3);
+      box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.6),
+        0 4px 15px rgba(0, 255, 0, 0.3);
+      text-shadow: none;
       transform: translateY(-2px);
     }
+    
     .yes-btn {
       border-color: #00ff00;
       animation: pulse 2s infinite;
     }
+    
     .no-btn {
       border-color: #ff0000;
       color: #ff0000;
-      position: absolute;
-      left: 50%;
-      top: 60%;
-      transform: translate(-50%, -50%);
-      transition: all 0.3s ease;
-      will-change: transform;
-      z-index: 1;
     }
+    
     .no-btn:hover {
       background: #ff0000;
       color: #000000;
       box-shadow: 0 0 15px #ff0000;
     }
+    
     .button-container {
       display: flex;
       gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
       margin: 30px 0;
-      position: relative;
-      z-index: 2;
     }
+    
     .error-msg {
       color: #ff0000;
       background: rgba(255, 0, 0, 0.1);
@@ -263,8 +264,9 @@
       left: 50%;
       transform: translateX(-50%);
       white-space: nowrap;
-      z-index: 2;
+      z-index: 100;
     }
+    
     .progress-bar {
       width: 100%;
       height: 20px;
@@ -272,154 +274,109 @@
       margin: 20px 0;
       position: relative;
       overflow: hidden;
-      z-index: 2;
     }
+    
     .progress-fill {
       height: 100%;
       background: #00ff00;
       width: 0%;
       animation: loading 3s ease-in-out forwards;
     }
-    .color-input {
-      background: #000000;
-      border: 2px solid #00ff00;
-      color: #00ff00;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem;
-      padding: 10px;
-      margin: 10px;
-      text-transform: uppercase;
-      z-index: 2;
-    }
-    body.high-contrast .color-input {
-      background: #ffffff;
-      border-color: #000000;
-      color: #000000;
-    }
+    
     .success-screen {
       text-align: center;
       animation: celebration 2s ease-in-out infinite;
     }
+    
+    .blink-text {
+      animation: blink 1s infinite;
+    }
+    
     .retro-heart {
       color: #ff00ff;
       font-size: 2rem;
       animation: heartbeat 1.5s ease-in-out infinite;
-      position: relative;
-      z-index: 2;
     }
-    .glowing-heart {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: #ff00ff;
-      transform: rotate(45deg);
-      top: 10px;
-      right: 10px;
-      opacity: 0;
-      animation: glowHeart 1.5s infinite ease-in-out, slideUp 0.5s ease forwards 0.5s;
-      z-index: 1;
-    }
-    .glowing-heart:before, .glowing-heart:after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #ff00ff;
-      border-radius: 50%;
-    }
-    .glowing-heart:before { top: -10px; }
-    .glowing-heart:after { left: -10px; }
-    .big-heart {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 5rem;
-      color: #ff00ff;
-      animation: heartbeat 1s infinite;
-      z-index: 1;
-    }
-    .fireworks {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: #ff00ff;
-      border-radius: 50%;
-      animation: explode 1s ease-out infinite;
-      z-index: 1;
-    }
-    .fireworks:nth-child(2n) { background: #00ffff; }
+    
     @keyframes flicker {
       0% { opacity: 1; }
       100% { opacity: 0.98; }
     }
+    
     @keyframes matrixRain {
-      0% { transform: translateY(-100px); opacity: 0; }
-      10% { opacity: 0.5; }
-      90% { opacity: 0.5; }
-      100% { transform: translateY(100vh); opacity: 0; }
+      0% { 
+        transform: translateY(-100px); 
+        opacity: 0; 
+      }
+      10% { 
+        opacity: 0.5; 
+      }
+      90% { 
+        opacity: 0.5; 
+      }
+      100% { 
+        transform: translateY(100vh); 
+        opacity: 0; 
+      }
     }
+    
     @keyframes typewriter {
       to { width: 100%; }
     }
+    
     @keyframes typeText {
       to { width: 100%; }
     }
-    @keyframes typeName {
-      to { width: 100%; }
-    }
+    
     @keyframes glow {
       0% { text-shadow: 0 0 10px #00ff00; }
       100% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
     }
-    @keyframes glowHeart {
-      0% { box-shadow: 0 0 5px #ff00ff; }
-      50% { box-shadow: 0 0 20px #ff00ff, 0 0 30px rgba(255, 0, 255, 0.5); }
-      100% { box-shadow: 0 0 5px #ff00ff; }
-    }
+    
     @keyframes pulse {
-      0%, 100% { border-color: #00ff00; box-shadow: 0 0 5px #00ff00; }
-      50% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff; }
+      0%, 100% { 
+        border-color: #00ff00; 
+        box-shadow: 0 0 5px #00ff00;
+      }
+      50% { 
+        border-color: #00ffff; 
+        box-shadow: 0 0 20px #00ffff;
+      }
     }
+    
     @keyframes blink {
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
+    
     @keyframes loading {
       to { width: 100%; }
     }
+    
     @keyframes celebration {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
+    
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
-    @keyframes slideUp {
-      from { opacity: 0; transform: rotate(45deg) translateY(20px); }
-      to { opacity: 1; transform: rotate(45deg) translateY(0); }
-    }
-    @keyframes explode {
-      0% { transform: translate(0, 0); opacity: 1; }
-      100% { transform: translate(var(--x), var(--y)); opacity: 0; }
-    }
+    
     @media (max-width: 600px) {
       .terminal-window { margin: 10px; }
       .screen { padding: 20px; }
       h1 { font-size: 2rem; }
-      .terminal-text { font-size: 1.3rem; }
+      .terminal-text { font-size: 1.1rem; }
       .ascii-art { font-size: 8px; }
-      button { padding: 12px 24px; font-size: 1rem; }
-      .color-input { padding: 8px; font-size: 0.9rem; }
-      .big-heart { font-size: 4rem; }
-      .fireworks { width: 4px; height: 4px; }
+      button { padding: 10px 20px; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
   <div class="crt-overlay"></div>
   <div class="matrix-bg" id="matrix-bg"></div>
+  
   <div class="terminal-window">
     <div class="terminal-header">
       <div class="terminal-info">
@@ -433,120 +390,111 @@
       <div class="status-indicator">
         <div class="status-dot"></div>
         <span>DESIGN MODE</span>
-        <span class="mute-toggle" onclick="toggleMute()">🔊</span>
-        <span class="contrast-toggle" onclick="toggleContrast()">🌓</span>
       </div>
     </div>
+    
     <div id="screen1" class="screen active">
       <div class="ascii-art">
-        ╔══════════════════════════════════╗
-        ║        SYSTEM BOOTING...         ║
-        ║                                  ║
-        ║    LOADING FRIENDSHIP MODULE     ║
-        ╚══════════════════════════════════╝
+    ╔══════════════════════════════════╗
+    ║        SYSTEM BOOTING...         ║
+    ║                                  ║
+    ║    ░░░░░░░░░░░░░░░░░░░░░░░░░░    ║
+    ║    LOADING FRIENDSHIP MODULE     ║
+    ╚══════════════════════════════════╝
       </div>
-      <h1>&gt; Hello <span class="name-text">Sifat</span>_</h1>
+      
+      <h1>&gt; Hello Sifat_</h1>
       <div class="terminal-text">Initializing connection protocol...</div>
       <div class="terminal-text" style="animation-delay: 1s;">Friendship.exe is ready to execute</div>
       <div class="terminal-text" style="animation-delay: 2s;">Your energy signature detected: AWESOME</div>
-      <div class="progress-bar" style="animation-delay: 2.5s;">
-        <div class="progress-fill"></div>
-      </div>
+      
       <div class="prompt" style="animation-delay: 3s;">Ready to establish connection?</div>
       <div class="button-container" style="animation-delay: 3.5s;">
         <button class="yes-btn" data-screen="2">EXECUTE</button>
       </div>
     </div>
+    
     <div id="screen2" class="screen">
-      <div class="ascii-art line-1">██   ██ ███████ ██    ██</div>
-      <div class="ascii-art line-2">██   ██ ██       ██  ██</div>
-      <div class="ascii-art line-3">███████ █████     ████</div>
-      <div class="ascii-art line-4">██   ██ ██         ██</div>
-      <div class="ascii-art line-5">██   ██ ███████    ██</div>
-      <h1>&gt; FRIENDSHIP REQUEST for <span class="name-text">Sifat</span></h1>
+      <div class="ascii-art">
+      ██   ██ ███████ ██    ██ 
+      ██   ██ ██       ██  ██  
+      ███████ █████     ████   
+      ██   ██ ██         ██    
+      ██   ██ ███████    ██    
+      
+      ███████ ██ ███████  █████  ████████ ██
+      ██      ██ ██      ██   ██    ██    ██
+      ███████ ██ █████   ███████    ██    ██
+           ██ ██ ██      ██   ██    ██      
+      ███████ ██ ██      ██   ██    ██    ██
+      </div>
+      
+      <h1>&gt; FRIENDSHIP REQUEST</h1>
       <div class="terminal-text">User: Sifat</div>
       <div class="terminal-text" style="animation-delay: 0.5s;">Status: Incredibly Cool Person Detected</div>
       <div class="terminal-text" style="animation-delay: 1s;">Compatibility: 99.9% MATCH!</div>
       <div class="terminal-text" style="animation-delay: 1.5s;">Requesting friendship authorization...</div>
-      <div class="prompt" style="animation-delay: 2s;">Will you be my friend? [Y/N]</div>
-      <div class="button-container" style="animation-delay: 2.5s;">
+      
+      <div class="prompt" style="animation-delay: 2.5s;">Will you be my friend? [Y/N]</div>
+      <div class="button-container" style="animation-delay: 3s;">
         <button class="yes-btn" data-screen="4">Y - YES</button>
         <button class="no-btn" data-screen="3">N - NO</button>
       </div>
     </div>
+    
     <div id="screen3" class="screen">
       <div class="ascii-art">
-        ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-        ░░  ERROR 404: FRIENDSHIP NOT FOUND  ░░
-        ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+      ░░  ERROR 404: FRIENDSHIP NOT FOUND  ░░
+      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
       </div>
+      
       <h1 class="blink-text">&gt; SYSTEM ERROR</h1>
       <div class="terminal-text">ERROR: Invalid response detected</div>
-      <div class="terminal-text" style="animation-delay: 0.5s;">What’s your favorite color, Sifat? [Type to escape!]</div>
-      <input type="text" class="color-input" placeholder="e.g., pink" onkeydown="checkColor(event)" style="animation-delay: 1s;">
-      <div class="terminal-text" style="animation-delay: 1.5s;">Think about the fun we could have:</div>
-      <div class="terminal-text" style="animation-delay: 2s;">- Coffee && Pink Latte Runs</div>
-      <div class="terminal-text" style="animation-delay: 2.5s;">- UI/UX Brainstorming with Figma</div>
-      <div class="terminal-text" style="animation-delay: 3s;">- Arjan Dhillon Playlist Vibes</div>
-      <div class="progress-bar" style="animation-delay: 3.5s;">
+      <div class="terminal-text" style="animation-delay: 0.5s;">Running friendship recovery protocol...</div>
+      <div class="terminal-text" style="animation-delay: 1s;">Think about all the fun we could have:</div>
+      <div class="terminal-text" style="animation-delay: 1.5s;">- Coffee && Design Conversations</div>
+      <div class="terminal-text" style="animation-delay: 2s;">- UI/UX brainstorming sessions</div>
+      <div class="terminal-text" style="animation-delay: 2.5s;">- Shared playlists (Arjan Dhillon vibes!)</div>
+      <div class="terminal-text" style="animation-delay: 3s;">- Endless creativity && good times</div>
+      
+      <div class="progress-bar" style="animation-delay: 3s;">
         <div class="progress-fill"></div>
       </div>
+      
       <div class="prompt" style="animation-delay: 4s;">Retry friendship request? [Y/Y]</div>
       <div class="button-container" style="animation-delay: 4.5s;">
         <button class="yes-btn" data-screen="4">Y - ABSOLUTELY</button>
       </div>
     </div>
+    
     <div id="screen4" class="screen success-screen">
-      <div class="big-heart">💖</div>
-      <div class="glowing-heart"></div>
-      <div class="fireworks" style="--x: 50px; --y: -50px;"></div>
-      <div class="fireworks" style="--x: -50px; --y: -50px;"></div>
-      <div class="fireworks" style="--x: 50px; --y: 50px;"></div>
-      <div class="fireworks" style="--x: -50px; --y: 50px;"></div>
       <div class="ascii-art">
-        ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
-        ♥                                    ♥
-        ♥        FRIENDSHIP ESTABLISHED!     ♥
-        ♥                                    ♥
-        ♥     STATUS: CONNECTION ACTIVE      ♥
-        ♥                                    ♥
-        ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+    ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+    ♥                                    ♥
+    ♥        FRIENDSHIP ESTABLISHED!     ♥
+    ♥                                    ♥
+    ♥     STATUS: CONNECTION ACTIVE      ♥
+    ♥                                    ♥
+    ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
       </div>
-      <h1>&gt; SUCCESS! <span class="retro-heart">♥</span> <span class="name-text">Sifat</span></h1>
+      
+      <h1>&gt; SUCCESS! <span class="retro-heart">♥</span></h1>
       <div class="terminal-text">Friendship protocol successfully executed</div>
       <div class="terminal-text" style="animation-delay: 0.5s;">User: Sifat - Status: AWESOME NEW FRIEND</div>
       <div class="terminal-text" style="animation-delay: 1s;">Syncing music libraries... Arjan Dhillon detected!</div>
-      <div class="terminal-text" style="animation-delay: 1.5s;">Sifat, you’re the coolest co-pilot for this retro adventure!</div>
-      <div class="prompt blink-text" style="animation-delay: 2s;">FRIENDSHIP.EXE running successfully</div>
+      <div class="terminal-text" style="animation-delay: 1.5s;">Loading shared memory banks...</div>
+      <div class="terminal-text" style="animation-delay: 2s;">Ready for adventures, laughs, and endless good vibes!</div>
+      
+      <div class="prompt blink-text" style="animation-delay: 3s;">FRIENDSHIP.EXE running successfully</div>
+      <div class="terminal-text" style="animation-delay: 3.5s; color: #00ffff;">Welcome to our friendship journey, Sifat! ♥</div>
     </div>
   </div>
+  
   <script>
     let clickAttempts = 0;
-    let isMuted = false;
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const safeZones = [
-      { left: '10%', top: '10%' },
-      { right: '10%', top: '10%' },
-      { left: '10%', bottom: '10%' },
-      { right: '10%', bottom: '10%' }
-    ];
-    function playBeep() {
-      if (!isMuted) {
-        const oscillator = audioContext.createOscillator();
-        oscillator.type = 'square';
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.connect(audioContext.destination);
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-      }
-    }
-    function toggleMute() {
-      isMuted = !isMuted;
-      document.querySelector('.mute-toggle').textContent = isMuted ? '🔇' : '🔊';
-    }
-    function toggleContrast() {
-      document.body.classList.toggle('high-contrast');
-    }
+    
+    // Create matrix rain effect
     function createMatrixChar() {
       const chars = '01ＨＡＣＫＥＲ♥♦♣♠';
       const char = document.createElement('div');
@@ -556,140 +504,89 @@
       char.style.animationDuration = (Math.random() * 3 + 2) + 's';
       char.style.animationDelay = Math.random() * 2 + 's';
       document.getElementById('matrix-bg').appendChild(char);
+      
       setTimeout(() => char.remove(), 8000);
     }
-    for (let i = 0; i < 10; i++) {
+    
+    // Create matrix effect
+    setInterval(createMatrixChar, 200);
+    
+    // Initialize with some matrix chars
+    for (let i = 0; i < 20; i++) {
       setTimeout(createMatrixChar, i * 100);
     }
-    setInterval(createMatrixChar, 300);
+    
+    document.querySelectorAll('.yes-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const screenNum = btn.dataset.screen;
+        setTimeout(() => goToScreen(screenNum), 500);
+      });
+    });
+    
+    document.querySelectorAll('.no-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        clickAttempts++;
+        
+        if (clickAttempts < 5) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const errorMsgs = [
+            "ERROR: Invalid input. Try again.",
+            "ACCESS DENIED. Please reconsider.",
+            "SYSTEM MALFUNCTION. Retry required.",
+            "DOES NOT COMPUTE. One more try?",
+            "CRITICAL ERROR. Final attempt..."
+          ];
+          
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'error-msg';
+          errorDiv.textContent = errorMsgs[clickAttempts - 1];
+          errorDiv.style.top = (btn.offsetTop - 60) + 'px';
+          
+          btn.parentElement.appendChild(errorDiv);
+          setTimeout(() => errorDiv.remove(), 2000);
+          
+          // Make button "glitch"
+          btn.style.animation = 'blink 0.5s infinite';
+          setTimeout(() => {
+            btn.style.animation = '';
+          }, 1000);
+          
+          return false;
+        } else {
+          goToScreen(btn.dataset.screen);
+        }
+      });
+    });
+    
     function goToScreen(n) {
       const screens = document.querySelectorAll('.screen');
       screens.forEach(s => {
         s.classList.remove('active');
         s.style.display = 'none';
       });
+      
       const nextScreen = document.getElementById('screen' + n);
       nextScreen.style.display = 'block';
       setTimeout(() => nextScreen.classList.add('active'), 50);
+      
+      // Reset animations
       const animatedElements = nextScreen.querySelectorAll('[style*="animation-delay"]');
       animatedElements.forEach(el => {
         el.style.animation = 'none';
-        setTimeout(() => el.style.animation = '', 10);
+        setTimeout(() => {
+          el.style.animation = '';
+        }, 10);
       });
-      if (n === '4') {
-        const screen4 = document.getElementById('screen4');
-        const creatures = ['🐶', '🐱', '🦄', '🐶', '🐱', '🦄'];
-        const stickers = ['💖', '⭐', '🌈'];
-        creatures.forEach((emoji, i) => {
-          const creature = document.createElement('div');
-          creature.className = 'creature';
-          creature.textContent = emoji;
-          creature.style.left = `${10 + Math.random() * 80}%`;
-          creature.style.top = `${10 + Math.random() * 80}%`;
-          creature.style.animation = `fadeInOut 2s ease forwards ${i * 0.3}s`;
-          screen4.appendChild(creature);
-          setTimeout(() => creature.remove(), 2500);
-        });
-        stickers.forEach((sticker, i) => {
-          const stick = document.createElement('div');
-          stick.className = 'sticker';
-          stick.textContent = sticker;
-          stick.style.left = `${20 + Math.random() * 60}%`;
-          stick.style.top = `${20 + Math.random() * 60}%`;
-          stick.style.animation = `fadeInOut 2s ease forwards ${i * 0.5}s`;
-          screen4.appendChild(stick);
-          setTimeout(() => stick.remove(), 3000);
-        });
-      }
     }
-    document.querySelectorAll('.yes-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        playBeep();
-        setTimeout(() => goToScreen(btn.dataset.screen), 500);
-      });
-    });
-    document.querySelectorAll('.no-btn').forEach(btn => {
-      let isDodging = false;
-      btn.addEventListener('mouseenter', () => {
-        if (!isDodging) {
-          isDodging = true;
-          dodgeButton(btn);
-          playBeep();
-          setTimeout(() => isDodging = false, 400);
-        }
-      });
-      btn.addEventListener('touchstart', (e) => {
-        if (!isDodging) {
-          e.preventDefault();
-          isDodging = true;
-          dodgeButton(btn);
-          playBeep();
-          setTimeout(() => isDodging = false, 400);
-        }
-      });
-      btn.addEventListener('click', (e) => {
-        clickAttempts++;
-        if (clickAttempts < 1) {
-          e.preventDefault();
-          e.stopPropagation();
-          const errorDiv = document.createElement('div');
-          errorDiv.className = 'error-msg';
-          errorDiv.textContent = 'ERROR: Try again, Sifat!';
-          errorDiv.style.top = (btn.offsetTop - 60) + 'px';
-          btn.parentElement.appendChild(errorDiv);
-          setTimeout(() => errorDiv.remove(), 2000);
-          btn.style.animation = 'blink 0.5s infinite';
-          setTimeout(() => btn.style.animation = '', 1000);
-        } else {
-          goToScreen(btn.dataset.screen);
-        }
-      });
-    });
-    function dodgeButton(btn) {
-      btn.style.pointerEvents = 'none';
-      const zone = safeZones[Math.floor(Math.random() * safeZones.length)];
-      if (zone.left) {
-        btn.style.left = zone.left;
-        btn.style.right = 'auto';
-      } else {
-        btn.style.left = 'auto';
-        btn.style.right = zone.right;
-      }
-      if (zone.top) {
-        btn.style.top = zone.top;
-        btn.style.bottom = 'auto';
-      } else {
-        btn.style.top = 'auto';
-        btn.style.bottom = zone.bottom;
-      }
-      setTimeout(() => btn.style.pointerEvents = 'auto', 300);
-    }
-    function checkColor(event) {
-      if (event.key === 'Enter') {
-        const input = event.target.value.toLowerCase();
-        playBeep();
-        const msg = input === 'pink' ? 'Nice try, but friendship is better!' : 'Not quite, but let’s be friends anyway!';
-        const response = document.createElement('div');
-        response.className = 'terminal-text';
-        response.textContent = msg;
-        response.style.animationDelay = '0s';
-        event.target.after(response);
-        setTimeout(() => goToScreen('4'), 1500);
-      }
-    }
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && document.querySelector('.yes-btn')) {
-        document.querySelector('.yes-btn').click();
-      } else if (e.key.toLowerCase() === 'n' && document.querySelector('.no-btn')) {
-        document.querySelector('.no-btn').dispatchEvent(new Event('mouseenter'));
-      } else if (e.ctrlKey && e.key === 's') {
-        alert('Secret Message: Sifat, you’re the MVP of this terminal world!');
-        e.preventDefault();
-      }
-    });
+    
+    // Add some retro sound effects (visual)
     document.addEventListener('click', () => {
       document.body.style.filter = 'brightness(1.1)';
-      setTimeout(() => document.body.style.filter = 'brightness(1)', 100);
+      setTimeout(() => {
+        document.body.style.filter = 'brightness(1)';
+      }, 100);
     });
   </script>
 </body>
