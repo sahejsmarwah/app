@@ -4,17 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Friendship & Vibes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #ffe6f0, #e0f7ff);
-      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #e6faff);
+      font-family: 'Baloo 2', cursive;
       overflow-x: hidden;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ff6f91" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
     }
     .screen {
       display: none;
@@ -29,66 +28,102 @@
       min-height: 100vh;
       transition: opacity 0.5s ease, background-color 0.8s ease;
       position: relative;
+      overflow: hidden;
     }
     .screen.active {
       display: flex;
       opacity: 1;
     }
     #screen1 { background-color: #fff; }
-    #screen2 { background-color: #fff7f9; }
-    #screen3 { background-color: #f0faff; }
-    #screen4 { background-color: #fff0f5; }
+    #screen2 { background-color: #fef2f7; }
+    #screen3 { background-color: #f2faff; }
+    #screen4 { background-color: #fff0f8; }
+    .floating-doodle {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.3;
+      animation: float 10s infinite ease-in-out;
+      pointer-events: none;
+    }
+    .floating-doodle:nth-child(odd) { animation-duration: 8s; }
+    .mascot {
+      position: absolute;
+      font-size: 50px;
+      bottom: 20px;
+      left: 20px;
+      animation: bounce 1.5s infinite ease-in-out;
+      pointer-events: none;
+    }
+    #screen4 .mascot { animation: bounce 0.8s infinite ease-in-out; }
     h1, p {
       opacity: 0;
-      transform: translateY(20px);
-      animation: slideUp 0.5s ease forwards;
+      animation: typeWriter 1.5s steps(20) forwards;
+      position: relative;
     }
     h1 {
       margin: 0 0 1.5rem;
-      color: #333;
-      font-weight: 600;
+      color: #ff6f91;
+      font-weight: 700;
       font-size: 2.2rem;
       animation-delay: 0.1s;
+    }
+    h1 span {
+      background: linear-gradient(90deg, #ff85b3, #ffd1dc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: glitter 2s infinite linear;
     }
     p {
       margin: 0 0 2rem;
       color: #555;
       line-height: 1.4;
-      font-weight: 300;
+      font-weight: 400;
       font-size: 1.2rem;
-      animation-delay: 0.3s;
+      animation-delay: 0.5s;
+    }
+    p:after {
+      content: '💖';
+      position: absolute;
+      animation: blink 0.7s infinite;
     }
     button {
       padding: 0.8rem 1.5rem;
       margin: 0.5rem;
       border: none;
-      border-radius: 999px;
+      border-radius: 30px;
       cursor: pointer;
-      font-weight: 500;
-      transition: transform 0.15s ease;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 700;
+      transition: transform 0.2s ease;
       width: 100%;
       position: relative;
-      overflow: hidden;
+      background: none;
+      overflow: visible;
     }
     .next, .yes {
-      background: #ff85b3;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60"><path fill="%23ff85b3" d="M10,10 Q30,0 50,10 T90,10 T130,10 T170,10 Q190,10 190,30 Q190,50 170,50 T130,50 T90,50 T50,50 Q30,50 10,30 Q10,10 10,10 Z"/></svg>') no-repeat center/cover;
       color: #fff;
       padding: 1.2rem 2.5rem;
       font-size: 1.4rem;
       max-width: 300px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
       animation: pulse 2s infinite ease-in-out;
-      position: relative;
     }
     .no {
-      background: #6c5ce7;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><path fill="%236c5ce7" d="M5,5 Q15,0 30,5 T60,5 T90,5 Q115,5 115,20 Q115,35 90,35 T60,35 T30,35 Q15,35 5,20 Q5,5 5,5 Z"/></svg>') no-repeat center/cover;
       color: #fff;
       padding: 0.5rem 1rem;
       font-size: 0.8rem;
       max-width: 120px;
+      position: absolute;
+    }
+    button:active {
+      transform: scale(0.9);
     }
     button:hover:not(.no), button:focus:not(.no) {
       transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      filter: drop-shadow(0 6px 10px rgba(255,133,179,0.3));
       animation: none;
     }
     .next:hover:after, .yes:hover:after {
@@ -104,6 +139,14 @@
     .no:hover, .no:focus {
       transition: transform 0.15s ease;
     }
+    .no:before {
+      content: '😣';
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+    }
     .button-group {
       display: flex;
       flex-direction: column;
@@ -116,12 +159,13 @@
     .wave {
       width: 60px;
       height: 12px;
-      background: linear-gradient(90deg, #6c5ce7, #ff85b3);
+      background: linear-gradient(90deg, #ff85b3, #6c5ce7);
       animation: wave 1.5s infinite;
       margin: 10px auto;
       opacity: 0;
       animation-delay: 0.5s;
       animation-fill-mode: forwards;
+      border-radius: 5px;
     }
     .glowing-heart {
       position: absolute;
@@ -144,22 +188,46 @@
     }
     .glowing-heart:before { top: -15px; }
     .glowing-heart:after { left: -15px; }
-    .creature {
+    .creature, .sticker {
       position: absolute;
       font-size: 50px;
       opacity: 0;
       animation: jump 2s ease forwards;
       pointer-events: none;
     }
-    .touch-sparkle {
-      position: absolute;
-      font-size: 20px;
-      opacity: 0;
-      pointer-events: none;
-      animation: sparkle 0.5s ease forwards;
+    .sticker {
+      font-size: 30px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    @keyframes slideUp {
-      to { opacity: 1; transform: translateY(0); }
+    .animated-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      color: #ff6f91;
+      animation: beat 1s infinite;
+      z-index: 1;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20vh) rotate(10deg); opacity: 0.5; }
+      100% { transform: translateY(-40vh) rotate(0deg); opacity: 0.3; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+    }
+    @keyframes typeWriter {
+      from { width: 0; opacity: 0; }
+      to { width: 100%; opacity: 1; }
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    @keyframes glitter {
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
     }
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -173,7 +241,7 @@
     }
     @keyframes glow {
       0% { box-shadow: 0 0 5px #ff6f91; }
-      50% { box-shadow: 0 0 20px #ff6f91, 0 0 30px rgba(255, 111, 145, 0.5); }
+      50% { box-shadow: 0 0 20px #ff6f91, 0 0 30px rgba(255,111,145,0.5); }
       100% { box-shadow: 0 0 5px #ff6f91; }
     }
     @keyframes jump {
@@ -184,6 +252,10 @@
     @keyframes sparkle {
       0% { opacity: 1; transform: scale(1); }
       100% { opacity: 0; transform: scale(1.5); }
+    }
+    @keyframes beat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
     }
     @media (max-width: 600px) {
       .screen { padding: 2vw; }
@@ -196,8 +268,11 @@
       .glowing-heart:before, .glowing-heart:after { width: 25px; height: 25px; }
       .glowing-heart:before { top: -12.5px; }
       .glowing-heart:after { left: -12.5px; }
-      .creature { font-size: 40px; }
-      .touch-sparkle { font-size: 15px; }
+      .creature, .sticker { font-size: 40px; }
+      .sticker { font-size: 25px; }
+      .mascot { font-size: 40px; bottom: 15px; left: 15px; }
+      .floating-doodle { font-size: 2rem; }
+      .animated-heart { font-size: 4rem; }
     }
     @media (max-width: 400px) {
       .screen { padding: 1.5vw; }
@@ -205,19 +280,30 @@
       p { font-size: 1rem; }
       .next, .yes { padding: 1rem 2rem; font-size: 1.2rem; max-width: 260px; }
       .no { padding: 0.3rem 0.6rem; font-size: 0.7rem; max-width: 80px; }
-      .creature { font-size: 30px; }
-      .touch-sparkle { font-size: 12px; }
+      .creature, .sticker { font-size: 30px; }
+      .sticker { font-size: 20px; }
+      .mascot { font-size: 30px; }
+      .floating-doodle { font-size: 1.5rem; }
+      .animated-heart { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
   <div id="screen1" class="screen active">
-    <h1>Hey Sifat 🌸</h1>
+    <div class="floating-doodle" style="left: 10%; top: 20%;">💖</div>
+    <div class="floating-doodle" style="right: 15%; top: 50%;">⭐</div>
+    <div class="floating-doodle" style="left: 20%; bottom: 10%;">🧁</div>
+    <div class="mascot">🐶</div>
+    <h1>Hey <span>Sifat</span> 🌸</h1>
     <p>I’m buzzing with excitement to connect with you! 😊 Say hi back?</p>
     <button class="next" data-screen="2" aria-label="Say hi back">Hi! 👋</button>
   </div>
   <div id="screen2" class="screen">
-    <h1>Be My Friend?</h1>
+    <div class="floating-doodle" style="left: 5%; top: 30%;">🌈</div>
+    <div class="floating-doodle" style="right: 10%; top: 60%;">💫</div>
+    <div class="floating-doodle" style="left: 25%; bottom: 15%;">🍬</div>
+    <div class="mascot">🐶</div>
+    <h1>Be My <span>Friend</span>?</h1>
     <p>Sifat, I’m genuinely thrilled at the idea of us sharing laughs and building something special. Wanna be friends?</p>
     <div class="button-group">
       <button class="yes" data-screen="4" aria-label="Accept friendship">Yes! 😄</button>
@@ -225,7 +311,11 @@
     </div>
   </div>
   <div id="screen3" class="screen">
-    <h1>Hold Up, Sifat! 😅</h1>
+    <div class="floating-doodle" style="left: 15%; top: 25%;">☁️</div>
+    <div class="floating-doodle" style="right: 20%; top: 55%;">🎀</div>
+    <div class="floating-doodle" style="left: 10%; bottom: 20%;">🍓</div>
+    <div class="mascot">🐶</div>
+    <h1>Hold Up, <span>Sifat</span>! 😅</h1>
     <p>I’m so excited about the fun we could have—coffee, chats, maybe even some UI/UX magic together! Ready to give it a go?</p>
     <div class="wave"></div>
     <button class="yes" data-screen="4" aria-label="Give friendship a try">C’mon, let’s try! ✨</button>
@@ -233,30 +323,26 @@
   <div id="screen4" class="screen">
     <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
     <div class="glowing-heart"></div>
-    <h1>You’re Incredible! 🤝</h1>
+    <div class="floating-doodle" style="left: 8%; top: 15%;">💞</div>
+    <div class="floating-doodle" style="right: 12%; top: 45%;">🌟</div>
+    <div class="floating-doodle" style="left: 18%; bottom: 25%;">🍭</div>
+    <div class="mascot">🐶</div>
+    <h1>You’re <span>Incredible</span>! 🤝</h1>
     <p>Sifat, my heart’s doing a happy dance knowing we’re starting this friendship! I heard you’re all about Arjan Dhillon’s vibes—let’s share playlists and spark moments that’ll stay with us forever. Here’s to us! 🎵💖</p>
+    <div class="animated-heart">💖</div>
   </div>
-  <audio id="yes-sound" src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_6b5b6b5b6b.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+  <audio id="yes-sound" src="https://cdn.pixabay.com/download/audio/2023/03/23/audio_ae6d779c42.mp3?filename=cute-positive-noti-142.mp3" preload="auto"></audio>
+  <audio id="no-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8a3a3767a9.mp3?filename=giggle-7035.mp3" preload="auto"></audio>
   <script>
     let dodgeCount = 0;
     const maxDodges = 5;
     const yesSound = document.getElementById('yes-sound');
-    document.addEventListener('touchstart', (e) => {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'touch-sparkle';
-      sparkle.textContent = '✩';
-      sparkle.style.left = `${e.touches[0].clientX}px`;
-      sparkle.style.top = `${e.touches[0].clientY}px`;
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 500);
-    });
+    const noSound = document.getElementById('no-sound');
     document.querySelectorAll('.next, .yes').forEach(btn => btn.addEventListener('click', () => {
       const screenNum = btn.dataset.screen;
       goToScreen(screenNum);
       if (screenNum === '4') {
-        try {
-          yesSound.play().catch(() => {});
-        } catch (e) {}
+        try { yesSound.play().catch(() => {}); } catch (e) {}
         setTimeout(() => {
           const confetti = new ConfettiGenerator({
             target: 'confetti-canvas',
@@ -267,6 +353,7 @@
           confetti.render();
           setTimeout(() => confetti.clear(), 4000);
           const creatures = ['🐶', '🐱', '🦄', '🐰', '🦋', '🐶', '🐱', '🦄'];
+          const stickers = ['💖', '⭐', '🌈', 'Sifat & Me 💕'];
           creatures.forEach((emoji, i) => {
             const creature = document.createElement('div');
             creature.className = 'creature';
@@ -274,9 +361,18 @@
             creature.style.left = `${10 + Math.random() * 80}%`;
             creature.style.top = `${10 + Math.random() * 80}%`;
             creature.style.animationDelay = `${i * 0.2}s`;
-            creature.style.animation = `jump ${2 + Math.random() * 0.5}s ease forwards`;
             document.getElementById('screen4').appendChild(creature);
             setTimeout(() => creature.remove(), 2500);
+          });
+          stickers.forEach((sticker, i) => {
+            const stick = document.createElement('div');
+            stick.className = 'sticker';
+            stick.textContent = sticker;
+            stick.style.left = `${20 + Math.random() * 60}%`;
+            stick.style.top = `${20 + Math.random() * 60}%`;
+            stick.style.animationDelay = `${i * 0.3}s`;
+            document.getElementById('screen4').appendChild(stick);
+            setTimeout(() => stick.remove(), 3000);
           });
         }, 510);
       }
@@ -284,38 +380,45 @@
     document.querySelectorAll('.no').forEach(btn => {
       let isDodging = false;
       btn.addEventListener('mouseenter', () => {
-        if (dodgeCount < maxDodges && !isDodging) {
+        if (!isDodging) {
           isDodging = true;
           dodgeButton(btn);
+          try { noSound.play().catch(() => {}); } catch (e) {}
           setTimeout(() => { isDodging = false; }, 400);
         }
       });
       btn.addEventListener('touchstart', (e) => {
-        if (dodgeCount < maxDodges && !isDodging) {
+        if (!isDodging) {
           e.preventDefault();
           isDodging = true;
           dodgeButton(btn);
+          try { noSound.play().catch(() => {}); } catch (e) {}
           setTimeout(() => { isDodging = false; }, 400);
         }
       });
       btn.addEventListener('click', () => {
-        dodgeCount = 0;
-        goToScreen(btn.dataset.screen);
+        if (dodgeCount >= 1) {
+          dodgeCount = 0;
+          goToScreen(btn.dataset.screen);
+        }
       });
     });
     function dodgeButton(btn) {
-      if (dodgeCount < maxDodges) {
-        const maxMove = 80;
-        const x = (Math.random() - 0.5) * maxMove;
-        const y = (Math.random() - 0.5) * maxMove;
-        btn.style.transform = `translate(${x}px, ${y}px)`;
-        dodgeCount++;
-        setTimeout(() => {
-          btn.style.transform = 'translate(0, 0)';
-        }, Math.random() * 200 + 100);
-        if (dodgeCount === maxDodges) {
-          setTimeout(() => { dodgeCount = 0; }, 1000);
-        }
+      btn.style.pointerEvents = 'none';
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const btnWidth = btn.offsetWidth;
+      const btnHeight = btn.offsetHeight;
+      const randomX = Math.random() * (screenWidth - btnWidth - 20) + 10;
+      const randomY = Math.random() * (screenHeight - btnHeight - 20) + 10;
+      btn.style.left = `${randomX}px`;
+      btn.style.top = `${randomY}px`;
+      dodgeCount++;
+      setTimeout(() => {
+        btn.style.pointerEvents = 'auto';
+      }, 300);
+      if (dodgeCount >= maxDodges) {
+        setTimeout(() => { dodgeCount = 0; }, 1000);
       }
     }
     function goToScreen(n) {
