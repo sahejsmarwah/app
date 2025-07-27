@@ -42,10 +42,10 @@
       position: absolute;
       font-size: 2.5rem;
       opacity: 0.3;
-      animation: float 10s infinite ease-in-out;
+      animation: float 5s infinite ease-in-out;
+      will-change: transform;
       pointer-events: none;
     }
-    .floating-doodle:nth-child(odd) { animation-duration: 8s; }
     .mascot {
       position: absolute;
       font-size: 50px;
@@ -54,11 +54,11 @@
       animation: bounce 1.5s infinite ease-in-out;
       pointer-events: none;
     }
-    #screen4 .mascot { animation: bounce 0.8s infinite ease-in-out; }
     h1, p {
       opacity: 0;
       animation: typeWriter 1.5s steps(20) forwards;
       position: relative;
+      z-index: 2;
     }
     h1 {
       margin: 0 0 1.5rem;
@@ -67,13 +67,6 @@
       font-size: 2.2rem;
       animation-delay: 0.1s;
     }
-    h1 span {
-      background: linear-gradient(90deg, #ff85b3, #ffd1dc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: glitter 2s infinite linear;
-    }
     p {
       margin: 0 0 2rem;
       color: #555;
@@ -81,11 +74,6 @@
       font-weight: 400;
       font-size: 1.2rem;
       animation-delay: 0.5s;
-    }
-    p:after {
-      content: '💖';
-      position: absolute;
-      animation: blink 0.7s infinite;
     }
     button {
       padding: 0.8rem 1.5rem;
@@ -107,8 +95,8 @@
       padding: 1.2rem 2.5rem;
       font-size: 1.4rem;
       max-width: 300px;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
       animation: pulse 2s infinite ease-in-out;
+      z-index: 2;
     }
     .no {
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><path fill="%236c5ce7" d="M5,5 Q15,0 30,5 T60,5 T90,5 Q115,5 115,20 Q115,35 90,35 T60,35 T30,35 Q15,35 5,20 Q5,5 5,5 Z"/></svg>') no-repeat center/cover;
@@ -117,88 +105,34 @@
       font-size: 0.8rem;
       max-width: 120px;
       position: absolute;
-    }
-    button:active {
-      transform: scale(0.9);
-    }
-    button:hover:not(.no), button:focus:not(.no) {
-      transform: translateY(-3px) scale(1.05);
-      filter: drop-shadow(0 6px 10px rgba(255,133,179,0.3));
-      animation: none;
-    }
-    .next:hover:after, .yes:hover:after {
-      content: '✨';
-      position: absolute;
-      font-size: 1.5rem;
-      top: 50%;
       left: 50%;
+      top: 60%;
       transform: translate(-50%, -50%);
-      opacity: 0;
-      animation: sparkle 0.5s ease forwards;
-    }
-    .no:hover, .no:focus {
-      transition: transform 0.15s ease;
-    }
-    .no:before {
-      content: '😣';
-      position: absolute;
-      left: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1rem;
-    }
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-      max-width: 400px;
-      align-items: center;
-      position: relative;
-    }
-    .wave {
-      width: 60px;
-      height: 12px;
-      background: linear-gradient(90deg, #ff85b3, #6c5ce7);
-      animation: wave 1.5s infinite;
-      margin: 10px auto;
-      opacity: 0;
-      animation-delay: 0.5s;
-      animation-fill-mode: forwards;
-      border-radius: 5px;
+      transition: all 0.3s ease;
+      will-change: transform;
+      z-index: 1;
     }
     .glowing-heart {
-      position: absolute;
-      width: 30px;
-      height: 30px;
+      position: fixed;
+      width: 20px;
+      height: 20px;
       background: #ff6f91;
       transform: rotate(45deg);
-      top: 20px;
-      right: 20px;
+      top: 10px;
+      right: 10px;
       opacity: 0;
       animation: glow 1.5s infinite ease-in-out, slideUp 0.5s ease forwards 0.5s;
+      z-index: 1;
     }
     .glowing-heart:before, .glowing-heart:after {
       content: '';
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       background: #ff6f91;
-      border-radius: 50%;
     }
-    .glowing-heart:before { top: -15px; }
-    .glowing-heart:after { left: -15px; }
-    .creature, .sticker {
-      position: absolute;
-      font-size: 50px;
-      opacity: 0;
-      animation: jump 2s ease forwards;
-      pointer-events: none;
-    }
-    .sticker {
-      font-size: 30px;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+    .glowing-heart:before { top: -10px; left: 0; }
+    .glowing-heart:after { left: -10px; top: 0; }
     .animated-heart {
       position: absolute;
       top: 50%;
@@ -222,214 +156,186 @@
       from { width: 0; opacity: 0; }
       to { width: 100%; opacity: 1; }
     }
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-    @keyframes glitter {
-      0% { background-position: 0%; }
-      100% { background-position: 200%; }
-    }
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.03); }
       100% { transform: scale(1); }
-    }
-    @keyframes wave {
-      0% { transform: scaleY(1); }
-      50% { transform: scaleY(1.5); }
-      100% { transform: scaleY(1); }
     }
     @keyframes glow {
       0% { box-shadow: 0 0 5px #ff6f91; }
       50% { box-shadow: 0 0 20px #ff6f91, 0 0 30px rgba(255,111,145,0.5); }
       100% { box-shadow: 0 0 5px #ff6f91; }
     }
-    @keyframes jump {
-      0% { opacity: 0; transform: scale(0) translateY(0) rotate(0deg); }
-      50% { opacity: 1; transform: scale(1.5) translateY(-60px) rotate(15deg); }
-      100% { opacity: 0; transform: scale(1) translateY(-120px) rotate(-15deg); }
-    }
-    @keyframes sparkle {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.5); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: rotate(45deg) translateY(20px); }
+      to { opacity: 1; transform: rotate(45deg) translateY(0); }
     }
     @keyframes beat {
       0%, 100% { transform: translate(-50%, -50%) scale(1); }
       50% { transform: translate(-50%, -50%) scale(1.2); }
     }
-    @media (max-width: 600px) {
-      .screen { padding: 2vw; }
-      h1 { font-size: 1.8rem; }
-      p { font-size: 1.1rem; }
-      .next, .yes { padding: 1.1rem 2.3rem; font-size: 1.3rem; max-width: 280px; }
-      .no { padding: 0.4rem 0.8rem; font-size: 0.75rem; max-width: 100px; }
-      .wave { width: 50px; height: 10px; }
-      .glowing-heart { top: 15px; right: 15px; width: 25px; height: 25px; }
-      .glowing-heart:before, .glowing-heart:after { width: 25px; height: 25px; }
-      .glowing-heart:before { top: -12.5px; }
-      .glowing-heart:after { left: -12.5px; }
-      .creature, .sticker { font-size: 40px; }
-      .sticker { font-size: 25px; }
-      .mascot { font-size: 40px; bottom: 15px; left: 15px; }
-      .floating-doodle { font-size: 2rem; }
-      .animated-heart { font-size: 4rem; }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
     }
-    @media (max-width: 400px) {
-      .screen { padding: 1.5vw; }
-      h1 { font-size: 1.5rem; }
-      p { font-size: 1rem; }
-      .next, .yes { padding: 1rem 2rem; font-size: 1.2rem; max-width: 260px; }
-      .no { padding: 0.3rem 0.6rem; font-size: 0.7rem; max-width: 80px; }
-      .creature, .sticker { font-size: 30px; }
-      .sticker { font-size: 20px; }
-      .mascot { font-size: 30px; }
-      .floating-doodle { font-size: 1.5rem; }
-      .animated-heart { font-size: 3rem; }
+    .creature, .sticker {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      animation: fadeInOut 2s ease forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.5); }
     }
   </style>
 </head>
 <body>
   <div id="screen1" class="screen active">
-    <div class="floating-doodle" style="left: 10%; top: 20%;">💖</div>
-    <div class="floating-doodle" style="right: 15%; top: 50%;">⭐</div>
-    <div class="floating-doodle" style="left: 20%; bottom: 10%;">🧁</div>
+    <div class="floating-doodle" style="left: 10%; top: 100vh;">💖</div>
+    <div class="floating-doodle" style="right: 15%; top: 100vh; animation-delay: 2s;">⭐</div>
+    <div class="floating-doodle" style="left: 20%; top: 100vh; animation-delay: 4s;">🧁</div>
     <div class="mascot">🐶</div>
-    <h1>Hey <span>Sifat</span> 🌸</h1>
+    <h1>Hey Sifat 🌸</h1>
     <p>I’m buzzing with excitement to connect with you! 😊 Say hi back?</p>
     <button class="next" data-screen="2" aria-label="Say hi back">Hi! 👋</button>
   </div>
   <div id="screen2" class="screen">
-    <div class="floating-doodle" style="left: 5%; top: 30%;">🌈</div>
-    <div class="floating-doodle" style="right: 10%; top: 60%;">💫</div>
-    <div class="floating-doodle" style="left: 25%; bottom: 15%;">🍬</div>
-    <div class="mascot">🐶</div>
-    <h1>Be My <span>Friend</span>?</h1>
-    <p>Sifat, I’m genuinely thrilled at the idea of us sharing laughs and building something special. Wanna be friends?</p>
+    <div class="floating-doodle" style="left: 15%; top: 100vh;">🌸</div>
+    <div class="floating-doodle" style="right: 10%; top: 100vh; animation-delay: 1.5s;">✨</div>
+    <div class="floating-doodle" style="left: 25%; top: 100vh; animation-delay: 3s;">🎀</div>
+    <div class="mascot">🐱</div>
+    <h1>Friendship Time? 🌟</h1>
+    <p>Will you be my friend, Sifat? It’d mean the world to me!</p>
     <div class="button-group">
-      <button class="yes" data-screen="4" aria-label="Accept friendship">Yes! 😄</button>
-      <button class="no" data-screen="3" aria-label="Think it over">Hmm, not sure... 😕</button>
+      <button class="yes" data-screen="3">Yes! 🌈</button>
+      <button class="no" data-screen="1">Noo 😿</button>
     </div>
   </div>
   <div id="screen3" class="screen">
-    <div class="floating-doodle" style="left: 15%; top: 25%;">☁️</div>
-    <div class="floating-doodle" style="right: 20%; top: 55%;">🎀</div>
-    <div class="floating-doodle" style="left: 10%; bottom: 20%;">🍓</div>
-    <div class="mascot">🐶</div>
-    <h1>Hold Up, <span>Sifat</span>! 😅</h1>
-    <p>I’m so excited about the fun we could have—coffee, chats, maybe even some UI/UX magic together! Ready to give it a go?</p>
-    <div class="wave"></div>
-    <button class="yes" data-screen="4" aria-label="Give friendship a try">C’mon, let’s try! ✨</button>
+    <div class="floating-doodle" style="left: 10%; top: 100vh;">💞</div>
+    <div class="floating-doodle" style="right: 20%; top: 100vh; animation-delay: 2s;">🌟</div>
+    <div class="floating-doodle" style="left: 30%; top: 100vh; animation-delay: 4s;">🍰</div>
+    <div class="mascot">🦄</div>
+    <h1>Yayy! 🎉</h1>
+    <p>You’re the best, Sifat! Ready for some fun vibes?</p>
+    <button class="next" data-screen="4">Let’s Go! 🚀</button>
   </div>
   <div id="screen4" class="screen">
-    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-    <div class="glowing-heart"></div>
-    <div class="floating-doodle" style="left: 8%; top: 15%;">💞</div>
-    <div class="floating-doodle" style="right: 12%; top: 45%;">🌟</div>
-    <div class="floating-doodle" style="left: 18%; bottom: 25%;">🍭</div>
-    <div class="mascot">🐶</div>
-    <h1>You’re <span>Incredible</span>! 🤝</h1>
-    <p>Sifat, my heart’s doing a happy dance knowing we’re starting this friendship! I heard you’re all about Arjan Dhillon’s vibes—let’s share playlists and spark moments that’ll stay with us forever. Here’s to us! 🎵💖</p>
+    <div class="floating-doodle" style="left: 15%; top: 100vh;">💖</div>
+    <div class="floating-doodle" style="right: 10%; top: 100vh; animation-delay: 1.5s;">⭐</div>
+    <div class="floating-doodle" style="left: 25%; top: 100vh; animation-delay: 3s;">🌈</div>
+    <div class="mascot">🐰</div>
     <div class="animated-heart">💖</div>
+    <h1>You’re Amazing! 💕</h1>
+    <p>Thanks for being my friend, Sifat. Let’s make awesome memories!</p>
   </div>
-  <audio id="yes-sound" src="https://cdn.pixabay.com/download/audio/2023/03/23/audio_ae6d779c42.mp3?filename=cute-positive-noti-142.mp3" preload="auto"></audio>
-  <audio id="no-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8a3a3767a9.mp3?filename=giggle-7035.mp3" preload="auto"></audio>
+  <div class="glowing-heart"></div>
+  <audio id="clickSound" src="https://cdn.pixabay.com/audio/2022/03/10/audio_5b3b4b3b8f.mp3"></audio>
+  <audio id="bgMusic" src="https://cdn.pixabay.com/audio/2022/03/10/audio_5b3b4b3b8f.mp3" loop></audio>
   <script>
+    const screens = document.querySelectorAll('.screen');
+    const clickSound = document.getElementById('clickSound');
+    const bgMusic = document.getElementById('bgMusic');
+    const safeZones = [
+      { left: '10%', top: '10%' },
+      { right: '10%', top: '10%' },
+      { left: '10%', bottom: '10%' },
+      { right: '10%', bottom: '10%' }
+    ];
     let dodgeCount = 0;
-    const maxDodges = 5;
-    const yesSound = document.getElementById('yes-sound');
-    const noSound = document.getElementById('no-sound');
-    document.querySelectorAll('.next, .yes').forEach(btn => btn.addEventListener('click', () => {
-      const screenNum = btn.dataset.screen;
-      goToScreen(screenNum);
-      if (screenNum === '4') {
-        try { yesSound.play().catch(() => {}); } catch (e) {}
-        setTimeout(() => {
-          const confetti = new ConfettiGenerator({
-            target: 'confetti-canvas',
-            max: 200,
-            colors: [['#ff6f91', '#ff85b3'], ['#6c5ce7', '#a29bfe']],
-            clock: 35
-          });
-          confetti.render();
-          setTimeout(() => confetti.clear(), 4000);
-          const creatures = ['🐶', '🐱', '🦄', '🐰', '🦋', '🐶', '🐱', '🦄'];
-          const stickers = ['💖', '⭐', '🌈', 'Sifat & Me 💕'];
-          creatures.forEach((emoji, i) => {
-            const creature = document.createElement('div');
-            creature.className = 'creature';
-            creature.textContent = emoji;
-            creature.style.left = `${10 + Math.random() * 80}%`;
-            creature.style.top = `${10 + Math.random() * 80}%`;
-            creature.style.animationDelay = `${i * 0.2}s`;
-            document.getElementById('screen4').appendChild(creature);
-            setTimeout(() => creature.remove(), 2500);
-          });
-          stickers.forEach((sticker, i) => {
-            const stick = document.createElement('div');
-            stick.className = 'sticker';
-            stick.textContent = sticker;
-            stick.style.left = `${20 + Math.random() * 60}%`;
-            stick.style.top = `${20 + Math.random() * 60}%`;
-            stick.style.animationDelay = `${i * 0.3}s`;
-            document.getElementById('screen4').appendChild(stick);
-            setTimeout(() => stick.remove(), 3000);
-          });
-        }, 510);
-      }
-    }));
-    document.querySelectorAll('.no').forEach(btn => {
-      let isDodging = false;
-      btn.addEventListener('mouseenter', () => {
-        if (!isDodging) {
-          isDodging = true;
-          dodgeButton(btn);
-          try { noSound.play().catch(() => {}); } catch (e) {}
-          setTimeout(() => { isDodging = false; }, 400);
-        }
-      });
-      btn.addEventListener('touchstart', (e) => {
-        if (!isDodging) {
-          e.preventDefault();
-          isDodging = true;
-          dodgeButton(btn);
-          try { noSound.play().catch(() => {}); } catch (e) {}
-          setTimeout(() => { isDodging = false; }, 400);
-        }
-      });
-      btn.addEventListener('click', () => {
-        if (dodgeCount >= 1) {
-          dodgeCount = 0;
-          goToScreen(btn.dataset.screen);
-        }
-      });
-    });
-    function dodgeButton(btn) {
-      btn.style.pointerEvents = 'none';
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-      const btnWidth = btn.offsetWidth;
-      const btnHeight = btn.offsetHeight;
-      const randomX = Math.random() * (screenWidth - btnWidth - 20) + 10;
-      const randomY = Math.random() * (screenHeight - btnHeight - 20) + 10;
-      btn.style.left = `${randomX}px`;
-      btn.style.top = `${randomY}px`;
-      dodgeCount++;
-      setTimeout(() => {
-        btn.style.pointerEvents = 'auto';
-      }, 300);
-      if (dodgeCount >= maxDodges) {
-        setTimeout(() => { dodgeCount = 0; }, 1000);
+    let isDodging = false;
+
+    function goToScreen(screenId) {
+      screens.forEach(s => s.classList.remove('active'));
+      document.getElementById(`screen${screenId}`).classList.add('active');
+      clickSound.currentTime = 0;
+      clickSound.play();
+      if (screenId === 4) {
+        bgMusic.play();
+        startConfetti();
+        spawnCreaturesAndStickers();
       }
     }
-    function goToScreen(n) {
-      const screens = document.querySelectorAll('.screen');
-      screens.forEach(s => {
-        s.classList.remove('active');
-        s.style.display = 'none';
-      });
-      const nextScreen = document.getElementById('screen' + n);
-      nextScreen.style.display = 'flex';
-      setTimeout(() => nextScreen.classList.add('active'), 10);
+
+    function dodgeButton(btn) {
+      isDodging = true;
+      dodgeCount++;
+      btn.style.pointerEvents = 'none';
+      const zone = safeZones[Math.floor(Math.random() * safeZones.length)];
+      if (zone.left) {
+        btn.style.left = zone.left;
+        btn.style.right = 'auto';
+      } else {
+        btn.style.left = 'auto';
+        btn.style.right = zone.right;
+      }
+      if (zone.top) {
+        btn.style.top = zone.top;
+        btn.style.bottom = 'auto';
+      } else {
+        btn.style.top = 'auto';
+        btn.style.bottom = zone.bottom;
+      }
+      setTimeout(() => {
+        btn.style.pointerEvents = 'auto';
+        isDodging = false;
+      }, 300);
+    }
+
+    document.querySelectorAll('.next, .yes').forEach(btn => {
+      btn.addEventListener('click', () => goToScreen(btn.dataset.screen));
+    });
+
+    const noBtn = document.querySelector('.no');
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      dodgeButton(noBtn);
+    });
+    noBtn.addEventListener('mouseenter', () => dodgeButton(noBtn));
+    noBtn.addEventListener('click', () => {
+      if (!isDodging && dodgeCount >= 1) {
+        dodgeCount = 0;
+        goToScreen(noBtn.dataset.screen);
+      }
+    });
+
+    function startConfetti() {
+      const confettiSettings = { target: 'screen4', max: 50, size: 2, clock: 25 };
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+      setTimeout(() => confetti.clear(), 5000);
+    }
+
+    function spawnCreaturesAndStickers() {
+      const screen4 = document.getElementById('screen4');
+      const creatures = ['🐶', '🐱', '🦄', '🐰', '🦋', '🐶'];
+      const stickers = ['💖', '⭐', '🌈'];
+      for (let i = 0; i < 6; i++) {
+        const creature = document.createElement('div');
+        creature.className = 'creature';
+        creature.textContent = creatures[i];
+        creature.style.left = `${Math.random() * 80 + 10}%`;
+        creature.style.top = `${Math.random() * 80 + 10}%`;
+        creature.style.animationDelay = `${i * 0.3}s`;
+        screen4.appendChild(creature);
+        setTimeout(() => creature.remove(), 2500);
+      }
+      for (let i = 0; i < 3; i++) {
+        const sticker = document.createElement('div');
+        sticker.className = 'sticker';
+        sticker.textContent = stickers[i];
+        sticker.style.left = `${Math.random() * 80 + 10}%`;
+        sticker.style.top = `${Math.random() * 80 + 10}%`;
+        sticker.style.animationDelay = `${i * 0.5}s`;
+        screen4.appendChild(sticker);
+        setTimeout(() => sticker.remove(), 3000);
+      }
     }
   </script>
 </body>
