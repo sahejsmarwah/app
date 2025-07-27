@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Friendship Request - Old School Style</title>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=VT323&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     
@@ -16,6 +16,19 @@
       overflow-x: hidden;
       color: #00ff00;
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="%2300ff00"/></svg>'), auto;
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* Modern theme styles */
+    body.modern-theme {
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 192, 203, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 218, 185, 0.2) 0%, transparent 50%),
+        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', sans-serif;
+      color: #2d3748;
+      cursor: default;
     }
     
     .crt-overlay {
@@ -35,6 +48,35 @@
       pointer-events: none;
       z-index: 1000;
       animation: flicker 0.15s infinite linear alternate;
+      transition: opacity 3s ease;
+    }
+    
+    body.modern-theme .crt-overlay {
+      opacity: 0;
+    }
+    
+    /* Cute floating elements overlay */
+    .cute-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 3s ease 1s;
+    }
+    
+    body.modern-theme .cute-overlay {
+      opacity: 1;
+    }
+    
+    .cute-element {
+      position: absolute;
+      font-size: 16px;
+      animation: cuteFloat 8s ease-in-out infinite;
+      opacity: 0.6;
     }
     
     .matrix-bg {
@@ -45,6 +87,11 @@
       height: 100%;
       z-index: 1;
       pointer-events: none;
+      transition: opacity 3s ease;
+    }
+    
+    body.modern-theme .matrix-bg {
+      opacity: 0;
     }
     
     .matrix-char {
@@ -54,6 +101,30 @@
       font-size: 14px;
       opacity: 0.3;
       animation: matrixRain 8s linear infinite;
+    }
+    
+    /* Floating hearts for modern theme */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 3s ease 2s;
+    }
+    
+    body.modern-theme .floating-hearts {
+      opacity: 1;
+    }
+    
+    .heart {
+      position: absolute;
+      color: rgba(255, 182, 193, 0.7);
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
     }
     
     .terminal-window {
@@ -67,6 +138,20 @@
       box-shadow: 
         0 0 20px #00ff00,
         inset 0 0 20px rgba(0, 255, 0, 0.1);
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: scale(1);
+    }
+    
+    body.modern-theme .terminal-window {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 24px;
+      box-shadow: 
+        0 32px 64px rgba(0, 0, 0, 0.12),
+        0 16px 32px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(20px);
+      transform: scale(1.02);
     }
     
     .terminal-header {
@@ -77,6 +162,36 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    body.modern-theme .terminal-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 24px 24px 0 0;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0;
+      padding: 12px 20px;
+    }
+    
+    /* Cute header decoration */
+    .terminal-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+      transform: translateX(100%);
+      transition: transform 3s ease 1s;
+    }
+    
+    body.modern-theme .terminal-header::after {
+      transform: translateX(-100%);
     }
     
     .terminal-buttons {
@@ -89,10 +204,25 @@
       height: 12px;
       border-radius: 50%;
       background: #ff0000;
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
     }
     
     .terminal-btn:nth-child(2) { background: #ffff00; }
     .terminal-btn:nth-child(3) { background: #00ff00; }
+    
+    body.modern-theme .terminal-btn:nth-child(1) { 
+      background: #ff5f57; 
+      box-shadow: 0 0 8px rgba(255, 95, 87, 0.4);
+    }
+    body.modern-theme .terminal-btn:nth-child(2) { 
+      background: #ffbd2e; 
+      box-shadow: 0 0 8px rgba(255, 189, 46, 0.4);
+    }
+    body.modern-theme .terminal-btn:nth-child(3) { 
+      background: #28ca42; 
+      box-shadow: 0 0 8px rgba(40, 202, 66, 0.4);
+    }
     
     .screen {
       display: none;
@@ -100,7 +230,7 @@
       padding: 30px;
       min-height: calc(100vh - 120px);
       position: relative;
-      transition: opacity 0.5s ease;
+      transition: all 0.5s ease;
     }
     
     .screen.active {
@@ -123,6 +253,15 @@
       margin-right: auto;
       font-weight: bold;
       text-shadow: 0 0 5px #00ffff;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .ascii-art {
+      color: #667eea;
+      text-shadow: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
     }
     
     h1 {
@@ -133,6 +272,23 @@
       text-shadow: 0 0 10px #00ff00;
       animation: glow 2s ease-in-out infinite alternate;
       text-align: center;
+      transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(0);
+    }
+    
+    body.modern-theme h1 {
+      color: #2d3748;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      text-shadow: none;
+      animation: none;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #667eea, #764ba2, #ff6b9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transform: translateY(-10px);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
     }
     
     .terminal-text {
@@ -145,17 +301,43 @@
       overflow: hidden;
       white-space: nowrap;
       width: 0;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .terminal-text {
+      color: #4a5568;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.6;
+      white-space: normal;
+      width: auto;
+      overflow: visible;
+      animation: none;
     }
     
     .prompt {
       color: #ffff00;
       margin: 30px 0 20px 0;
       font-size: 1.2rem;
+      transition: all 2s ease;
     }
     
     .prompt::before {
       content: "$ ";
       color: #00ff00;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .prompt {
+      color: #2d3748;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    
+    body.modern-theme .prompt::before {
+      content: "";
+      color: transparent;
     }
     
     button {
@@ -167,9 +349,23 @@
       padding: 12px 25px;
       margin: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
       text-transform: uppercase;
       letter-spacing: 1px;
+      border-radius: 0;
+    }
+    
+    body.modern-theme button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      transform: translateY(0);
     }
     
     button:hover, button:focus {
@@ -179,9 +375,19 @@
       text-shadow: none;
     }
     
+    body.modern-theme button:hover {
+      background: linear-gradient(135deg, #5a67d8, #6b46c1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    }
+    
     .yes-btn {
       border-color: #00ff00;
       animation: pulse 2s infinite;
+    }
+    
+    body.modern-theme .yes-btn {
+      animation: none;
     }
     
     .no-btn {
@@ -189,10 +395,19 @@
       color: #ff0000;
     }
     
+    body.modern-theme .no-btn {
+      background: linear-gradient(135deg, #fc8181, #f56565);
+      color: white;
+    }
+    
     .no-btn:hover {
       background: #ff0000;
       color: #000000;
       box-shadow: 0 0 15px #ff0000;
+    }
+    
+    body.modern-theme .no-btn:hover {
+      background: linear-gradient(135deg, #e53e3e, #c53030);
     }
     
     .button-container {
@@ -218,6 +433,16 @@
       transform: translateX(-50%);
       white-space: nowrap;
       z-index: 100;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .error-msg {
+      background: rgba(254, 202, 202, 0.9);
+      border: 1px solid #fc8181;
+      border-radius: 8px;
+      color: #742a2a;
+      font-family: 'Inter', sans-serif;
+      animation: none;
     }
     
     .progress-bar {
@@ -227,6 +452,14 @@
       margin: 20px 0;
       position: relative;
       overflow: hidden;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .progress-bar {
+      border: none;
+      border-radius: 10px;
+      background: #e2e8f0;
+      height: 8px;
     }
     
     .progress-fill {
@@ -234,6 +467,12 @@
       background: #00ff00;
       width: 0%;
       animation: loading 3s ease-in-out forwards;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .progress-fill {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 10px;
     }
     
     .success-screen {
@@ -241,14 +480,116 @@
       animation: celebration 2s ease-in-out infinite;
     }
     
+    body.modern-theme .success-screen {
+      animation: none;
+    }
+    
     .blink-text {
       animation: blink 1s infinite;
+    }
+    
+    body.modern-theme .blink-text {
+      animation: none;
     }
     
     .retro-heart {
       color: #ff00ff;
       font-size: 2rem;
       animation: heartbeat 1.5s ease-in-out infinite;
+      transition: all 2s ease;
+    }
+    
+    body.modern-theme .retro-heart {
+      color: #e53e3e;
+      animation: modernHeartbeat 2s ease-in-out infinite;
+    }
+    
+    /* Modern success screen styles */
+    .modern-success-content {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3s;
+    }
+    
+    body.modern-theme .modern-success-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .cute-illustration {
+      font-size: 4rem;
+      margin: 20px 0;
+      opacity: 0;
+      transform: scale(0) rotate(-180deg);
+      transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 3.5s;
+    }
+    
+    body.modern-theme .cute-illustration {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      animation: gentleBounce 3s ease-in-out infinite;
+    }
+    
+    .friendship-message {
+      background: linear-gradient(135deg, 
+        rgba(255, 182, 193, 0.4), 
+        rgba(255, 192, 203, 0.4),
+        rgba(255, 218, 185, 0.3)
+      );
+      padding: 30px;
+      border-radius: 20px;
+      margin: 25px 0;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 4s;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    body.modern-theme .friendship-message {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    
+    /* Cute minimal decorations */
+    .friendship-message::before {
+      content: '✨';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-size: 24px;
+      opacity: 0;
+      animation: sparkleIn 2s ease-in-out 4.5s forwards;
+    }
+    
+    .friendship-message::after {
+      content: '💝';
+      position: absolute;
+      bottom: -10px;
+      right: 20px;
+      font-size: 24px;
+      opacity: 0;
+      animation: sparkleIn 2s ease-in-out 5s forwards;
+    }
+    
+    /* Sparkle animation */
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .sparkle {
+      position: absolute;
+      color: #ffd700;
+      font-size: 12px;
+      animation: sparkleMove 3s linear infinite;
+      opacity: 0;
     }
     
     @keyframes flicker {
@@ -270,6 +611,32 @@
       100% { 
         transform: translateY(100vh); 
         opacity: 0; 
+      }
+    }
+    
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes cuteFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-20px) rotate(90deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(180deg);
+      }
+      75% {
+        transform: translateY(-30px) rotate(270deg);
       }
     }
     
@@ -316,19 +683,73 @@
       50% { transform: scale(1.2); }
     }
     
+    @keyframes modernHeartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+    
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.05); }
+    }
+    
+    @keyframes sparkleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+      }
+      100% {
+        opacity: 0.8;
+        transform: scale(1) rotate(360deg);
+      }
+    }
+    
+    @keyframes sparkleMove {
+      0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0);
+      }
+      20% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      80% {
+        opacity: 1;
+        transform: translateY(-50px) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0);
+      }
+    }
+    
     @media (max-width: 600px) {
       .terminal-window { margin: 10px; }
       .screen { padding: 20px; }
       h1 { font-size: 2rem; }
+      body.modern-theme h1 { font-size: 2.5rem; }
       .terminal-text { font-size: 1.1rem; }
       .ascii-art { font-size: 8px; }
       button { padding: 10px 20px; font-size: 1rem; }
+      .cute-illustration { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
   <div class="crt-overlay"></div>
   <div class="matrix-bg" id="matrix-bg"></div>
+  <div class="floating-hearts" id="floating-hearts"></div>
+  <div class="cute-overlay" id="cute-overlay"></div>
   
   <div class="terminal-window">
     <div class="terminal-header">
@@ -415,6 +836,8 @@
     </div>
     
     <div id="screen4" class="screen success-screen">
+      <div class="sparkles" id="sparkles"></div>
+      
       <div class="ascii-art">
     ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
     ♥                                    ♥
@@ -426,6 +849,19 @@
       </div>
       
       <h1>&gt; SUCCESS! <span class="retro-heart">♥</span></h1>
+      
+      <div class="modern-success-content">
+        <div class="cute-illustration">🌟💝🎉</div>
+        
+        <div class="friendship-message">
+          <h2 style="margin: 0 0 15px 0; color: #2d3748; font-family: 'Playfair Display', serif;">Yay! We're Friends Now! 🎊</h2>
+          <p style="margin: 0; color: #4a5568; font-family: 'Inter', sans-serif; line-height: 1.6;">
+            This is the beginning of something beautiful, Sifat! Ready for adventures, endless laughs, 
+            amazing conversations, and all the good vibes that come with an awesome friendship like ours! ✨
+          </p>
+        </div>
+      </div>
+      
       <div class="terminal-text">Friendship protocol successfully executed</div>
       <div class="terminal-text" style="animation-delay: 0.5s;">User: Sifat - Status: AWESOME NEW FRIEND</div>
       <div class="terminal-text" style="animation-delay: 1s;">Syncing music libraries... Arjan Dhillon detected!</div>
@@ -454,6 +890,48 @@
       setTimeout(() => char.remove(), 8000);
     }
     
+    // Create floating hearts for modern theme
+    function createFloatingHeart() {
+      const hearts = ['💕', '💖', '💗', '💝', '🌸', '✨', '💫', '🦋'];
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      document.getElementById('floating-hearts').appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 10000);
+    }
+    
+    // Create cute floating elements
+    function createCuteElement() {
+      const cuteElements = ['🌙', '⭐', '🌟', '✨', '🎀', '🧚‍♀️', '🦄', '💫'];
+      const element = document.createElement('div');
+      element.className = 'cute-element';
+      element.textContent = cuteElements[Math.floor(Math.random() * cuteElements.length)];
+      element.style.left = Math.random() * 100 + '%';
+      element.style.top = Math.random() * 100 + '%';
+      element.style.animationDelay = Math.random() * 4 + 's';
+      element.style.animationDuration = (Math.random() * 4 + 6) + 's';
+      document.getElementById('cute-overlay').appendChild(element);
+      
+      setTimeout(() => element.remove(), 10000);
+    }
+    
+    // Create sparkles
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.textContent = '✨';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = Math.random() * 100 + '%';
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      document.getElementById('sparkles').appendChild(sparkle);
+      
+      setTimeout(() => sparkle.remove(), 3000);
+    }
+    
     // Create matrix effect
     setInterval(createMatrixChar, 200);
     
@@ -462,10 +940,47 @@
       setTimeout(createMatrixChar, i * 100);
     }
     
+    // Start floating hearts (will be invisible until modern theme)
+    setInterval(createFloatingHeart, 1200);
+    
+    // Start cute elements
+    setInterval(createCuteElement, 2000);
+    
+    // Initialize some cute elements
+    for (let i = 0; i < 8; i++) {
+      setTimeout(createCuteElement, i * 300);
+    }
+    
     document.querySelectorAll('.yes-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const screenNum = btn.dataset.screen;
-        setTimeout(() => goToScreen(screenNum), 500);
+        
+        // If going to success screen, start the modern transformation
+        if (screenNum === '4') {
+          setTimeout(() => {
+            // Start the transformation to modern theme
+            document.body.classList.add('modern-theme');
+            
+            // Update header text with a smoother transition
+            const headerText = document.querySelector('.terminal-header span');
+            setTimeout(() => {
+              headerText.style.opacity = '0';
+              setTimeout(() => {
+                headerText.textContent = 'Friendship Connection Established 💝';
+                headerText.style.opacity = '1';
+              }, 500);
+            }, 1500);
+            
+            // Start sparkle effects with delay
+            setTimeout(() => {
+              setInterval(createSparkle, 400);
+            }, 2000);
+            
+            goToScreen(screenNum);
+          }, 500);
+        } else {
+          setTimeout(() => goToScreen(screenNum), 500);
+        }
       });
     });
     
