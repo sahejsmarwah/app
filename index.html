@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Friendship Request - Old School Style</title>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <title>Friendship Request - Terminal Interface v2.1</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     
@@ -70,13 +70,38 @@
     }
     
     .terminal-header {
-      background: #00ff00;
+      background: linear-gradient(90deg, #00ff00, #00cc00);
       color: #000000;
-      padding: 8px 15px;
+      padding: 12px 20px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      border-bottom: 1px solid #00ff00;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    
+    .terminal-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00ff00;
+      animation: pulse 2s infinite;
     }
     
     .terminal-buttons {
@@ -159,24 +184,46 @@
     }
     
     button {
-      background: #000000;
+      background: linear-gradient(145deg, #001100, #000000);
       border: 2px solid #00ff00;
       color: #00ff00;
-      font-family: 'VT323', monospace;
-      font-size: 1.2rem;
-      padding: 12px 25px;
-      margin: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      margin: 12px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    button:hover::before {
+      left: 100%;
     }
     
     button:hover, button:focus {
-      background: #00ff00;
+      background: linear-gradient(145deg, #00ff00, #00cc00);
       color: #000000;
-      box-shadow: 0 0 15px #00ff00;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.6),
+        0 4px 15px rgba(0, 255, 0, 0.3);
       text-shadow: none;
+      transform: translateY(-2px);
     }
     
     .yes-btn {
@@ -332,12 +379,18 @@
   
   <div class="terminal-window">
     <div class="terminal-header">
-      <div class="terminal-buttons">
-        <div class="terminal-btn"></div>
-        <div class="terminal-btn"></div>
-        <div class="terminal-btn"></div>
+      <div class="terminal-info">
+        <div class="terminal-buttons">
+          <div class="terminal-btn"></div>
+          <div class="terminal-btn"></div>
+          <div class="terminal-btn"></div>
+        </div>
+        <span>FRIENDSHIP_REQUEST.EXE</span>
       </div>
-      <span>FRIENDSHIP_REQUEST.EXE - Terminal v2.1</span>
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>DESIGN MODE</span>
+      </div>
     </div>
     
     <div id="screen1" class="screen active">
@@ -400,9 +453,10 @@
       <div class="terminal-text">ERROR: Invalid response detected</div>
       <div class="terminal-text" style="animation-delay: 0.5s;">Running friendship recovery protocol...</div>
       <div class="terminal-text" style="animation-delay: 1s;">Think about all the fun we could have:</div>
-      <div class="terminal-text" style="animation-delay: 1.5s;">- Coffee && Conversations</div>
-      <div class="terminal-text" style="animation-delay: 2s;">- Shared playlists (Arjan Dhillon vibes!)</div>
-      <div class="terminal-text" style="animation-delay: 2.5s;">- Endless laughs && good times</div>
+      <div class="terminal-text" style="animation-delay: 1.5s;">- Coffee && Design Conversations</div>
+      <div class="terminal-text" style="animation-delay: 2s;">- UI/UX brainstorming sessions</div>
+      <div class="terminal-text" style="animation-delay: 2.5s;">- Shared playlists (Arjan Dhillon vibes!)</div>
+      <div class="terminal-text" style="animation-delay: 3s;">- Endless creativity && good times</div>
       
       <div class="progress-bar" style="animation-delay: 3s;">
         <div class="progress-fill"></div>
