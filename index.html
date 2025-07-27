@@ -649,6 +649,7 @@
       color: #1e90ff;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
+      margin: 0; /* Fixed typo */
       margin-bottom: 15px;
     }
 
@@ -675,7 +676,6 @@
       opacity: 0;
     }
 
-    /* New styles for the poem */
     .poem-container {
       text-align: center;
       font-family: 'Inter', sans-serif;
@@ -874,7 +874,7 @@
       
       <div class="prompt" style="animation-delay: 3s;">Ready to establish connection?</div>
       <div class="button-container" style="animation-delay: 3.5s;">
-        <button class="2">EXECUTE</button>
+        <button class="yes-btn" data-screen="2">EXECUTE</button>
       </div>
     </div>
     
@@ -983,237 +983,212 @@
   </div>
   
   <script>
-    let clickAttempts = 0;
-    const clickLogs = []; // Array to store click logs locally
+    document.addEventListener('DOMContentLoaded', () => {
+      let clickAttempts = 0;
 
-    // Function to log button clicks locally and send to server
-    async function logButtonClick(buttonType, screenNum, attempt = null) {
-      const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-      const logEntry = {
-        button: buttonType,
-        screen: screenNum,
-        timestamp: timestamp,
-        noAttempt: attempt !== null ? attempt : undefined
-      };
-      clickLogs.push(logEntry);
-      console.log(`Button Click Log: ${JSON.stringify(logEntry)}`);
-
-      // Send log to serverless function
-      try {
-        const response = await fetch('/api/log', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(logEntry)
-        });
-        if (!response.ok) {
-          console.error('Failed to send log to server:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error sending log to server:', error);
+      function createMatrixChar() {
+        const chars = '01ＨＡＣＫＥＲ♥♦♣♠';
+        const char = document.createElement('div');
+        char.className = 'matrix-char';
+        char.textContent = chars[Math.floor(Math.random() * chars.length)];
+        char.style.left = Math.random() * 100 + '%';
+        char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        char.style.animationDelay = Math.random() * 2 + 's';
+        document.getElementById('matrix-bg').appendChild(char);
+        
+        setTimeout(() => char.remove(), 8000);
       }
-    }
-
-    // Function to retrieve logs locally (for debugging)
-    function getClickLogs() {
-      return clickLogs;
-    }
-
-    // Make logs accessible in the console
-    window.getClickLogs = getClickLogs;
-
-    function createMatrixChar() {
-      const chars = '01ＨＡＣＫＥＲ♥♦♣♠';
-      const char = document.createElement('div');
-      char.className = 'matrix-char';
-      char.textContent = chars[Math.floor(Math.random() * chars.length)];
-      char.style.left = Math.random() * 100 + '%';
-      char.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      char.style.animationDelay = Math.random() * 2 + 's';
-      document.getElementById('matrix-bg').appendChild(char);
       
-      setTimeout(() => char.remove(), 8000);
-    }
-    
-    function createFloatingHeart() {
-      const hearts = ['💕', '💖', '💗', '💝', '🌸', '✨', '💫', '🦋'];
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
-      heart.style.animationDelay = Math.random() * 2 + 's';
-      document.getElementById('floating-hearts').appendChild(heart);
-      
-      setTimeout(() => heart.remove(), 10000);
-    }
-    
-    function createCuteElement() {
-      const cuteElements = ['🌙', '⭐', '🌟', '✨', '🎀', '🧚‍♀️', '🦄', '💫'];
-      const element = document.createElement('div');
-      element.className = 'cute-element';
-      element.textContent = cuteElements[Math.floor(Math.random() * cuteElements.length)];
-      element.style.left = Math.random() * 100 + '%';
-      element.style.top = Math.random() * 100 + '%';
-      element.style.animationDelay = Math.random() * 4 + 's';
-      element.style.animationDuration = (Math.random() * 4 + 6) + 's';
-      document.getElementById('cute-overlay').appendChild(element);
-      
-      setTimeout(() => element.remove(), 10000);
-    }
-    
-    function createSparkle() {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      sparkle.textContent = '✨';
-      sparkle.style.left = Math.random() * 100 + '%';
-      sparkle.style.top = Math.random() * 100 + '%';
-      sparkle.style.animationDelay = Math.random() * 2 + 's';
-      document.getElementById('sparkles').appendChild(sparkle);
-      
-      setTimeout(() => sparkle.remove(), 3000);
-    }
-
-    function createColorParticle() {
-      const colors = ['#00b7eb', '#1e90ff', '#ff8c00', '#ffa500', '#00ced1', '#4682b4', '#ffd700', '#87ceeb', '#ff4500', '#1e90ff', '#00b7eb', '#ffa07a'];
-      const particle = document.createElement('div');
-      particle.className = 'color-particle';
-      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
-      particle.style.animationDelay = Math.random() * 2 + 's';
-      document.getElementById('color-particles').appendChild(particle);
-      
-      setTimeout(() => particle.remove(), 7000);
-    }
-
-    function startColorTransition() {
-      document.getElementById('color-transition-overlay').classList.add('active');
-      document.getElementById('color-transition-text').classList.add('active');
-      document.getElementById('color-particles').classList.add('active');
-      
-      const particleInterval = setInterval(createColorParticle, 150);
-      
-      setTimeout(() => {
-        document.body.classList.add('modern-theme');
+      function createFloatingHeart() {
+        const hearts = ['💕', '💖', '💗', '💝', '🌸', '✨', '💫', '🦋'];
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        document.getElementById('floating-hearts').appendChild(heart);
         
-        const headerText = document.querySelector('.terminal-header span');
+        setTimeout(() => heart.remove(), 10000);
+      }
+      
+      function createCuteElement() {
+        const cuteElements = ['🌙', '⭐', '🌟', '✨', '🎀', '🧚‍♀️', '🦄', '💫'];
+        const element = document.createElement('div');
+        element.className = 'cute-element';
+        element.textContent = cuteElements[Math.floor(Math.random() * cuteElements.length)];
+        element.style.left = Math.random() * 100 + '%';
+        element.style.top = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 4 + 's';
+        element.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        document.getElementById('cute-overlay').appendChild(element);
+        
+        setTimeout(() => element.remove(), 10000);
+      }
+      
+      function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.textContent = '✨';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 2 + 's';
+        document.getElementById('sparkles').appendChild(sparkle);
+        
+        setTimeout(() => sparkle.remove(), 3000);
+      }
+
+      function createColorParticle() {
+        const colors = ['#00b7eb', '#1e90ff', '#ff8c00', '#ffa500', '#00ced1', '#4682b4', '#ffd700', '#87ceeb', '#ff4500', '#1e90ff', '#00b7eb', '#ffa07a'];
+        const particle = document.createElement('div');
+        particle.className = 'color-particle';
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        document.getElementById('color-particles').appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 7000);
+      }
+
+      function startColorTransition() {
+        console.log('Starting color transition');
+        document.getElementById('color-transition-overlay').classList.add('active');
+        document.getElementById('color-transition-text').classList.add('active');
+        document.getElementById('color-particles').classList.add('active');
+        
+        const particleInterval = setInterval(createColorParticle, 150);
+        
         setTimeout(() => {
-          headerText.style.opacity = '0';
+          document.body.classList.add('modern-theme');
+          
+          const headerText = document.querySelector('.terminal-header span');
           setTimeout(() => {
-            headerText.textContent = 'Friendship Connection Established 💝';
-            headerText.style.opacity = '1';
-          }, 500);
-        }, 1500);
-        
-        setTimeout(() => {
-          document.getElementById('color-transition-overlay').classList.remove('active');
-          document.getElementById('color-transition-text').classList.remove('active');
-          document.getElementById('color-particles').classList.remove('active');
-          clearInterval(particleInterval);
+            headerText.style.opacity = '0';
+            setTimeout(() => {
+              headerText.textContent = 'Friendship Connection Established 💝';
+              headerText.style.opacity = '1';
+            }, 500);
+          }, 1500);
           
           setTimeout(() => {
-            setInterval(createSparkle, 400);
-          }, 500);
-        }, 2000);
-      }, 4000);
-    }
-    
-    setInterval(createMatrixChar, 200);
-    
-    for (let i = 0; i < 20; i++) {
-      setTimeout(createMatrixChar, i * 100);
-    }
-    
-    setInterval(createFloatingHeart, 1200);
-    
-    setInterval(createCuteElement, 2000);
-    
-    for (let i = 0; i < 8; i++) {
-      setTimeout(createCuteElement, i * 300);
-    }
-    
-    document.querySelectorAll('.yes-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const screenNum = btn.dataset.screen;
-        // Log the Yes button click
-        await logButtonClick('Yes', screenNum);
+            document.getElementById('color-transition-overlay').classList.remove('active');
+            document.getElementById('color-transition-text').classList.remove('active');
+            document.getElementById('color-particles').classList.remove('active');
+            clearInterval(particleInterval);
+            
+            setTimeout(() => {
+              setInterval(createSparkle, 400);
+            }, 500);
+          }, 2000);
+        }, 4000);
+      }
+      
+      setInterval(createMatrixChar, 200);
+      
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createMatrixChar, i * 100);
+      }
+      
+      setInterval(createFloatingHeart, 1200);
+      
+      setInterval(createCuteElement, 2000);
+      
+      for (let i = 0; i < 8; i++) {
+        setTimeout(createCuteElement, i * 300);
+      }
+      
+      // Yes button event listeners
+      document.querySelectorAll('.yes-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          console.log('Yes button clicked, screen:', btn.dataset.screen);
+          const screenNum = btn.dataset.screen;
+          if (screenNum === '4') {
+            setTimeout(() => {
+              console.log('Navigating to screen 4');
+              goToScreen(screenNum);
+              setTimeout(startColorTransition, 1000);
+            }, 500);
+          } else {
+            setTimeout(() => {
+              console.log('Navigating to screen', screenNum);
+              goToScreen(screenNum);
+            }, 500);
+          }
+        });
+      });
+      
+      // No button event listeners
+      document.querySelectorAll('.no-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          console.log('No button clicked, screen:', btn.dataset.screen);
+          clickAttempts++;
+          
+          if (clickAttempts < 5) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const errorMsgs = [
+              "ERROR: Invalid input. Try again.",
+              "ACCESS DENIED. Please reconsider.",
+              "SYSTEM MALFUNCTION. Retry required.",
+              "DOES NOT COMPUTE. One more try?",
+              "CRITICAL ERROR. Final attempt..."
+            ];
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-msg';
+            errorDiv.textContent = errorMsgs[clickAttempts - 1];
+            errorDiv.style.top = (btn.offsetTop - 60) + 'px';
+            
+            btn.parentElement.appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 2000);
+            
+            btn.style.animation = 'blink 0.5s infinite';
+            setTimeout(() => {
+              btn.style.animation = '';
+            }, 1000);
+            
+            return false;
+          } else {
+            console.log('Navigating to screen', btn.dataset.screen);
+            goToScreen(btn.dataset.screen);
+          }
+        });
+      });
+      
+      function goToScreen(n) {
+        console.log('goToScreen called with:', n);
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(s => {
+          s.classList.remove('active');
+          s.style.display = 'none';
+        });
         
-        if (screenNum === '4') {
-          setTimeout(() => {
-            goToScreen(screenNum);
-            setTimeout(startColorTransition, 1000);
-          }, 500);
+        const nextScreen = document.getElementById('screen' + n);
+        if (nextScreen) {
+          console.log('Found screen:', 'screen' + n);
+          nextScreen.style.display = 'block';
+          setTimeout(() => nextScreen.classList.add('active'), 50);
+          
+          const animatedElements = nextScreen.querySelectorAll('[style*="animation-delay"]');
+          animatedElements.forEach(el => {
+            el.style.animation = 'none';
+            setTimeout(() => {
+              el.style.animation = '';
+            }, 10);
+          });
         } else {
-          setTimeout(() => goToScreen(screenNum), 500);
+          console.error('Screen not found: screen' + n);
         }
-      });
-    });
-    
-    document.querySelectorAll('.no-btn').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        clickAttempts++;
-        // Log the No button click
-        await logButtonClick('No', btn.dataset.screen, clickAttempts);
-        
-        if (clickAttempts < 5) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          const errorMsgs = [
-            "ERROR: Invalid input. Try again.",
-            "ACCESS DENIED. Please reconsider.",
-            "SYSTEM MALFUNCTION. Retry required.",
-            "DOES NOT COMPUTE. One more try?",
-            "CRITICAL ERROR. Final attempt..."
-          ];
-          
-          const errorDiv = document.createElement('div');
-          errorDiv.className = 'error-msg';
-          errorDiv.textContent = errorMsgs[clickAttempts - 1];
-          errorDiv.style.top = (btn.offsetTop - 60) + 'px';
-          
-          btn.parentElement.appendChild(errorDiv);
-          setTimeout(() => errorDiv.remove(), 2000);
-          
-          btn.style.animation = 'blink 0.5s infinite';
-          setTimeout(() => {
-            btn.style.animation = '';
-          }, 1000);
-          
-          return false;
-        } else {
-          goToScreen(btn.dataset.screen);
-        }
-      });
-    });
-    
-    function goToScreen(n) {
-      const screens = document.querySelectorAll('.screen');
-      screens.forEach(s => {
-        s.classList.remove('active');
-        s.style.display = 'none';
-      });
+      }
       
-      const nextScreen = document.getElementById('screen' + n);
-      nextScreen.style.display = 'block';
-      setTimeout(() => nextScreen.classList.add('active'), 50);
-      
-      const animatedElements = nextScreen.querySelectorAll('[style*="animation-delay"]');
-      animatedElements.forEach(el => {
-        el.style.animation = 'none';
+      document.addEventListener('click', () => {
+        document.body.style.filter = 'brightness(1.1)';
         setTimeout(() => {
-          el.style.animation = '';
-        }, 10);
+          document.body.style.filter = 'brightness(1)';
+        }, 100);
       });
-    }
-    
-    document.addEventListener('click', () => {
-      document.body.style.filter = 'brightness(1.1)';
-      setTimeout(() => {
-        document.body.style.filter = 'brightness(1)';
-      }, 100);
     });
   </script>
 </body>
