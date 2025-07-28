@@ -1,116 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Let's Be Friends</title>
+  <meta charset="UTF-8">
+  <title>Hi You!</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffe0ec, #cce8ff);
-      height: 100vh;
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ffe6f0;
     }
-
-    .box {
-      background-color: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    p {
-      font-size: 1.1rem;
-      color: #444;
-    }
-
-    .btns {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .yes-btn {
-      background-color: #4caf50;
-      color: white;
-    }
-
-    .no-btn {
-      background-color: #f44336;
-      color: white;
-    }
-
-    .retry-btn {
-      background-color: #ff9800;
-      color: white;
-    }
-
-    .hidden {
+    .screen {
       display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 90%;
+    }
+    .active {
+      display: flex;
+    }
+    button {
+      margin: 12px;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      background-color: #ff6699;
+      border: none;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    button:hover {
+      background-color: #ff3366;
+    }
+    .no-btn {
+      position: relative;
+    }
+    #noBtn {
+      position: absolute;
     }
   </style>
 </head>
 <body>
-  <div class="box" id="step1">
-    <h1>Hi 😊</h1>
-    <p>Glad you landed here. I was hoping to ask you something...</p>
-    <div class="btns">
-      <button class="yes-btn" onclick="goToStep(2)">Okay 🙂</button>
+
+  <!-- Screens -->
+  <div id="screen1" class="screen active">
+    <h2>Hey there 👋</h2>
+    <p>I just wanted to say hi first 😊</p>
+    <button onclick="goToScreen(2)">Hi 👋</button>
+  </div>
+
+  <div id="screen2" class="screen">
+    <h2>Okay now that I’ve said Hi 😄</h2>
+    <p>Would you like to be friends?</p>
+    <button onclick="goToScreen(3)">Yes 😊</button>
+    <div class="no-btn">
+      <button id="noBtn" onclick="handleNo(event)">No 🙁</button>
     </div>
   </div>
 
-  <div class="box hidden" id="step2">
-    <h1>Would you like to be friends?</h1>
-    <p>Just good vibes, good conversations, and getting to know each other better 💬</p>
-    <div class="btns">
-      <button class="yes-btn" onclick="goToStep(3)">Yes, sure! 🤝</button>
-      <button class="no-btn" onclick="goToStep(4)">No 😅</button>
-    </div>
-  </div>
-
-  <div class="box hidden" id="step3">
-    <h1>Yay! 🤗</h1>
-    <p>Thank you for saying yes! Looking forward to knowing you better 🫶</p>
-  </div>
-
-  <div class="box hidden" id="step4">
-    <h1>Wait... just once?</h1>
-    <p>I promise it'll be worth it 🙂 Can we give it a try?</p>
-    <div class="btns">
-      <button class="retry-btn" onclick="goToStep(3)">Alright, let's try 🤝</button>
-    </div>
+  <div id="screen3" class="screen">
+    <h2>Yayyyy!!! 🥳</h2>
+    <p>I’m really looking forward to getting to know you better!</p>
+    <p>This means a lot 🩷</p>
   </div>
 
   <script>
-    function goToStep(stepNumber) {
-      const totalSteps = 4;
-      for (let i = 1; i <= totalSteps; i++) {
-        document.getElementById(`step${i}`).classList.add('hidden');
+    let noClickCount = 0;
+
+    function goToScreen(screenNumber) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(`screen${screenNumber}`).classList.add('active');
+    }
+
+    function handleNo(e) {
+      noClickCount++;
+      const btn = e.target;
+
+      if (noClickCount < 6) {
+        // Move button to random position
+        const x = Math.floor(Math.random() * 200) - 100;
+        const y = Math.floor(Math.random() * 200) - 100;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      } else {
+        // Change text and move to final screen
+        btn.innerText = "Okay okay, let's give it a shot!";
+        btn.onclick = () => goToScreen(3);
+        btn.style.transform = 'translate(0,0)';
       }
-      document.getElementById(`step${stepNumber}`).classList.remove('hidden');
     }
   </script>
+
 </body>
 </html>
