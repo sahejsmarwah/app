@@ -3,82 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>A Cute Proposal</title>
+  <title>Let's Be Friends</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1523428464517-3fef6f645248') center/cover no-repeat;
+      background: linear-gradient(135deg, #ffe0ec, #cce8ff);
       height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
-      backdrop-filter: brightness(50%);
     }
+
     .box {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: white;
       padding: 30px;
-      border-radius: 16px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
       text-align: center;
-      box-shadow: 0 0 20px #ffc0cb;
+      width: 90%;
+      max-width: 400px;
     }
+
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      color: #333;
     }
+
     p {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      color: #444;
     }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #ff69b4;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-    }
-    .buttons {
+
+    .btns {
+      margin-top: 30px;
       display: flex;
       justify-content: center;
       gap: 20px;
     }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .yes-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .no-btn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .retry-btn {
+      background-color: #ff9800;
+      color: white;
+    }
+
     .hidden {
       display: none;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Tu mainu pasand aayi 💕</h1>
-    <p>
-      You love galloping horses and designing screens,<br/>
-      but ever thought of being part of my dreams?<br/><br/>
-      Will you go on this lifelong journey with me? 🐎✨
-    </p>
-    <div class="buttons">
-      <button onclick="sayYes()">Yes! 💖</button>
-      <button onmouseover="moveNo(this)">No ❌</button>
+  <div class="box" id="step1">
+    <h1>Hi 😊</h1>
+    <p>Glad you landed here. I was hoping to ask you something...</p>
+    <div class="btns">
+      <button class="yes-btn" onclick="goToStep(2)">Okay 🙂</button>
     </div>
-    <p id="response" class="hidden">Yay! Let's design a beautiful life together 💫</p>
+  </div>
+
+  <div class="box hidden" id="step2">
+    <h1>Would you like to be friends?</h1>
+    <p>Just good vibes, good conversations, and getting to know each other better 💬</p>
+    <div class="btns">
+      <button class="yes-btn" onclick="goToStep(3)">Yes, sure! 🤝</button>
+      <button class="no-btn" onclick="goToStep(4)">No 😅</button>
+    </div>
+  </div>
+
+  <div class="box hidden" id="step3">
+    <h1>Yay! 🤗</h1>
+    <p>Thank you for saying yes! Looking forward to knowing you better 🫶</p>
+  </div>
+
+  <div class="box hidden" id="step4">
+    <h1>Wait... just once?</h1>
+    <p>I promise it'll be worth it 🙂 Can we give it a try?</p>
+    <div class="btns">
+      <button class="retry-btn" onclick="goToStep(3)">Alright, let's try 🤝</button>
+    </div>
   </div>
 
   <script>
-    function sayYes() {
-      document.querySelector('.buttons').style.display = 'none';
-      document.getElementById('response').classList.remove('hidden');
-    }
-
-    function moveNo(button) {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 200 - 100;
-      button.style.position = 'relative';
-      button.style.left = `${x}px`;
-      button.style.top = `${y}px`;
+    function goToStep(stepNumber) {
+      const totalSteps = 4;
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById(`step${i}`).classList.add('hidden');
+      }
+      document.getElementById(`step${stepNumber}`).classList.remove('hidden');
     }
   </script>
 </body>
