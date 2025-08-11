@@ -123,6 +123,9 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
+    @keyframes fall {
+      to { transform: translateY(100vh); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -211,10 +214,6 @@
 
         setTimeout(() => confetti.remove(), 2000);
       }
-    }
-
-    @keyframes fall {
-      to { transform: translateY(100vh); opacity: 0; }
     }
 
     // Initialize hearts
