@@ -50,55 +50,53 @@
     h2.playfair{ font-size: var(--fs-h2); font-weight:600; }
     h3.playfair{ font-size: var(--fs-h3); font-weight:600; }
 
-    /* Soft hero image */
-    .hero-figure{ position:absolute; inset:0; z-index:-2; pointer-events:none; overflow:hidden; }
-    .hero-figure img{ width:120%; height:120%; object-fit:cover; transform:scale(1.06); filter:brightness(.98) saturate(.95); }
-    .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,245,240,0.6), rgba(255,249,247,0.85)); z-index:-1; }
+    /* Soft hero image + interactive parallax */
+    .hero-wrap{ position:relative; overflow:hidden; }
+    .hero-figure{ position:absolute; inset:0; z-index:-3; pointer-events:none; overflow:hidden; }
+    .hero-figure img{ will-change:transform; width:120%; height:120%; object-fit:cover; transform:translate3d(0,0,0) scale(1.06); filter:brightness(.98) saturate(.95); transition: transform 0.12s linear; }
+    .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,245,240,0.6), rgba(255,249,247,0.85)); z-index:-2; }
+
+    /* Particles canvas sits above hero image */
+    #particles{ position:absolute; inset:0; z-index:-1; pointer-events:none; }
+
+    /* Floating accent elements */
+    .floaty{ position:absolute; opacity:.12; filter: blur(0.6px); transform-origin:center; }
+    @keyframes floatSlow { 0%{transform: translateY(0) rotate(-3deg);} 50%{transform: translateY(-18px) rotate(3deg);} 100%{transform: translateY(0) rotate(-3deg);} }
 
     /* Luxury text gradient */
     .luxury-text{ background: linear-gradient(90deg,var(--gold), #ffd970); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 
-    /* Subtle shimmer for CTAs */
-    .shimmer{ position:relative; overflow:hidden; }
-    .shimmer::after{ content:''; position:absolute; left:-120%; top:0; height:100%; width:120%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); transform:skewX(-25deg); animation: shimmer 4s linear infinite; }
-    @keyframes shimmer{ to{ left:120%; } }
+    /* Shimmering animated CTA */
+    .btn-primary{ background: linear-gradient(90deg, var(--rose), var(--peach)); color:#fff; padding:.9rem 1.3rem; border-radius:12px; font-weight:700; letter-spacing:0.02em; font-size:var(--fs-small); box-shadow:0 10px 30px rgba(244,166,185,0.12); transition: transform .25s ease, box-shadow .25s ease; background-size:200% 100%; }
+    .btn-primary:hover{ transform: translateY(-4px) scale(1.02); box-shadow:0 18px 36px rgba(244,166,185,0.18); }
+    .btn-primary.animate-gradient{ animation: gradientShift 6s linear infinite; }
+    @keyframes gradientShift{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-    /* Glass panels on light background */
-    .glass{ background: rgba(255,255,255,0.85); box-shadow: 0 10px 30px rgba(16,24,40,0.06); border-radius:14px; border:1px solid rgba(16,24,40,0.04); }
-
-    /* Buttons */
-    .btn-primary{ background: linear-gradient(135deg,var(--rose), var(--peach)); color:#fff; padding:.9rem 1.3rem; border-radius:12px; font-weight:700; letter-spacing:0.02em; font-size:var(--fs-small); box-shadow:0 10px 30px rgba(244,166,185,0.12); }
-    .btn-primary:hover{ transform:translateY(-3px); }
     .btn-outline{ border:2px solid rgba(34,34,34,0.06); padding:.75rem 1rem; border-radius:12px; background:transparent; font-weight:600; }
 
-    /* Nav tweaks */
-    nav .brand-title{ font-size: calc(var(--fs-small) + 0.1rem); }
-    nav .nav-link{ font-weight:600; color: #403b3f; }
+    /* Nav micro-interaction */
+    .nav-link{ position:relative; padding:6px 2px; }
+    .nav-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:-6px; height:3px; width:52%; background:linear-gradient(90deg,var(--peach),var(--rose)); border-radius:3px; transition: transform .35s cubic-bezier(.2,.9,.2,1); transform-origin:center; }
+    .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); }
 
-    /* Portfolio cards */
-    .portfolio-item{ border-radius:16px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); background:#fff; transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .45s; }
-    .portfolio-item:hover{ transform: translateY(-8px); box-shadow: 0 18px 40px rgba(16,24,40,0.06); }
-    .portfolio-caption{ background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9)); }
-    .portfolio-caption h3{ font-size: 1.05rem; }
+    /* Portfolio tilt */
+    .portfolio-item{ border-radius:16px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); background:#fff; transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .45s; will-change:transform; }
+    .portfolio-item .img-wrap{ transform-origin:center; transition: transform .25s ease, box-shadow .25s ease; }
 
-    /* Before/After slider - lighter style */
+    /* Before/After */
     .before-after{ position:relative; height:360px; border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); }
     .before-after img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .after-wrapper{ position:absolute; inset:0; overflow:hidden; width:55%; transition: width .18s ease; }
     .ba-handle{ position:absolute; left:55%; top:50%; transform:translate(-50%,-50%); width:52px; height:52px; background:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; border:3px solid var(--rose); cursor:ew-resize; box-shadow:0 10px 26px rgba(22,22,22,0.06); }
 
-    /* Testimonials */
-    .testimonial{ background:transparent; padding:1.6rem; border-radius:12px; }
-
-    /* Animations: reveal */
-    .reveal{ opacity:0; transform:translateY(24px); transition: all .9s cubic-bezier(.2,.9,.2,1); }
+    /* Reveal animations */
+    .reveal{ opacity:0; transform:translateY(24px) scale(.995); transition: all .9s cubic-bezier(.2,.9,.2,1); }
     .reveal.in{ opacity:1; transform:none; }
 
     /* Fine typography details */
     p, li, input, textarea, select, button{ color: #4a4548; }
     small, .text-sm{ color:#6a6870; }
 
-    /* Mobile tweaks */
     @media (max-width:768px){ h1.playfair{ font-size: clamp(1.6rem, 6vw, 2.4rem); } .before-after{ height:240px; } }
   </style>
 </head>
@@ -122,7 +120,7 @@
         <a href="#services" class="nav-link">Services</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
-        <button onclick="openBooking()" class="btn-primary">Book</button>
+        <button id="bookCta" onclick="openBooking()" class="btn-primary animate-gradient">Book</button>
       </div>
 
       <div class="md:hidden">
@@ -142,22 +140,29 @@
   </nav>
 
   <!-- HERO -->
-  <section id="home" class="relative min-h-screen flex items-center justify-center pt-28 px-6">
+  <section id="home" class="hero-wrap relative min-h-screen flex items-center justify-center pt-28 px-6">
     <div class="hero-figure" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1543163472-1b9c2f2dcd42?w=1800&q=80&auto=format&fit=crop" alt="soft makeup brushes background" loading="lazy"/>
+      <img id="heroImg" src="https://images.unsplash.com/photo-1543163472-1b9c2f2dcd42?w=1800&q=80&auto=format&fit=crop" alt="soft makeup brushes background" loading="lazy"/>
     </div>
+    <canvas id="particles"></canvas>
     <div class="hero-overlay"></div>
 
-    <div class="max-w-5xl mx-auto text-center z-10 px-4">
-      <h1 class="playfair text-center reveal">Elegant Makeup — Crafted For You</h1>
-      <p class="mt-6 text-gray-600 max-w-2xl mx-auto text-lg">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
+    <!-- decorative floaties -->
+    <svg class="floaty" style="top:8%; left:5%; width:380px; animation:floatSlow 9s ease-in-out infinite;" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 160 C120 120 240 120 600 40 L600 200 L0 200 Z" fill="url(#g1)"/>
+      <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffd7c2" stop-opacity="0.45"/><stop offset="1" stop-color="#f4a6b9" stop-opacity="0.18"/></linearGradient></defs>
+    </svg>
 
-      <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
+    <div class="max-w-5xl mx-auto text-center z-10 px-4">
+      <h1 class="playfair text-center reveal" id="heroTitle">Elegant Makeup — <span class="luxury-text">Crafted For You</span></h1>
+      <p class="mt-6 text-gray-600 max-w-2xl mx-auto text-lg reveal">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
+
+      <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 reveal">
         <button class="btn-primary shimmer w-full md:w-auto" onclick="openBooking()">Book Consultation</button>
         <a href="#portfolio" class="btn-outline w-full md:w-auto">View Portfolio</a>
       </div>
 
-      <div class="mt-10 text-sm text-gray-500">Serving Delhi & NCR · Travel options available</div>
+      <div class="mt-10 text-sm text-gray-500 reveal">Serving Delhi & NCR · Travel options available</div>
     </div>
   </section>
 
@@ -170,48 +175,60 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="portfolio-item reveal">
-          <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=1200&q=80&auto=format&fit=crop" alt="Bridal makeup" loading="lazy" class="w-full h-64 object-cover"/>
+        <div class="portfolio-item reveal" tabindex="0">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=1200&q=80&auto=format&fit=crop" alt="Bridal makeup" loading="lazy" class="w-full h-64 object-cover"/>
+          </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Bridal Romance</h3>
             <p class="text-gray-500 mt-2">Soft gradients, luminous skin and long-lasting finishes for special days.</p>
           </div>
         </div>
 
-        <div class="portfolio-item reveal">
-          <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=1200&q=80&auto=format&fit=crop" alt="Editorial makeup" loading="lazy" class="w-full h-64 object-cover"/>
+        <div class="portfolio-item reveal" tabindex="0">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=1200&q=80&auto=format&fit=crop" alt="Editorial makeup" loading="lazy" class="w-full h-64 object-cover"/>
+          </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Editorial Edge</h3>
             <p class="text-gray-500 mt-2">Bold shapes and textures that photograph with impact.</p>
           </div>
         </div>
 
-        <div class="portfolio-item reveal">
-          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&q=80&auto=format&fit=crop" alt="Evening makeup" loading="lazy" class="w-full h-64 object-cover"/>
+        <div class="portfolio-item reveal" tabindex="0">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&q=80&auto=format&fit=crop" alt="Evening makeup" loading="lazy" class="w-full h-64 object-cover"/>
+          </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Evening Glam</h3>
             <p class="text-gray-500 mt-2">Smoky, sculpted and perfectly balanced for night events.</p>
           </div>
         </div>
 
-        <div class="portfolio-item reveal">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80&auto=format&fit=crop" alt="Natural makeup" loading="lazy" class="w-full h-64 object-cover"/>
+        <div class="portfolio-item reveal" tabindex="0">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80&auto=format&fit=crop" alt="Natural makeup" loading="lazy" class="w-full h-64 object-cover"/>
+          </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Natural Radiance</h3>
             <p class="text-gray-500 mt-2">Effortless finishes for daytime and intimate gatherings.</p>
           </div>
         </div>
 
-        <div class="portfolio-item reveal">
-          <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1200&q=80&auto=format&fit=crop" alt="Classic makeup" loading="lazy" class="w-full h-64 object-cover"/>
+        <div class="portfolio-item reveal" tabindex="0">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1200&q=80&auto=format&fit=crop" alt="Classic makeup" loading="lazy" class="w-full h-64 object-cover"/>
+          </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Classic Beauty</h3>
             <p class="text-gray-500 mt-2">Timeless looks refined for photography and live events.</p>
           </div>
         </div>
 
-        <div class="portfolio-item reveal">
-          <img src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=1200&q=80&auto=format&fit=crop" alt="Makeup artist" loading="lazy" class="w-full h-64 object-cover"/>
+        <div class="portfolio-item reveal" tabindex="0">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=1200&q=80&auto=format&fit=crop" alt="Makeup artist" loading="lazy" class="w-full h-64 object-cover"/>
+          </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Bridal Excellence</h3>
             <p class="text-gray-500 mt-2">Carefully planned bridal services with day-of touch-ups.</p>
@@ -423,16 +440,16 @@
     function openBooking(){ document.getElementById('bookingModal').classList.remove('hidden'); document.getElementById('bookingModal').classList.add('flex'); }
     function closeBooking(){ const m=document.getElementById('bookingModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
 
-    // Intersection reveal
-    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); },{threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    // Intersection reveal with stagger
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ const el=e.target; const delay = el.dataset.delay || 0; setTimeout(()=> el.classList.add('in'), delay); } }); },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach((el, idx)=>{ el.dataset.delay = idx*80; obs.observe(el); });
 
     // Testimonials carousel
     let testiIndex=0; const testiEls=document.querySelectorAll('#testimonials .testimonial');
     function showTesti(i){ testiEls.forEach((el,idx)=> el.classList.toggle('hidden', idx!==i)); }
     function nextTesti(){ testiIndex=(testiIndex+1)%testiEls.length; showTesti(testiIndex); }
     function prevTesti(){ testiIndex=(testiIndex-1+testiEls.length)%testiEls.length; showTesti(testiIndex); }
-    setInterval(nextTesti,6000);
+    setInterval(nextTesti,7000);
 
     // Before/After slider
     (function(){ const wrap=document.getElementById('afterWrap'); const handle=document.getElementById('bahandle'); const container=document.getElementById('ba'); if(!wrap||!handle||!container) return; let dragging=false; function setPos(x){ const rect=container.getBoundingClientRect(); let pct=Math.max(0, Math.min(1, (x-rect.left)/rect.width)); wrap.style.width=(pct*100)+'%'; handle.style.left=(pct*100)+'%'; }
@@ -445,6 +462,39 @@
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', function(e){ e.preventDefault(); const t=document.querySelector(this.getAttribute('href')); if(t){ window.scrollTo({ top: t.offsetTop-80, behavior:'smooth' }); } }));
+
+    // Hero parallax following mouse
+    (function(){ const heroImg = document.getElementById('heroImg'); const hero = document.querySelector('.hero-wrap'); if(!heroImg || !hero) return; let rect = hero.getBoundingClientRect(); window.addEventListener('resize', ()=> rect = hero.getBoundingClientRect()); hero.addEventListener('mousemove', (e)=>{
+      const x = (e.clientX - rect.left) / rect.width - 0.5; const y = (e.clientY - rect.top) / rect.height - 0.5; heroImg.style.transform = `translate3d(${x*6}%, ${y*6}%, 0) scale(1.06)`;
+    });
+    hero.addEventListener('mouseleave', ()=> heroImg.style.transform = 'translate3d(0,0,0) scale(1.06)');
+    // small subtle parallax on scroll
+    window.addEventListener('scroll', ()=>{ const s = window.scrollY; heroImg.style.transform = `translate3d(0, ${s*0.02}px,0) scale(1.06)`; });
+    })();
+
+    // Portfolio tilt effect
+    document.querySelectorAll('.portfolio-item').forEach(card=>{
+      const wrap = card.querySelector('.img-wrap'); card.addEventListener('mousemove', (e)=>{
+        const r = card.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width; const y = (e.clientY - r.top) / r.height; const rx = (y-0.5)*6; const ry = (x-0.5)*-8; wrap.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`; });
+      card.addEventListener('mouseleave', ()=> wrap.style.transform = 'none');
+      card.addEventListener('mouseenter', ()=> wrap.style.transition = 'transform .18s ease');
+    });
+
+    // Particles canvas for subtle shimmer
+    (function(){ const canvas = document.getElementById('particles'); if(!canvas) return; const ctx = canvas.getContext('2d'); let W, H; function resize(){ W = canvas.width = canvas.clientWidth; H = canvas.height = canvas.clientHeight; }
+      window.addEventListener('resize', resize); resize();
+      const particles = [];
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+      for(let i=0;i<28;i++){ particles.push({ x: rand(0,W), y: rand(0,H), r: rand(0.6,2.6), vx: rand(-0.2,0.2), vy: rand(-0.15,0.15), alpha: rand(0.06,0.22) }); }
+      let mouse = {x:-9999, y:-9999}; canvas.addEventListener('mousemove', (e)=>{ const rect=canvas.getBoundingClientRect(); mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; }); canvas.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
+      function draw(){ ctx.clearRect(0,0,W,H); for(const p of particles){ p.x += p.vx; p.y += p.vy; if(p.x< -10) p.x = W+10; if(p.x>W+10) p.x = -10; if(p.y< -10) p.y = H+10; if(p.y>H+10) p.y = -10; // attraction
+          const dx = mouse.x - p.x; const dy = mouse.y - p.y; const d = Math.sqrt(dx*dx+dy*dy); if(d<120){ p.x -= dx*0.005; p.y -= dy*0.005; }
+          ctx.beginPath(); ctx.fillStyle = `rgba(244,166,185,${p.alpha})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
   </script>
 </body>
 </html>
