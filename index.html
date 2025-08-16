@@ -1,224 +1,545 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hi You! 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Transform your look with Makeovers by Simran Marwah. Expert makeup artistry for weddings, events, and special occasions. Book now!" />
+  <title>Makeovers by Simran Marwah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      scroll-behavior: smooth;
+    }
+    
     body {
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #ffe6f0 0%, #ffd1e6 100%);
-      overflow: hidden;
-      position: relative;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
     }
-    .hearts {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
+    
+    .playfair {
+      font-family: 'Playfair Display', serif;
     }
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #ff69b4;
-      transform: rotate(45deg);
-      opacity: 0.5;
-      animation: float 10s linear infinite;
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .heart:before,
-    .heart:after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #ff69b4;
-      border-radius: 50%;
+    
+    .gold-gradient {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
     }
-    .heart:before {
-      top: -10px;
-      left: 0;
+    
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.8), rgba(255, 107, 107, 0.6));
     }
-    .heart:after {
-      top: 0;
-      left: -10px;
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
     }
+    
     @keyframes float {
-      0% { transform: translateY(0) rotate(45deg); opacity: 0.5; }
-      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
     }
-    .screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 90%;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.5s ease;
+    
+    .glow {
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .active {
-      display: flex;
-    }
-    h2 {
-      font-family: 'Pacifico', cursive;
-      color: #ff3366;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-    }
-    p {
-      color: #333;
-      font-size: 1.2rem;
-      margin: 5px 0;
-    }
-    button {
-      margin: 15px;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      background: linear-gradient(135deg, #ff6699 0%, #ff3366 100%);
-      border: none;
-      color: white;
-      border-radius: 50px;
-      cursor: pointer;
+    
+    .hover-lift {
       transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
     }
-    button:hover {
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 1s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .neon-text {
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    
+    .service-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+      background: linear-gradient(145deg, rgba(255, 215, 0, 0.15), rgba(255, 107, 107, 0.1));
+      transform: translateY(-5px);
+    }
+    
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .portfolio-item:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(255, 51, 102, 0.5);
     }
-    .no-btn {
-      position: relative;
-    }
-    #noBtn {
+    
+    .portfolio-overlay {
       position: absolute;
-      transition: transform 0.2s ease;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-    #screen3 {
-      position: relative;
+    
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
     }
-    #screen3:after {
-      content: '🎉🥳💕';
-      font-size: 3rem;
-      position: absolute;
-      top: -50px;
-      animation: celebrate 1s ease infinite;
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
     }
-    @keyframes celebrate {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
     }
-    @keyframes fall {
-      to { transform: translateY(100vh); opacity: 0; }
+    
+    .btn-secondary {
+      border: 2px solid #ffd700;
+      color: #ffd700;
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: #ffd700;
+      color: #000;
     }
   </style>
 </head>
-<body>
-
-  <!-- Floating Hearts Background -->
-  <div class="hearts" id="heartsContainer"></div>
-
-  <!-- Screens -->
-  <div id="screen1" class="screen active">
-    <h2>Hey there 👋💖</h2>
-    <p>I just wanted to say hi first 😊</p>
-    <button onclick="goToScreen(2)">Hi 👋💕</button>
-  </div>
-
-  <div id="screen2" class="screen">
-    <h2>Okay now that I’ve said Hi 😄</h2>
-    <p>Would you like to be friends? 🥰</p>
-    <button onclick="goToScreen(3)">Yes 😊💖</button>
-    <div class="no-btn">
-      <button id="noBtn" onclick="handleNo(event)">No 🙁</button>
+<body class="text-white">
+  <!-- Navigation -->
+  <nav class="glass-effect fixed w-full top-0 z-50 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl md:text-3xl font-bold playfair neon-text">
+        Makeovers by Simran
+      </h1>
+      
+      <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-white hover:text-yellow-400 transition-colors">Home</a>
+        <a href="#portfolio" class="text-white hover:text-yellow-400 transition-colors">Portfolio</a>
+        <a href="#services" class="text-white hover:text-yellow-400 transition-colors">Services</a>
+        <a href="#about" class="text-white hover:text-yellow-400 transition-colors">About</a>
+        <a href="#contact" class="text-white hover:text-yellow-400 transition-colors">Contact</a>
+      </div>
+      
+      <div class="md:hidden">
+        <button onclick="toggleMobileMenu()" class="text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden mt-4 glass-effect rounded-lg p-4">
+      <a href="#home" class="block text-white hover:text-yellow-400 py-2">Home</a>
+      <a href="#portfolio" class="block text-white hover:text-yellow-400 py-2">Portfolio</a>
+      <a href="#services" class="block text-white hover:text-yellow-400 py-2">Services</a>
+      <a href="#about" class="block text-white hover:text-yellow-400 py-2">About</a>
+      <a href="#contact" class="block text-white hover:text-yellow-400 py-2">Contact</a>
+    </div>
+  </nav>
 
-  <div id="screen3" class="screen">
-    <h2>Yayyyy!!! 🥳💖</h2>
-    <p>I’m really looking forward to getting to know you better!</p>
-    <p>This means a lot 🩷✨</p>
-  </div>
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+    <div class="hero-overlay absolute inset-0"></div>
+    
+    <!-- Floating decorative elements -->
+    <div class="absolute top-32 left-10 floating w-4 h-4 bg-yellow-400 rounded-full opacity-60"></div>
+    <div class="absolute top-48 right-20 floating w-6 h-6 bg-pink-400 rounded-full opacity-40" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-32 left-20 floating w-3 h-3 bg-purple-400 rounded-full opacity-50" style="animation-delay: 2s;"></div>
+    
+    <div class="text-center z-10 px-4 fade-in">
+      <h1 class="text-5xl md:text-7xl font-bold playfair mb-6 neon-text">
+        Unleash Your
+        <br />
+        <span style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          Inner Glow
+        </span>
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
+        Where artistry meets beauty. Transform your look with professional makeup that tells your unique story.
+      </p>
+      <div class="space-y-4 md:space-y-0 md:space-x-6">
+        <a href="#contact" class="btn-primary">Book Your Session</a>
+        <a href="#portfolio" class="btn-secondary">View Portfolio</a>
+      </div>
+    </div>
+    
+    <!-- Floating CTA -->
+    <a href="#contact" class="fixed bottom-8 right-8 btn-primary z-50 glow">
+      📞 Book Now
+    </a>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-6xl font-bold playfair mb-4 neon-text">
+          Our <span style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Artistry</span>
+        </h2>
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+          Each look is a masterpiece, crafted with precision and passion to enhance your natural beauty.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="portfolio-item hover-lift">
+          <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=300&fit=crop" alt="Bridal Makeup" class="w-full h-80 object-cover" />
+          <div class="portfolio-overlay">
+            <div class="absolute bottom-4 left-4">
+              <h3 class="text-xl font-semibold">Bridal Glamour</h3>
+              <p class="text-yellow-400">Wedding Collection</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item hover-lift">
+          <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=400&h=300&fit=crop" alt="Editorial Makeup" class="w-full h-80 object-cover" />
+          <div class="portfolio-overlay">
+            <div class="absolute bottom-4 left-4">
+              <h3 class="text-xl font-semibold">Editorial Beauty</h3>
+              <p class="text-yellow-400">Fashion Shoot</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item hover-lift">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=300&fit=crop" alt="Evening Makeup" class="w-full h-80 object-cover" />
+          <div class="portfolio-overlay">
+            <div class="absolute bottom-4 left-4">
+              <h3 class="text-xl font-semibold">Evening Elegance</h3>
+              <p class="text-yellow-400">Special Events</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item hover-lift">
+          <img src="https://images.unsplash.com/photo-1498462440456-0dba182e775b?w=400&h=300&fit=crop" alt="Natural Makeup" class="w-full h-80 object-cover" />
+          <div class="portfolio-overlay">
+            <div class="absolute bottom-4 left-4">
+              <h3 class="text-xl font-semibold">Natural Glow</h3>
+              <p class="text-yellow-400">Everyday Beauty</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item hover-lift">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop" alt="Dramatic Makeup" class="w-full h-80 object-cover" />
+          <div class="portfolio-overlay">
+            <div class="absolute bottom-4 left-4">
+              <h3 class="text-xl font-semibold">Dramatic Eyes</h3>
+              <p class="text-yellow-400">Bold & Beautiful</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item hover-lift">
+          <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=400&h=300&fit=crop" alt="Vintage Makeup" class="w-full h-80 object-cover" />
+          <div class="portfolio-overlay">
+            <div class="absolute bottom-4 left-4">
+              <h3 class="text-xl font-semibold">Vintage Charm</h3>
+              <p class="text-yellow-400">Classic Style</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-6xl font-bold playfair mb-4 neon-text">
+          Our <span style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Services</span>
+        </h2>
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+          Professional makeup services tailored to make you look and feel absolutely stunning.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="service-card p-8 rounded-2xl text-center hover-lift">
+          <div class="text-6xl mb-4">👰</div>
+          <h3 class="text-2xl font-semibold playfair mb-2 text-white">Bridal Perfection</h3>
+          <div style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;" class="text-3xl mb-4">₹12,000</div>
+          <p class="text-gray-300 mb-6">Complete bridal transformation with trial session, premium products, and touch-ups.</p>
+          <ul class="space-y-2 mb-8 text-sm text-gray-400">
+            <li><span class="text-yellow-400 mr-2">✓</span>Trial Session</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Premium Products</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Touch-ups</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Hair Styling</li>
+          </ul>
+          <a href="#contact" class="btn-primary">Book Service</a>
+        </div>
+        
+        <div class="service-card p-8 rounded-2xl text-center hover-lift">
+          <div class="text-6xl mb-4">✨</div>
+          <h3 class="text-2xl font-semibold playfair mb-2 text-white">Event Glamour</h3>
+          <div style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;" class="text-3xl mb-4">₹6,500</div>
+          <p class="text-gray-300 mb-6">Stunning looks for parties, photoshoots, and special occasions.</p>
+          <ul class="space-y-2 mb-8 text-sm text-gray-400">
+            <li><span class="text-yellow-400 mr-2">✓</span>Custom Look</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Long-lasting</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Photo-ready</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Quick Service</li>
+          </ul>
+          <a href="#contact" class="btn-primary">Book Service</a>
+        </div>
+        
+        <div class="service-card p-8 rounded-2xl text-center hover-lift">
+          <div class="text-6xl mb-4">💄</div>
+          <h3 class="text-2xl font-semibold playfair mb-2 text-white">Beauty Consultation</h3>
+          <div style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;" class="text-3xl mb-4">₹3,500</div>
+          <p class="text-gray-300 mb-6">Personal consultation with makeup tips and product recommendations.</p>
+          <ul class="space-y-2 mb-8 text-sm text-gray-400">
+            <li><span class="text-yellow-400 mr-2">✓</span>Skin Analysis</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Color Matching</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Product Guide</li>
+            <li><span class="text-yellow-400 mr-2">✓</span>Technique Tips</li>
+          </ul>
+          <a href="#contact" class="btn-primary">Book Service</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <img 
+            src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=500&h=600&fit=crop" 
+            alt="Simran Marwah" 
+            class="rounded-2xl glow hover-lift w-full max-w-md mx-auto" 
+          />
+        </div>
+        
+        <div class="fade-in">
+          <h2 class="text-4xl md:text-5xl font-bold playfair mb-6 neon-text">
+            Meet <span style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Simran</span>
+          </h2>
+          <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+            With over 8 years of experience in the beauty industry, I specialize in creating stunning transformations that enhance your natural beauty. My passion lies in making every client feel confident and radiant.
+          </p>
+          <div class="grid grid-cols-2 gap-6 mb-8">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-yellow-400">500+</div>
+              <div class="text-sm text-gray-400">Happy Brides</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-yellow-400">8+</div>
+              <div class="text-sm text-gray-400">Years Experience</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <span class="glass-effect px-4 py-2 rounded-full text-sm">Bridal Specialist</span>
+            <span class="glass-effect px-4 py-2 rounded-full text-sm">Editorial Artist</span>
+            <span class="glass-effect px-4 py-2 rounded-full text-sm">Color Expert</span>
+            <span class="glass-effect px-4 py-2 rounded-full text-sm">Beauty Consultant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-6xl font-bold playfair mb-4 neon-text">
+          Get In <span style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Touch</span>
+        </h2>
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+          Ready for your transformation? Let's create something beautiful together.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="fade-in">
+          <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                class="glass-effect p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-gray-400"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                class="glass-effect p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-gray-400"
+                required
+              />
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                class="glass-effect p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-gray-400"
+              />
+              <select
+                name="service"
+                class="glass-effect p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-transparent text-white"
+              >
+                <option value="" style="background: #1a1a2e; color: white;">Select Service</option>
+                <option value="bridal" style="background: #1a1a2e; color: white;">Bridal Makeup</option>
+                <option value="event" style="background: #1a1a2e; color: white;">Event Makeup</option>
+                <option value="consultation" style="background: #1a1a2e; color: white;">Beauty Consultation</option>
+              </select>
+            </div>
+            
+            <textarea
+              name="message"
+              placeholder="Tell us about your vision..."
+              rows="5"
+              class="w-full glass-effect p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-gray-400 resize-none"
+              required
+            ></textarea>
+            
+            <button type="submit" class="btn-primary w-full md:w-auto">
+              Send Message ✨
+            </button>
+          </form>
+        </div>
+        
+        <div class="fade-in space-y-8">
+          <div class="glass-effect p-6 rounded-2xl">
+            <h3 class="text-xl font-semibold mb-4 text-yellow-400">📍 Location</h3>
+            <p class="text-gray-300">Delhi, India</p>
+            <p class="text-sm text-gray-400">Available for travel within NCR</p>
+          </div>
+          
+          <div class="glass-effect p-6 rounded-2xl">
+            <h3 class="text-xl font-semibold mb-4 text-yellow-400">📞 Contact</h3>
+            <p class="text-gray-300">+91 98765 43210</p>
+            <p class="text-gray-300">simran@makeovers.com</p>
+          </div>
+          
+          <div class="glass-effect p-6 rounded-2xl">
+            <h3 class="text-xl font-semibold mb-4 text-yellow-400">🕐 Hours</h3>
+            <p class="text-gray-300">Mon - Sat: 9:00 AM - 7:00 PM</p>
+            <p class="text-gray-300">Sunday: By Appointment</p>
+          </div>
+          
+          <div class="flex space-x-4">
+            <a href="https://instagram.com" class="glass-effect p-4 rounded-full hover-lift text-2xl">📷</a>
+            <a href="https://facebook.com" class="glass-effect p-4 rounded-full hover-lift text-2xl">📘</a>
+            <a href="https://youtube.com" class="glass-effect p-4 rounded-full hover-lift text-2xl">📹</a>
+            <a href="https://wa.me/919876543210" class="glass-effect p-4 rounded-full hover-lift text-2xl">💬</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 glass-effect">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-3xl font-bold playfair mb-4 neon-text">Makeovers by Simran</h3>
+      <p class="text-gray-400 mb-6">Transforming beauty, one face at a time ✨</p>
+      
+      <div class="flex justify-center space-x-8 mb-8">
+        <a href="#home" class="text-gray-400 hover:text-yellow-400 transition">Home</a>
+        <a href="#portfolio" class="text-gray-400 hover:text-yellow-400 transition">Portfolio</a>
+        <a href="#services" class="text-gray-400 hover:text-yellow-400 transition">Services</a>
+        <a href="#about" class="text-gray-400 hover:text-yellow-400 transition">About</a>
+        <a href="#contact" class="text-gray-400 hover:text-yellow-400 transition">Contact</a>
+      </div>
+      
+      <div class="border-t border-gray-700 pt-8">
+        <p class="text-gray-500">&copy; 2025 Makeovers by Simran Marwah. All rights reserved.</p>
+        <p class="text-sm text-gray-600 mt-2">Crafted with ✨ for beauty excellence</p>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    let noClickCount = 0;
-
-    function goToScreen(screenNumber) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(`screen${screenNumber}`).classList.add('active');
-      if (screenNumber === 3) {
-        createConfetti();
-      }
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
     }
-
-    function handleNo(e) {
-      noClickCount++;
-      const btn = e.target;
-
-      if (noClickCount < 6) {
-        // Move button to random position with smoother animation
-        const x = Math.floor(Math.random() * 300) - 150;
-        const y = Math.floor(Math.random() * 300) - 150;
-        btn.style.transform = `translate(${x}px, ${y}px)`;
-      } else {
-        // Change text and move to final screen
-        btn.innerText = "Okay okay, let's give it a shot! 💕";
-        btn.onclick = () => goToScreen(3);
-        btn.style.transform = 'translate(0,0)';
-      }
-    }
-
-    // Create floating hearts
-    function createHearts() {
-      const container = document.getElementById('heartsContainer');
-      for (let i = 0; i < 20; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.style.left = `${Math.random() * 100}%`;
-        heart.style.animationDelay = `${Math.random() * 5}s`;
-        heart.style.animationDuration = `${5 + Math.random() * 10}s`;
-        container.appendChild(heart);
-      }
-    }
-
-    // Simple confetti effect on final screen
-    function createConfetti() {
-      const colors = ['#ff69b4', '#ff3366', '#ffe6f0'];
-      for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.style.position = 'absolute';
-        confetti.style.width = '10px';
-        confetti.style.height = '10px';
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = `${Math.random() * 100}%`;
-        confetti.style.top = '0';
-        confetti.style.opacity = '0.8';
-        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-        confetti.style.animation = `fall ${1 + Math.random()}s linear`;
-        document.body.appendChild(confetti);
-
-        setTimeout(() => confetti.remove(), 2000);
-      }
-    }
-
-    // Initialize hearts
-    createHearts();
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offsetTop = target.offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+          // Close mobile menu if open
+          document.getElementById('mobileMenu').classList.add('hidden');
+        }
+      });
+    });
+    
+    // Animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
   </script>
-
 </body>
 </html>
