@@ -8,7 +8,8 @@
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Fonts: Playfair for headings, Poppins for body, Great Vibes for logo accent -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -18,11 +19,21 @@
       --rose: #f4a6b9;
       --gold: #d4af37;
       --muted: #6b6870;
+
+      /* Typography scale (responsive) */
+      --fs-h1: clamp(2.1rem, 3.8vw + 0.6rem, 3.6rem);
+      --fs-h2: clamp(1.6rem, 2.8vw + 0.4rem, 2.6rem);
+      --fs-h3: clamp(1.25rem, 2.2vw + 0.2rem, 1.6rem);
+      --fs-base: clamp(0.95rem, 1.6vw + 0.2rem, 1.05rem);
+      --fs-small: clamp(0.8rem, 1.2vw + 0rem, 0.92rem);
+      --lead: 1.6;
     }
 
     html,body{height:100%;}
     body{
-      font-family: 'Inter', sans-serif;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      font-size: var(--fs-base);
+      line-height: var(--lead);
       background: linear-gradient(180deg,var(--ivory) 0%, #fff 50%);
       color: #222;
       -webkit-font-smoothing:antialiased;
@@ -31,7 +42,13 @@
     }
 
     /* Elegant serif for headings */
-    .playfair{ font-family:'Playfair Display', serif; }
+    .playfair{ font-family:'Playfair Display', serif; letter-spacing: -0.02em; }
+    .logo-script{ font-family: 'Great Vibes', cursive; font-size: 1.4rem; line-height:1; }
+
+    /* Headings sizing */
+    h1.playfair{ font-size: var(--fs-h1); font-weight:700; color:#2b2b2b; }
+    h2.playfair{ font-size: var(--fs-h2); font-weight:600; }
+    h3.playfair{ font-size: var(--fs-h3); font-weight:600; }
 
     /* Soft hero image */
     .hero-figure{ position:absolute; inset:0; z-index:-2; pointer-events:none; overflow:hidden; }
@@ -47,54 +64,64 @@
     @keyframes shimmer{ to{ left:120%; } }
 
     /* Glass panels on light background */
-    .glass{ background: rgba(255,255,255,0.7); box-shadow: 0 8px 30px rgba(16,24,40,0.05); border-radius:12px; border:1px solid rgba(16,24,40,0.04); }
+    .glass{ background: rgba(255,255,255,0.85); box-shadow: 0 10px 30px rgba(16,24,40,0.06); border-radius:14px; border:1px solid rgba(16,24,40,0.04); }
 
     /* Buttons */
-    .btn-primary{ background: linear-gradient(135deg,var(--rose), var(--peach)); color:#fff; padding:.85rem 1.2rem; border-radius:10px; font-weight:600; box-shadow:0 8px 24px rgba(244,166,185,0.12); }
+    .btn-primary{ background: linear-gradient(135deg,var(--rose), var(--peach)); color:#fff; padding:.9rem 1.3rem; border-radius:12px; font-weight:700; letter-spacing:0.02em; font-size:var(--fs-small); box-shadow:0 10px 30px rgba(244,166,185,0.12); }
     .btn-primary:hover{ transform:translateY(-3px); }
-    .btn-outline{ border:2px solid rgba(34,34,34,0.06); padding:.7rem 1rem; border-radius:10px; background:transparent; }
+    .btn-outline{ border:2px solid rgba(34,34,34,0.06); padding:.75rem 1rem; border-radius:12px; background:transparent; font-weight:600; }
+
+    /* Nav tweaks */
+    nav .brand-title{ font-size: calc(var(--fs-small) + 0.1rem); }
+    nav .nav-link{ font-weight:600; color: #403b3f; }
 
     /* Portfolio cards */
-    .portfolio-item{ border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); background:#fff; }
-    .portfolio-caption{ background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85)); }
+    .portfolio-item{ border-radius:16px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); background:#fff; transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .45s; }
+    .portfolio-item:hover{ transform: translateY(-8px); box-shadow: 0 18px 40px rgba(16,24,40,0.06); }
+    .portfolio-caption{ background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9)); }
+    .portfolio-caption h3{ font-size: 1.05rem; }
 
     /* Before/After slider - lighter style */
-    .before-after{ position:relative; height:360px; border-radius:12px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); }
+    .before-after{ position:relative; height:360px; border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); }
     .before-after img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .after-wrapper{ position:absolute; inset:0; overflow:hidden; width:55%; }
-    .ba-handle{ position:absolute; left:55%; top:50%; transform:translate(-50%,-50%); width:46px; height:46px; background:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; border:2px solid var(--rose); cursor:ew-resize; box-shadow:0 6px 18px rgba(22,22,22,0.06); }
+    .after-wrapper{ position:absolute; inset:0; overflow:hidden; width:55%; transition: width .18s ease; }
+    .ba-handle{ position:absolute; left:55%; top:50%; transform:translate(-50%,-50%); width:52px; height:52px; background:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; border:3px solid var(--rose); cursor:ew-resize; box-shadow:0 10px 26px rgba(22,22,22,0.06); }
 
     /* Testimonials */
-    .testimonial{ background:transparent; padding:1.4rem; border-radius:10px; }
+    .testimonial{ background:transparent; padding:1.6rem; border-radius:12px; }
 
     /* Animations: reveal */
     .reveal{ opacity:0; transform:translateY(24px); transition: all .9s cubic-bezier(.2,.9,.2,1); }
     .reveal.in{ opacity:1; transform:none; }
 
+    /* Fine typography details */
+    p, li, input, textarea, select, button{ color: #4a4548; }
+    small, .text-sm{ color:#6a6870; }
+
     /* Mobile tweaks */
-    @media (max-width:768px){ .hero-title{ font-size:2rem !important; } .before-after{ height:240px; } }
+    @media (max-width:768px){ h1.playfair{ font-size: clamp(1.6rem, 6vw, 2.4rem); } .before-after{ height:240px; } }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav class="fixed top-4 left-0 right-0 z-50 px-6">
-    <div class="max-w-6xl mx-auto flex items-center justify-between glass p-3 rounded-xl">
+    <div class="max-w-6xl mx-auto flex items-center justify-between glass p-4 rounded-xl">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,var(--peach),var(--rose));">
-          <span class="text-white font-bold">SM</span>
+          <span class="logo-script text-white">SM</span>
         </div>
         <div>
-          <a href="#home" class="playfair text-lg font-semibold text-gray-800">Makeovers by Simran</a>
+          <a href="#home" class="playfair brand-title font-semibold">Makeovers by Simran</a>
           <div class="text-xs text-gray-500">Bridal · Editorial · Events</div>
         </div>
       </div>
 
       <div class="hidden md:flex items-center gap-6">
-        <a href="#portfolio" class="text-gray-700">Portfolio</a>
-        <a href="#services" class="text-gray-700">Services</a>
-        <a href="#about" class="text-gray-700">About</a>
-        <a href="#contact" class="text-gray-700">Contact</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
         <button onclick="openBooking()" class="btn-primary">Book</button>
       </div>
 
@@ -115,19 +142,19 @@
   </nav>
 
   <!-- HERO -->
-  <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-6">
+  <section id="home" class="relative min-h-screen flex items-center justify-center pt-28 px-6">
     <div class="hero-figure" aria-hidden="true">
       <img src="https://images.unsplash.com/photo-1543163472-1b9c2f2dcd42?w=1800&q=80&auto=format&fit=crop" alt="soft makeup brushes background" loading="lazy"/>
     </div>
     <div class="hero-overlay"></div>
 
     <div class="max-w-5xl mx-auto text-center z-10 px-4">
-      <h1 class="playfair text-5xl md:text-6xl font-extrabold text-gray-900 hero-title reveal">Elegant Makeup — Crafted For You</h1>
+      <h1 class="playfair text-center reveal">Elegant Makeup — Crafted For You</h1>
       <p class="mt-6 text-gray-600 max-w-2xl mx-auto text-lg">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
 
       <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
         <button class="btn-primary shimmer w-full md:w-auto" onclick="openBooking()">Book Consultation</button>
-        <a href="#portfolio" class="btn-outline w-full md:w-auto text-gray-700">View Portfolio</a>
+        <a href="#portfolio" class="btn-outline w-full md:w-auto">View Portfolio</a>
       </div>
 
       <div class="mt-10 text-sm text-gray-500">Serving Delhi & NCR · Travel options available</div>
@@ -138,7 +165,7 @@
   <section id="portfolio" class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12 reveal">
-        <h2 class="text-3xl md:text-4xl playfair luxury-text">Portfolio</h2>
+        <h2 class="playfair luxury-text">Portfolio</h2>
         <p class="text-gray-600 mt-3 max-w-2xl mx-auto">A selection of looks — from natural radiance to editorial drama. Each image highlights color, texture and finish.</p>
       </div>
 
@@ -146,7 +173,7 @@
         <div class="portfolio-item reveal">
           <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=1200&q=80&auto=format&fit=crop" alt="Bridal makeup" loading="lazy" class="w-full h-64 object-cover"/>
           <div class="p-5 portfolio-caption">
-            <h3 class="font-semibold text-lg text-gray-800">Bridal Romance</h3>
+            <h3 class="playfair">Bridal Romance</h3>
             <p class="text-gray-500 mt-2">Soft gradients, luminous skin and long-lasting finishes for special days.</p>
           </div>
         </div>
@@ -154,7 +181,7 @@
         <div class="portfolio-item reveal">
           <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=1200&q=80&auto=format&fit=crop" alt="Editorial makeup" loading="lazy" class="w-full h-64 object-cover"/>
           <div class="p-5 portfolio-caption">
-            <h3 class="font-semibold text-lg text-gray-800">Editorial Edge</h3>
+            <h3 class="playfair">Editorial Edge</h3>
             <p class="text-gray-500 mt-2">Bold shapes and textures that photograph with impact.</p>
           </div>
         </div>
@@ -162,7 +189,7 @@
         <div class="portfolio-item reveal">
           <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&q=80&auto=format&fit=crop" alt="Evening makeup" loading="lazy" class="w-full h-64 object-cover"/>
           <div class="p-5 portfolio-caption">
-            <h3 class="font-semibold text-lg text-gray-800">Evening Glam</h3>
+            <h3 class="playfair">Evening Glam</h3>
             <p class="text-gray-500 mt-2">Smoky, sculpted and perfectly balanced for night events.</p>
           </div>
         </div>
@@ -170,7 +197,7 @@
         <div class="portfolio-item reveal">
           <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80&auto=format&fit=crop" alt="Natural makeup" loading="lazy" class="w-full h-64 object-cover"/>
           <div class="p-5 portfolio-caption">
-            <h3 class="font-semibold text-lg text-gray-800">Natural Radiance</h3>
+            <h3 class="playfair">Natural Radiance</h3>
             <p class="text-gray-500 mt-2">Effortless finishes for daytime and intimate gatherings.</p>
           </div>
         </div>
@@ -178,7 +205,7 @@
         <div class="portfolio-item reveal">
           <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1200&q=80&auto=format&fit=crop" alt="Classic makeup" loading="lazy" class="w-full h-64 object-cover"/>
           <div class="p-5 portfolio-caption">
-            <h3 class="font-semibold text-lg text-gray-800">Classic Beauty</h3>
+            <h3 class="playfair">Classic Beauty</h3>
             <p class="text-gray-500 mt-2">Timeless looks refined for photography and live events.</p>
           </div>
         </div>
@@ -186,7 +213,7 @@
         <div class="portfolio-item reveal">
           <img src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=1200&q=80&auto=format&fit=crop" alt="Makeup artist" loading="lazy" class="w-full h-64 object-cover"/>
           <div class="p-5 portfolio-caption">
-            <h3 class="font-semibold text-lg text-gray-800">Bridal Excellence</h3>
+            <h3 class="playfair">Bridal Excellence</h3>
             <p class="text-gray-500 mt-2">Carefully planned bridal services with day-of touch-ups.</p>
           </div>
         </div>
@@ -203,7 +230,7 @@
   <section class="py-12 px-6">
     <div class="max-w-6xl mx-auto md:flex md:items-center md:gap-12">
       <div class="md:w-1/2 reveal">
-        <h3 class="playfair text-2xl text-gray-800">Before & After</h3>
+        <h3 class="playfair">Before & After</h3>
         <p class="text-gray-600 mt-3">Slide to see subtle technique changes — contour, color and finish that transform a look.</p>
       </div>
       <div class="md:w-1/2 reveal">
@@ -224,7 +251,7 @@
   <section id="services" class="py-16 px-6 bg-gradient-to-b from-transparent to-white/60">
     <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
       <div class="glass p-6 reveal">
-        <h4 class="playfair text-xl text-gray-800">Bridal Artistry</h4>
+        <h4 class="playfair">Bridal Artistry</h4>
         <div class="text-2xl font-bold text-gray-900 mt-3">₹15,000</div>
         <p class="text-gray-600 mt-3">Consultation, trial, premium products and day-of support.</p>
         <ul class="text-gray-600 mt-3 list-disc list-inside">
@@ -235,7 +262,7 @@
       </div>
 
       <div class="glass p-6 reveal">
-        <h4 class="playfair text-xl text-gray-800">Events & Editorial</h4>
+        <h4 class="playfair">Events & Editorial</h4>
         <div class="text-2xl font-bold text-gray-900 mt-3">₹8,500</div>
         <p class="text-gray-600 mt-3">Photo-ready, long-wear finishes for shoots and parties.</p>
         <ul class="text-gray-600 mt-3 list-disc list-inside">
@@ -246,7 +273,7 @@
       </div>
 
       <div class="glass p-6 reveal">
-        <h4 class="playfair text-xl text-gray-800">Consultation</h4>
+        <h4 class="playfair">Consultation</h4>
         <div class="text-2xl font-bold text-gray-900 mt-3">₹4,500</div>
         <p class="text-gray-600 mt-3">Skin analysis, shade matching and product recommendations.</p>
         <ul class="text-gray-600 mt-3 list-disc list-inside">
@@ -260,20 +287,20 @@
   <!-- TESTIMONIALS -->
   <section class="py-12 px-6">
     <div class="max-w-4xl mx-auto text-center reveal">
-      <h3 class="playfair text-2xl text-gray-800">Loved by Clients</h3>
+      <h3 class="playfair">Loved by Clients</h3>
       <p class="text-gray-600 mt-2">Real stories, real confidence.</p>
 
       <div id="testimonials" class="mt-6 relative">
         <div class="testimonial" data-index="0">
-          <p class="text-gray-700 italic">"Simran made me feel beautiful and relaxed on my wedding morning. The makeup lasted through photos and dance — magical."</p>
+          <p class="italic">"Simran made me feel beautiful and relaxed on my wedding morning. The makeup lasted through photos and dance — magical."</p>
           <div class="mt-3 text-sm text-gray-500">— Asha</div>
         </div>
         <div class="testimonial hidden" data-index="1">
-          <p class="text-gray-700 italic">"My shoot looks were on point — soft yet editorial. Simran knows how to work with lighting and cameras."</p>
+          <p class="italic">"My shoot looks were on point — soft yet editorial. Simran knows how to work with lighting and cameras."</p>
           <div class="mt-3 text-sm text-gray-500">— Riya</div>
         </div>
         <div class="testimonial hidden" data-index="2">
-          <p class="text-gray-700 italic">"Gentle, skilled and professional. I received so many compliments at my event."</p>
+          <p class="italic">"Gentle, skilled and professional. I received so many compliments at my event."</p>
           <div class="mt-3 text-sm text-gray-500">— Meera</div>
         </div>
 
@@ -293,7 +320,7 @@
       </div>
 
       <div class="reveal">
-        <h3 class="playfair text-2xl text-gray-800">About Simran</h3>
+        <h3 class="playfair">About Simran</h3>
         <p class="text-gray-600 mt-3">With 8+ years of professional experience, Simran crafts personalised makeup experiences that suit skin, style and event. From calm trial sessions to energised wedding mornings, every booking is handled with care.</p>
 
         <div class="mt-6 grid grid-cols-2 gap-4">
@@ -318,7 +345,7 @@
   <section id="contact" class="py-16 px-6">
     <div class="max-w-4xl mx-auto reveal">
       <div class="text-center mb-6">
-        <h3 class="playfair text-2xl text-gray-800">Get in touch</h3>
+        <h3 class="playfair">Get in touch</h3>
         <p class="text-gray-600 mt-2">Share your event date and vision — I’ll reply with availability and next steps.</p>
       </div>
 
