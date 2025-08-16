@@ -1,584 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Transform your look with Makeovers by Simran Marwah. Expert makeup artistry for weddings, events, and special occasions. Book now!" />
-  <title>Makeovers by Simran Marwah</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Transform your look with Makeovers by Simran — luxurious bridal, event and editorial makeup. Book now for an elevated experience." />
+  <title>Makeovers by Simran Marwah — Luxury Makeup Artist</title>
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      scroll-behavior: smooth;
+    /* Base */
+    :root{
+      --gold: #d4af37;
+      --gold-strong: #b8860b;
+      --bg-1: #0b0710;
+      --glass: rgba(255,255,255,0.03);
     }
-    
-    body {
+    html,body{height:100%;}
+    body{
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 25%, #3d2c47 50%, #2a1810 75%, #1a1a1a 100%);
-      min-height: 100vh;
-      position: relative;
-      color: #f8f8f8;
+      background: linear-gradient(180deg,#0b0710 0%, #241826 50%, #0b0710 100%);
+      color:#f3f4f6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
-    
-    /* Sophisticated background texture */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 25% 75%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 25%, rgba(139, 69, 19, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(160, 82, 45, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: -1;
+
+    /* Hero enhancements */
+    .hero-figure{
+      position: absolute; inset:0; z-index:-2; pointer-events:none; overflow:hidden;
     }
-    
-    .playfair {
-      font-family: 'Playfair Display', serif;
+    .hero-figure img{ width:110%; height:110%; object-fit:cover; transform:scale(1.08); filter:contrast(.95) saturate(.95) brightness(.7); }
+    .hero-overlay{ position:absolute; inset:0; background:linear-gradient(135deg, rgba(11,7,16,0.5), rgba(36,24,38,0.45)); z-index:-1; }
+
+    /* Gold shimmer text */
+    .luxury-text{ font-family:'Playfair Display', serif; background: linear-gradient(90deg,var(--gold), #ffd970, var(--gold-strong)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+    /* Shimmer effect for headings */
+    .shimmer{ position:relative; overflow:hidden; display:inline-block; }
+    .shimmer::after{
+      content:''; position:absolute; left:-120%; top:0; height:100%; width:120%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent); transform:skewX(-25deg); animation: shimmer 3.6s linear infinite;
     }
-    
-    .glass-effect {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-    
-    .luxury-gradient {
-      background: linear-gradient(135deg, #d4af37, #b8860b, #8b4513);
-    }
-    
-    .hero-overlay {
-      background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.7), 
-        rgba(45, 27, 46, 0.6), 
-        rgba(61, 44, 71, 0.5)
-      );
-    }
-    
-    .floating {
-      animation: float 8s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-15px) rotate(2deg); }
-    }
-    
-    .glow-gold {
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-    }
-    
-    .hover-lift {
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .hover-lift:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
-    }
-    
-    .fade-in {
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeIn 1.2s ease-out forwards;
-    }
-    
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .luxury-text {
-      background: linear-gradient(135deg, #d4af37, #ffd700, #b8860b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .service-card {
-      background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(45, 27, 46, 0.4));
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: all 0.4s ease;
-    }
-    
-    .service-card:hover {
-      background: linear-gradient(145deg, rgba(45, 27, 46, 0.7), rgba(61, 44, 71, 0.5));
-      border-color: rgba(212, 175, 55, 0.4);
-      transform: translateY(-5px);
-    }
-    
-    .portfolio-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      transition: all 0.5s ease;
-      border: 2px solid rgba(212, 175, 55, 0.2);
-    }
-    
-    .portfolio-item:hover {
-      transform: scale(1.03);
-      border-color: rgba(212, 175, 55, 0.6);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-    
-    .portfolio-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .portfolio-item:hover .portfolio-overlay {
-      opacity: 1;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #d4af37, #b8860b);
-      color: #000;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-      border: none;
-      cursor: pointer;
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
-      background: linear-gradient(135deg, #ffd700, #d4af37);
-    }
-    
-    .btn-secondary {
-      border: 2px solid #d4af37;
-      color: #d4af37;
-      padding: 12px 26px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.3s ease;
-      background: rgba(0, 0, 0, 0.3);
-    }
-    
-    .btn-secondary:hover {
-      background: #d4af37;
-      color: #000;
-      transform: translateY(-2px);
-    }
-    
-    /* Elegant dividers */
-    .divider {
-      width: 80px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #d4af37, transparent);
-      margin: 20px auto;
-    }
-    
-    /* Subtle animations */
-    .subtle-glow {
-      text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-    }
-    
-    /* Professional input styling */
-    .form-input {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-    
-    .form-input:focus {
-      border-color: rgba(212, 175, 55, 0.8);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-      outline: none;
-    }
-    
-    /* Navigation styling */
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    
-    .nav-link:hover {
-      color: #d4af37;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #d4af37;
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::after {
-      width: 100%;
-    }
+    @keyframes shimmer{ to{ left:120%; } }
+
+    /* Navigation glass */
+    nav .glass{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(212,175,55,0.08); backdrop-filter: blur(8px); }
+
+    /* CTA */
+    .btn-primary-custom{ background: linear-gradient(135deg,var(--gold),var(--gold-strong)); color:#070606; padding:.8rem 1.2rem; border-radius:.6rem; font-weight:600; box-shadow:0 12px 30px rgba(212,175,55,0.16); }
+    .btn-primary-custom:hover{ transform:translateY(-4px); box-shadow:0 20px 40px rgba(212,175,55,0.22); }
+
+    /* Portfolio item */
+    .portfolio-item{ border-radius:14px; overflow:hidden; border:1px solid rgba(212,175,55,0.08); }
+
+    /* Before/After slider */
+    .before-after{ position:relative; height:360px; border-radius:12px; overflow:hidden; }
+    .before-after img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .before-after .after{ clip-path: inset(0 0 0 0); }
+    .before-after .after-wrapper{ position:absolute; inset:0; overflow:hidden; width:60%; }
+    .ba-handle{ position:absolute; left:60%; top:50%; transform:translate(-50%,-50%); width:46px; height:46px; background:rgba(0,0,0,0.5); border-radius:999px; display:flex; align-items:center; justify-content:center; border:2px solid rgba(212,175,55,0.9); cursor:ew-resize; transition:box-shadow .2s; }
+    .ba-handle:active{ box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+
+    /* Testimonials */
+    .testimonial{ background: linear-gradient(180deg, rgba(12,9,14,0.55), rgba(28,18,26,0.55)); border:1px solid rgba(212,175,55,0.06); padding:2rem; border-radius:12px; }
+
+    /* Floating decorative brushes */
+    .brush{ position:absolute; opacity:.06; filter: blur(1px); transform-origin:center; }
+
+    /* Animations: fade & lift */
+    .reveal{ opacity:0; transform:translateY(30px); transition: all .9s cubic-bezier(.2,.9,.2,1); }
+    .reveal.in{ opacity:1; transform:none; }
+
+    /* Footer */
+    footer a{ color:rgba(243,244,246,.8); }
+
+    /* Responsive tweaks */
+    @media (max-width:768px){ .hero-title{ font-size:2rem !important; } .before-after{ height:260px; } }
   </style>
 </head>
-<body>
-  <!-- Navigation -->
-  <nav class="glass-effect fixed w-full top-0 z-50 p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl md:text-3xl font-bold playfair luxury-text subtle-glow">
-        Makeovers by Simran
-      </h1>
-      
-      <div class="hidden md:flex space-x-8">
-        <a href="#home" class="nav-link text-gray-200 font-medium">Home</a>
-        <a href="#portfolio" class="nav-link text-gray-200 font-medium">Portfolio</a>
-        <a href="#services" class="nav-link text-gray-200 font-medium">Services</a>
-        <a href="#about" class="nav-link text-gray-200 font-medium">About</a>
-        <a href="#contact" class="nav-link text-gray-200 font-medium">Contact</a>
+<body class="antialiased">
+
+  <!-- Decorative floating SVG brushes -->
+  <svg class="brush" style="top:8%; left:5%; width:380px; transform:rotate(-10deg);" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 160 C120 120 240 120 600 40 L600 200 L0 200 Z" fill="url(#g1)"/>
+    <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#d4af37" stop-opacity="0.12"/><stop offset="1" stop-color="#b8860b" stop-opacity="0.04"/></linearGradient></defs>
+  </svg>
+
+  <nav class="fixed top-4 left-0 right-0 z-50 px-6">
+    <div class="max-w-6xl mx-auto flex items-center justify-between glass p-3 rounded-xl">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,var(--gold),var(--gold-strong));">
+          <span class="text-black font-bold">SM</span>
+        </div>
+        <div>
+          <a href="#home" class="luxury-text text-lg font-semibold">Makeovers by Simran</a>
+          <div class="text-xs text-gray-400">Bridal · Editorial · Events</div>
+        </div>
       </div>
-      
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#portfolio" class="nav-link text-gray-200">Portfolio</a>
+        <a href="#services" class="nav-link text-gray-200">Services</a>
+        <a href="#about" class="nav-link text-gray-200">About</a>
+        <a href="#contact" class="nav-link text-gray-200">Contact</a>
+        <button onclick="openBooking()" class="ml-2 btn-primary-custom">Book</button>
+      </div>
+
       <div class="md:hidden">
-        <button onclick="toggleMobileMenu()" class="text-gray-200">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+        <button id="burger" aria-label="Open menu" class="p-2 bg-white/3 rounded-md" onclick="toggleMobile()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
       </div>
     </div>
-    
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden md:hidden mt-4 glass-effect rounded-lg p-4">
-      <a href="#home" class="block text-gray-200 hover:text-gold-400 py-2">Home</a>
-      <a href="#portfolio" class="block text-gray-200 hover:text-gold-400 py-2">Portfolio</a>
-      <a href="#services" class="block text-gray-200 hover:text-gold-400 py-2">Services</a>
-      <a href="#about" class="block text-gray-200 hover:text-gold-400 py-2">About</a>
-      <a href="#contact" class="block text-gray-200 hover:text-gold-400 py-2">Contact</a>
+
+    <!-- Mobile menu -->
+    <div id="mobileNav" class="hidden max-w-6xl mx-auto mt-3 glass p-4 rounded-xl md:hidden">
+      <a href="#portfolio" class="block py-2">Portfolio</a>
+      <a href="#services" class="block py-2">Services</a>
+      <a href="#about" class="block py-2">About</a>
+      <a href="#contact" class="block py-2">Contact</a>
+      <button onclick="openBooking()" class="mt-3 btn-primary-custom w-full">Book</button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
-    <div class="hero-overlay absolute inset-0"></div>
-    
-    <!-- Subtle floating elements -->
-    <div class="absolute top-32 left-10 floating opacity-20">
-      <div class="w-3 h-3 bg-gold-400 rounded-full"></div>
+  <!-- HERO -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-6">
+    <div class="hero-figure" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=1800&q=80&auto=format&fit=crop" alt="Makeup closeup background" loading="lazy"/>
     </div>
-    <div class="absolute top-48 right-20 floating opacity-15" style="animation-delay: 2s;">
-      <div class="w-4 h-4 bg-gold-500 rounded-full"></div>
-    </div>
-    <div class="absolute bottom-32 left-20 floating opacity-10" style="animation-delay: 4s;">
-      <div class="w-2 h-2 bg-gold-300 rounded-full"></div>
-    </div>
-    
-    <div class="text-center z-10 px-4 fade-in">
-      <h1 class="text-5xl md:text-7xl font-bold playfair mb-8 luxury-text subtle-glow">
-        Artistry in Every
-        <br />
-        Brushstroke
-      </h1>
-      <div class="divider"></div>
-      <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed">
-        Professional makeup artistry that enhances your natural beauty with sophisticated techniques and premium products. Creating timeless looks for life's most important moments.
-      </p>
-      <div class="space-y-4 md:space-y-0 md:space-x-8">
-        <a href="#contact" class="btn-primary">Book Consultation</a>
-        <a href="#portfolio" class="btn-secondary">View Portfolio</a>
+    <div class="hero-overlay"></div>
+
+    <div class="max-w-6xl mx-auto text-center z-10 px-4">
+      <h1 class="playfair text-6xl md:text-7xl font-extrabold luxury-text shimmer hero-title">Artistry in Every Brushstroke</h1>
+      <p class="mt-6 text-gray-300 max-w-3xl mx-auto text-lg md:text-xl">Elevating natural beauty with bespoke makeup — bridal, editorial and special events. Using premium products, refined technique and a dedication to timeless elegance.</p>
+
+      <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
+        <button class="btn-primary-custom w-full md:w-auto" onclick="openBooking()">Book Consultation</button>
+        <a href="#portfolio" class="btn border border-gold-500 bg-transparent text-gray-100 px-6 py-3 rounded-md">View Portfolio</a>
       </div>
+
+      <div class="mt-12 text-sm text-gray-400">Available for select bookings in Delhi · Travel within NCR on request</div>
     </div>
-    
-    <!-- Elegant CTA -->
-    <a href="#contact" class="fixed bottom-8 right-8 btn-primary z-50 glow-gold">
-      Book Now
-    </a>
+
+    <!-- floating CTA -->
+    <button aria-label="Book now" onclick="openBooking()" class="fixed right-6 bottom-6 z-40 w-16 h-16 rounded-full btn-primary-custom flex items-center justify-center shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 3.549a4 4 0 016 3.452V12M8 21h8M8 17h8M8 13h8"/></svg>
+    </button>
   </section>
 
-  <!-- Portfolio Section -->
-  <section id="portfolio" class="py-24 relative z-10">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-20 fade-in">
-        <h2 class="text-4xl md:text-6xl font-bold playfair mb-6 luxury-text subtle-glow">
-          Portfolio
-        </h2>
-        <div class="divider"></div>
-        <p class="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-          Each creation is a testament to the artistry and precision that defines professional makeup application. From bridal elegance to editorial boldness, discover the transformative power of expert technique.
-        </p>
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold playfair luxury-text">Portfolio</h2>
+        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">A curated selection of bridal, editorial and event looks — each image showcases color, texture and the finishing details that make a look unforgettable.</p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div class="portfolio-item hover-lift">
-          <img src="https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=400&fit=crop" alt="Bridal Makeup" class="w-full h-96 object-cover" />
-          <div class="portfolio-overlay">
-            <div class="absolute bottom-6 left-6 text-white">
-              <h3 class="text-2xl font-semibold playfair mb-2">Bridal Excellence</h3>
-              <p class="text-gold-300">Timeless Wedding Beauty</p>
-            </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- cards -->
+        <div class="portfolio-item reveal">
+          <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=1200&q=80&auto=format&fit=crop" alt="Editorial makeup" loading="lazy" class="w-full h-72 object-cover"/>
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Editorial Artistry</h3>
+            <p class="text-gray-400 mt-2">High-fashion looks crafted for photoshoots and magazines.</p>
           </div>
         </div>
-        
-        <div class="portfolio-item hover-lift">
-          <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=400&h=400&fit=crop" alt="Editorial Makeup" class="w-full h-96 object-cover" />
-          <div class="portfolio-overlay">
-            <div class="absolute bottom-6 left-6 text-white">
-              <h3 class="text-2xl font-semibold playfair mb-2">Editorial Artistry</h3>
-              <p class="text-gold-300">High Fashion Photography</p>
-            </div>
+
+        <div class="portfolio-item reveal">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&q=80&auto=format&fit=crop" alt="Evening makeup" loading="lazy" class="w-full h-72 object-cover"/>
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Evening Elegance</h3>
+            <p class="text-gray-400 mt-2">Sophisticated looks for gala nights and special events.</p>
           </div>
         </div>
-        
-        <div class="portfolio-item hover-lift">
-          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop" alt="Evening Makeup" class="w-full h-96 object-cover" />
-          <div class="portfolio-overlay">
-            <div class="absolute bottom-6 left-6 text-white">
-              <h3 class="text-2xl font-semibold playfair mb-2">Evening Elegance</h3>
-              <p class="text-gold-300">Sophisticated Events</p>
-            </div>
+
+        <div class="portfolio-item reveal">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80&auto=format&fit=crop" alt="Dramatic makeup" loading="lazy" class="w-full h-72 object-cover"/>
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Dramatic Impact</h3>
+            <p class="text-gray-400 mt-2">Bold, editorial-ready statements that photograph beautifully.</p>
           </div>
         </div>
-        
-        <div class="portfolio-item hover-lift">
-          <img src="https://images.unsplash.com/photo-1498462440456-0dba182e775b?w=400&h=400&fit=crop" alt="Natural Makeup" class="w-full h-96 object-cover" />
-          <div class="portfolio-overlay">
-            <div class="absolute bottom-6 left-6 text-white">
-              <h3 class="text-2xl font-semibold playfair mb-2">Natural Radiance</h3>
-              <p class="text-gold-300">Effortless Beauty</p>
-            </div>
+
+        <!-- more -->
+        <div class="portfolio-item reveal">
+          <img src="https://images.unsplash.com/photo-1498462440456-0dba182e775b?w=1200&q=80&auto=format&fit=crop" alt="Natural makeup" loading="lazy" class="w-full h-72 object-cover"/>
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Natural Radiance</h3>
+            <p class="text-gray-400 mt-2">Fresh, radiant looks for daytime and intimate events.</p>
           </div>
         </div>
-        
-        <div class="portfolio-item hover-lift">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop" alt="Dramatic Makeup" class="w-full h-96 object-cover" />
-          <div class="portfolio-overlay">
-            <div class="absolute bottom-6 left-6 text-white">
-              <h3 class="text-2xl font-semibold playfair mb-2">Dramatic Impact</h3>
-              <p class="text-gold-300">Bold & Striking</p>
-            </div>
+
+        <div class="portfolio-item reveal">
+          <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1200&q=80&auto=format&fit=crop" alt="Classic makeup" loading="lazy" class="w-full h-72 object-cover"/>
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Classic Beauty</h3>
+            <p class="text-gray-400 mt-2">Timeless finishes that celebrate classical beauty.</p>
           </div>
         </div>
-        
-        <div class="portfolio-item hover-lift">
-          <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=400&h=400&fit=crop" alt="Classic Makeup" class="w-full h-96 object-cover" />
-          <div class="portfolio-overlay">
-            <div class="absolute bottom-6 left-6 text-white">
-              <h3 class="text-2xl font-semibold playfair mb-2">Classic Beauty</h3>
-              <p class="text-gold-300">Timeless Sophistication</p>
-            </div>
+
+        <div class="portfolio-item reveal">
+          <img src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=1200&q=80&auto=format&fit=crop" alt="Makeup artist" loading="lazy" class="w-full h-72 object-cover"/>
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Bridal Excellence</h3>
+            <p class="text-gray-400 mt-2">Bespoke bridal packages tailored to each bride's style.</p>
           </div>
         </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="#contact" class="btn-primary-custom">Reserve Your Date</a>
       </div>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="py-24 relative z-10">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-20 fade-in">
-        <h2 class="text-4xl md:text-6xl font-bold playfair mb-6 luxury-text subtle-glow">
-          Services
-        </h2>
-        <div class="divider"></div>
-        <p class="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-          Comprehensive makeup artistry services designed to enhance your natural beauty with professional techniques and premium products.
-        </p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div class="service-card p-10 rounded-xl text-center hover-lift">
-          <div class="w-16 h-16 mx-auto mb-6 glass-effect rounded-full flex items-center justify-center">
-            <div class="w-8 h-8 luxury-gradient rounded-full"></div>
-          </div>
-          <h3 class="text-2xl font-semibold playfair mb-4 text-white">Bridal Artistry</h3>
-          <div class="luxury-text font-bold text-3xl mb-6">₹15,000</div>
-          <p class="text-gray-400 mb-8 leading-relaxed">Complete bridal transformation including consultation, trial session, premium product application, and day-of touch-ups.</p>
-          <ul class="space-y-3 mb-10 text-sm text-gray-400">
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Personal Consultation</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Professional Trial</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Premium Products</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Touch-up Service</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Reserve Date</a>
+  <!-- BEFORE/AFTER -->
+  <section class="py-12 px-6 bg-gradient-to-b from-transparent to-black/30">
+    <div class="max-w-6xl mx-auto">
+      <div class="md:flex md:items-center md:gap-12">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <h3 class="text-3xl playfair luxury-text">Before & After</h3>
+          <p class="text-gray-400 mt-3">See the transformation — subtle changes in tone, texture and contour that make a dramatic final result.</p>
         </div>
-        
-        <div class="service-card p-10 rounded-xl text-center hover-lift">
-          <div class="w-16 h-16 mx-auto mb-6 glass-effect rounded-full flex items-center justify-center">
-            <div class="w-8 h-8 luxury-gradient rounded-full"></div>
-          </div>
-          <h3 class="text-2xl font-semibold playfair mb-4 text-white">Special Events</h3>
-          <div class="luxury-text font-bold text-3xl mb-6">₹8,500</div>
-          <p class="text-gray-400 mb-8 leading-relaxed">Professional makeup application for parties, photoshoots, corporate events, and special occasions.</p>
-          <ul class="space-y-3 mb-10 text-sm text-gray-400">
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Custom Look Design</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Long-lasting Formula</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Photo-ready Finish</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Quick Application</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Book Session</a>
-        </div>
-        
-        <div class="service-card p-10 rounded-xl text-center hover-lift">
-          <div class="w-16 h-16 mx-auto mb-6 glass-effect rounded-full flex items-center justify-center">
-            <div class="w-8 h-8 luxury-gradient rounded-full"></div>
-          </div>
-          <h3 class="text-2xl font-semibold playfair mb-4 text-white">Beauty Consultation</h3>
-          <div class="luxury-text font-bold text-3xl mb-6">₹4,500</div>
-          <p class="text-gray-400 mb-8 leading-relaxed">Personalized consultation with skin analysis, color matching, and professional product recommendations.</p>
-          <ul class="space-y-3 mb-10 text-sm text-gray-400">
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Skin Analysis</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Color Matching</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Product Guidance</li>
-            <li class="flex items-center justify-center"><span class="text-gold-400 mr-3">•</span>Technique Training</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Schedule Now</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-24 relative z-10">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div class="fade-in">
-          <img 
-            src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=600&h=700&fit=crop" 
-            alt="Simran Marwah" 
-            class="rounded-lg glow-gold hover-lift w-full max-w-lg mx-auto border border-gold-400" 
-          />
-        </div>
-        
-        <div class="fade-in">
-          <h2 class="text-4xl md:text-5xl font-bold playfair mb-8 luxury-text subtle-glow">
-            About Simran
-          </h2>
-          <div class="divider mb-8"></div>
-          <p class="text-gray-300 text-lg mb-8 leading-relaxed">
-            With over 8 years of professional experience in the beauty industry, I specialize in creating sophisticated makeup looks that enhance natural beauty while maintaining the highest standards of artistry and professionalism.
-          </p>
-          <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-            My approach combines classical techniques with contemporary trends, ensuring each client receives a personalized experience that reflects their unique style and personality.
-          </p>
-          <div class="grid grid-cols-2 gap-8 mb-10">
-            <div class="text-center glass-effect p-6 rounded-lg">
-              <div class="text-4xl font-bold luxury-text mb-2">500+</div>
-              <div class="text-gray-400">Satisfied Clients</div>
+        <div class="md:w-1/2">
+          <div id="ba" class="before-after">
+            <img src="https://images.unsplash.com/photo-1622270334396-d20d9b3f3f3b?w=1200&q=80&auto=format&fit=crop" alt="Before"/>
+            <div class="after-wrapper" id="afterWrap">
+              <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=1200&q=80&auto=format&fit=crop" alt="After" class="after"/>
             </div>
-            <div class="text-center glass-effect p-6 rounded-lg">
-              <div class="text-4xl font-bold luxury-text mb-2">8+</div>
-              <div class="text-gray-400">Years Experience</div>
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-4">
-            <span class="glass-effect px-6 py-3 rounded-lg text-sm text-gray-300">Bridal Specialist</span>
-            <span class="glass-effect px-6 py-3 rounded-lg text-sm text-gray-300">Editorial Artist</span>
-            <span class="glass-effect px-6 py-3 rounded-lg text-sm text-gray-300">Color Expert</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-24 relative z-10">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-20 fade-in">
-        <h2 class="text-4xl md:text-6xl font-bold playfair mb-6 luxury-text subtle-glow">
-          Contact
-        </h2>
-        <div class="divider"></div>
-        <p class="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-          Ready to enhance your natural beauty? Let's discuss how we can create the perfect look for your special occasion.
-        </p>
-      </div>
-      
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div class="fade-in">
-          <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                class="form-input p-4 rounded-lg text-white placeholder-gray-400"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                class="form-input p-4 rounded-lg text-white placeholder-gray-400"
-                required
-              />
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                class="form-input p-4 rounded-lg text-white placeholder-gray-400"
-              />
-              <select
-                name="service"
-                class="form-input p-4 rounded-lg text-white"
-              >
-                <option value="" style="background: #1a1a1a; color: #f8f8f8;">Select Service</option>
-                <option value="bridal" style="background: #1a1a1a; color: #f8f8f8;">Bridal Makeup</option>
-                <option value="event" style="background: #1a1a1a; color: #f8f8f8;">Special Event</option>
-                <option value="consultation" style="background: #1a1a1a; color: #f8f8f8;">Consultation</option>
-              </select>
-            </div>
-            
-            <textarea
-              name="message"
-              placeholder="Tell me about your vision and event details..."
-              rows="6"
-              class="w-full form-input p-4 rounded-lg text-white placeholder-gray-400 resize-none"
-              required
-            ></textarea>
-            
-            <button type="submit" class="btn-primary w-full md:w-auto">
-              Send Message
-            </button>
-          </form>
-        </div>
-        
-        <div class="fade-in space-y-10">
-          <div class="glass-effect p-8 rounded-lg">
-            <h3 class="text-xl font-semibold mb-4 luxury-text">Studio Location</h3>
-            <p class="text-gray-300 mb-2">Delhi, India</p>
-            <p class="text-gray-400">Available for travel within NCR region</p>
-          </div>
-          
-          <div class="glass-effect p-8 rounded-lg">
-            <h3 class="text-xl font-semibold mb-4 luxury-text">Get in Touch</h3>
-            <p class="text-gray-300 mb-2">+91 98765 43210</p>
-            <p class="text-gray-300">simran@makeovers.com</p>
-          </div>
-          
-          <div class="glass-effect p-8 rounded-lg">
-            <h3 class="text-xl font-semibold mb-4 luxury-text">Business Hours</h3>
-            <p class="text-gray-300 mb-2">Monday - Saturday: 9:00 AM - 7:00 PM</p>
-            <p class="text-gray-300">Sunday: By Appointment Only</p>
-          </div>
-          
-          <div class="text-center">
-            <h3 class="text-lg font-semibold mb-6 luxury-text">Follow My Work</h3>
-            <div class="flex justify-center space-x-6">
-              <a href="https://instagram.com" class="glass-effect p-4 rounded-lg hover-lift text-gray-300 hover:text-gold-400 transition-colors">Instagram</a>
-              <a href="https://facebook.com" class="glass-effect p-4 rounded-lg hover-lift text-gray-300 hover:text-gold-400 transition-colors">Facebook</a>
-              <a href="https://youtube.com" class="glass-effect p-4 rounded-lg hover-lift text-gray-300 hover:text-gold-400 transition-colors">YouTube</a>
-              <a href="https://wa.me/919876543210" class="glass-effect p-4 rounded-lg hover-lift text-gray-300 hover:text-gold-400 transition-colors">WhatsApp</a>
+            <div class="ba-handle" id="bahandle" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path stroke="white" stroke-width="1.6" d="M12 4v16M4 12h16"/></svg>
             </div>
           </div>
         </div>
@@ -586,100 +240,208 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-16 glass-effect relative z-10">
-    <div class="container mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold playfair mb-6 luxury-text subtle-glow">Makeovers by Simran</h3>
-      <p class="text-gray-400 mb-8">Professional makeup artistry for life's most beautiful moments</p>
-      
-      <div class="divider mb-8"></div>
-      
-      <div class="flex justify-center space-x-12 mb-12">
-        <a href="#home" class="text-gray-400 hover:text-gold-400 transition-colors">Home</a>
-        <a href="#portfolio" class="text-gray-400 hover:text-gold-400 transition-colors">Portfolio</a>
-        <a href="#services" class="text-gray-400 hover:text-gold-400 transition-colors">Services</a>
-        <a href="#about" class="text-gray-400 hover:text-gold-400 transition-colors">About</a>
-        <a href="#contact" class="text-gray-400 hover:text-gold-400 transition-colors">Contact</a>
+  <!-- SERVICES -->
+  <section id="services" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <div class="testimonial reveal">
+        <h4 class="playfair text-2xl luxury-text">Bridal Artistry</h4>
+        <div class="text-3xl font-bold luxury-text mt-4">₹15,000</div>
+        <p class="text-gray-400 mt-4">Complete bridal package: consultation, trial, premium products, and day-of support.</p>
+        <ul class="text-gray-400 mt-4 list-disc list-inside">
+          <li>Personalised consultation</li>
+          <li>Trial session</li>
+          <li>Touch-up & emergency kit</li>
+        </ul>
       </div>
-      
-      <div class="border-t border-gray-600 pt-8">
-        <p class="text-gray-500">&copy; 2025 Makeovers by Simran Marwah. All rights reserved.</p>
-        <p class="text-sm text-gray-600 mt-2">Crafted with precision for beauty excellence</p>
+
+      <div class="testimonial reveal">
+        <h4 class="playfair text-2xl luxury-text">Special Events</h4>
+        <div class="text-3xl font-bold luxury-text mt-4">₹8,500</div>
+        <p class="text-gray-400 mt-4">Parties, photoshoots and editorial looks with long-wear finishes.</p>
+        <ul class="text-gray-400 mt-4 list-disc list-inside">
+          <li>Quick turnaround looks</li>
+          <li>Photo-ready finishes</li>
+          <li>On-site service option</li>
+        </ul>
       </div>
+
+      <div class="testimonial reveal">
+        <h4 class="playfair text-2xl luxury-text">Consultation</h4>
+        <div class="text-3xl font-bold luxury-text mt-4">₹4,500</div>
+        <p class="text-gray-400 mt-4">Color-matching, product guidance and technique coaching tailored to you.</p>
+        <ul class="text-gray-400 mt-4 list-disc list-inside">
+          <li>Skin analysis</li>
+          <li>Shade and palette recommendations</li>
+          <li>Technique tips</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS carousel -->
+  <section class="py-16 px-6 bg-black/30">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-3xl playfair luxury-text">Loved by Clients</h3>
+      <p class="text-gray-400 mt-4">Real feedback — real glow.</p>
+
+      <div id="testimonials" class="mt-8 relative">
+        <div class="testimonial p-8" data-index="0">
+          <p class="text-gray-200 italic">"Simran made my wedding morning calm and magical. I felt beautiful and confident all day."</p>
+          <div class="mt-4 text-sm text-gray-400">— Asha, Bride</div>
+        </div>
+        <div class="testimonial p-8 hidden" data-index="1">
+          <p class="text-gray-200 italic">"Professional and precise. My photos looked flawless — she truly understands light and skin."</p>
+          <div class="mt-4 text-sm text-gray-400">— Riya, Model</div>
+        </div>
+        <div class="testimonial p-8 hidden" data-index="2">
+          <p class="text-gray-200 italic">"Loved the natural finish — I received so many compliments at my event."</p>
+          <div class="mt-4 text-sm text-gray-400">— Meera, Event Guest</div>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 mt-6">
+          <button onclick="prevTesti()" class="px-4 py-2 bg-white/5 rounded">◀</button>
+          <button onclick="nextTesti()" class="px-4 py-2 bg-white/5 rounded">▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT & CONTACT -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <img src="https://images.unsplash.com/photo-1594824506960-1513f4623a82?w=900&q=80&auto=format&fit=crop" alt="Simran" loading="lazy" class="rounded-lg shadow-lg" />
+      </div>
+      <div class="reveal">
+        <h3 class="text-4xl playfair luxury-text">About Simran</h3>
+        <p class="text-gray-300 mt-4">With over 8 years in the beauty industry, Simran blends classical techniques with modern trends to create looks that photograph and feel timeless. From the first consultation to the final touch-up, each booking receives meticulous care and premium products.</p>
+
+        <div class="mt-6 grid grid-cols-2 gap-4">
+          <div class="glass p-4 rounded-lg text-center">
+            <div class="text-2xl font-bold luxury-text">500+</div>
+            <div class="text-gray-400">Satisfied Clients</div>
+          </div>
+          <div class="glass p-4 rounded-lg text-center">
+            <div class="text-2xl font-bold luxury-text">8+</div>
+            <div class="text-gray-400">Years Experience</div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button class="btn-primary-custom" onclick="openBooking()">Reserve a Date</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section id="contact" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-8">
+        <h3 class="text-3xl playfair luxury-text">Get in touch</h3>
+        <p class="text-gray-400 mt-2">Tell me about your event and preferred dates — I’ll get back with availability and next steps.</p>
+      </div>
+
+      <form action="https://formspree.io/f/your-form-id" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input name="name" required placeholder="Full name" class="form-input p-4 rounded bg-white/3 border border-white/6 text-white" />
+        <input name="email" required type="email" placeholder="Email address" class="form-input p-4 rounded bg-white/3 border border-white/6 text-white" />
+        <input name="phone" placeholder="Phone (optional)" class="form-input p-4 rounded bg-white/3 border border-white/6 text-white" />
+        <select name="service" class="form-input p-4 rounded bg-white/3 border border-white/6 text-white">
+          <option value="">Select Service</option>
+          <option value="bridal">Bridal</option>
+          <option value="event">Event</option>
+          <option value="consult">Consultation</option>
+        </select>
+        <textarea name="message" required rows="6" placeholder="Tell me about your vision and date" class="col-span-1 md:col-span-2 form-input p-4 rounded bg-white/3 border border-white/6 text-white"></textarea>
+
+        <div class="col-span-1 md:col-span-2 text-right">
+          <button type="submit" class="btn-primary-custom px-8">Send Message</button>
+        </div>
+      </form>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <div class="glass p-6 rounded-lg text-center">
+          <h4 class="font-semibold luxury-text">Studio Location</h4>
+          <div class="text-gray-400 mt-2">Delhi, India</div>
+        </div>
+        <div class="glass p-6 rounded-lg text-center">
+          <h4 class="font-semibold luxury-text">Contact</h4>
+          <div class="text-gray-400 mt-2">+91 98765 43210</div>
+          <div class="text-gray-400 text-sm mt-1">simran@makeovers.com</div>
+        </div>
+        <div class="glass p-6 rounded-lg text-center">
+          <h4 class="font-semibold luxury-text">Hours</h4>
+          <div class="text-gray-400 mt-2">Mon–Sat: 9am–7pm</div>
+          <div class="text-gray-400 text-sm mt-1">Sun: By appointment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="luxury-text text-2xl font-semibold">Makeovers by Simran</div>
+      <p class="text-gray-400 mt-2">Professional makeup artistry for life's most beautiful moments</p>
+      <div class="mt-6 text-sm text-gray-500">&copy; 2025 Makeovers by Simran Marwah</div>
     </div>
   </footer>
 
+  <!-- Booking Modal (hidden by default) -->
+  <div id="bookingModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-gradient-to-b from-white/6 to-white/3 border border-white/6 rounded-xl p-6 max-w-xl w-full mx-4">
+      <div class="flex justify-between items-center">
+        <h4 class="playfair text-2xl luxury-text">Book a Consultation</h4>
+        <button onclick="closeBooking()" aria-label="Close" class="text-gray-300">✕</button>
+      </div>
+      <form action="https://formspree.io/f/your-form-id" method="POST" class="mt-4 grid grid-cols-1 gap-3">
+        <input name="name" required placeholder="Full name" class="p-3 rounded bg-black/40 border border-white/6 text-white" />
+        <input name="email" required type="email" placeholder="Email address" class="p-3 rounded bg-black/40 border border-white/6 text-white" />
+        <input name="date" type="date" class="p-3 rounded bg-black/40 border border-white/6 text-white" />
+        <textarea name="notes" rows="4" placeholder="Tell me about your event" class="p-3 rounded bg-black/40 border border-white/6 text-white"></textarea>
+        <div class="flex items-center justify-end gap-3">
+          <button type="button" onclick="closeBooking()" class="px-4 py-2 rounded bg-white/5">Cancel</button>
+          <button type="submit" class="btn-primary-custom px-6">Send Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
+    // Mobile nav toggle
+    function toggleMobile(){
+      const el = document.getElementById('mobileNav'); el.classList.toggle('hidden');
     }
-    
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          const offsetTop = target.offsetTop - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-          // Close mobile menu if open
-          document.getElementById('mobileMenu').classList.add('hidden');
-        }
-      });
-    });
-    
-    // Enhanced animation observer
-    const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
-    });
 
-    // Parallax effect for floating elements
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallax = scrolled * 0.5;
-      
-      document.querySelectorAll('.floating').forEach((element, index) => {
-        const speed = (index + 1) * 0.1;
-        element.style.transform = `translateY(${parallax * speed}px) rotate(${scrolled * 0.05}deg)`;
-      });
-    });
+    // Booking modal
+    function openBooking(){ document.getElementById('bookingModal').classList.remove('hidden'); document.getElementById('bookingModal').classList.add('flex'); }
+    function closeBooking(){ const m = document.getElementById('bookingModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
 
-    // Form enhancement
-    document.querySelectorAll('.form-input').forEach(input => {
-      input.addEventListener('focus', function() {
-        this.style.borderColor = 'rgba(212, 175, 55, 0.8)';
-        this.style.boxShadow = '0 0 20px rgba(212, 175, 55, 0.2)';
-      });
-      
-      input.addEventListener('blur', function() {
-        this.style.borderColor = 'rgba(212, 175, 55, 0.3)';
-        this.style.boxShadow = 'none';
-      });
-    });
+    // Intersection reveal
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-    // Subtle page load animation
-    window.addEventListener('load', () => {
-      document.body.style.opacity = '1';
-      document.body.style.transform = 'translateY(0)';
-    });
+    // Testimonials carousel
+    let testiIndex = 0; const testiEls = document.querySelectorAll('#testimonials .testimonial');
+    function showTesti(i){ testiEls.forEach((el,idx)=>{ el.classList.toggle('hidden', idx!==i); }); }
+    function nextTesti(){ testiIndex = (testiIndex+1)%testiEls.length; showTesti(testiIndex); }
+    function prevTesti(){ testiIndex = (testiIndex-1+testiEls.length)%testiEls.length; showTesti(testiIndex); }
+    setInterval(nextTesti,6000);
+
+    // Before/After slider
+    (function(){
+      const wrap = document.getElementById('afterWrap'); const handle = document.getElementById('bahandle'); const container = document.getElementById('ba');
+      let dragging=false; function setPos(x){ const rect=container.getBoundingClientRect(); let pct = Math.max(0, Math.min(1, (x-rect.left)/rect.width)); wrap.style.width = (pct*100)+'%'; handle.style.left = (pct*100)+'%'; }
+      handle.addEventListener('mousedown', ()=>dragging=true); window.addEventListener('mouseup', ()=>dragging=false); window.addEventListener('mousemove',(e)=>{ if(dragging) setPos(e.clientX); });
+      // touch
+      handle.addEventListener('touchstart', ()=>dragging=true); window.addEventListener('touchend', ()=>dragging=false); window.addEventListener('touchmove',(e)=>{ if(dragging) setPos(e.touches[0].clientX); });
+      // init
+      setPos(container.getBoundingClientRect().left + container.getBoundingClientRect().width*0.6);
+      window.addEventListener('resize', ()=> setPos(container.getBoundingClientRect().left + container.getBoundingClientRect().width*0.6));
+    })();
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', function(e){ e.preventDefault(); const t=document.querySelector(this.getAttribute('href')); if(t){ window.scrollTo({ top: t.offsetTop-80, behavior:'smooth' }); } }));
   </script>
 </body>
 </html>
