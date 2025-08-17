@@ -8,8 +8,8 @@
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fonts: Playfair for headings, Poppins for body, Great Vibes for logo accent -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- Fonts: keep Playfair for display if you like serif headings; body uses system Apple-like fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -25,18 +25,21 @@
       --mid: 260ms;
       --snappy-cubic: cubic-bezier(.18,.9,.32,1);
 
-      /* Typography scale (responsive) */
-      --fs-h1: clamp(2.1rem, 3.8vw + 0.6rem, 3.6rem);
-      --fs-h2: clamp(1.6rem, 2.8vw + 0.4rem, 2.6rem);
-      --fs-h3: clamp(1.25rem, 2.2vw + 0.2rem, 1.6rem);
-      --fs-base: clamp(0.95rem, 1.6vw + 0.2rem, 1.05rem);
-      --fs-small: clamp(0.8rem, 1.2vw + 0rem, 0.92rem);
-      --lead: 1.6;
+      /* Typography scale (Apple-like + larger) */
+      /* base increased for a larger overall UI */
+      --fs-base: 1.125rem; /* about 18px */
+      --fs-small: 0.92rem;
+      --fs-h1: clamp(2.6rem, 4.2vw + 0.8rem, 4.2rem); /* big headline */
+      --fs-h2: clamp(1.9rem, 3.2vw + 0.6rem, 2.8rem);
+      --fs-h3: clamp(1.4rem, 2.6vw + 0.2rem, 1.75rem);
+
+      --lead: 1.55;
     }
 
     html,body{height:100%;}
     body{
-      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      /* Apple-like system stack first */
+      font-family: -apple-system, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui, sans-serif;
       font-size: var(--fs-base);
       line-height: var(--lead);
       background: linear-gradient(180deg,var(--ivory) 0%, #fff 50%);
@@ -46,14 +49,17 @@
       overflow-x:hidden;
     }
 
-    /* Elegant serif for headings */
-    .playfair{ font-family:'Playfair Display', serif; letter-spacing: -0.02em; }
-    .logo-script{ font-family: 'Great Vibes', cursive; font-size: 1.4rem; line-height:1; }
+    /* Elegant serif for accent headings (logo/hero) */
+    .playfair{ font-family:'Playfair Display', serif; letter-spacing: -0.01em; }
+    .logo-script{ font-family: -apple-system, "SF Pro Text", "Great Vibes", system-ui, sans-serif; font-size: 1.5rem; line-height:1; }
 
-    /* Headings sizing */
-    h1.playfair{ font-size: var(--fs-h1); font-weight:700; color:#2b2b2b; }
+    /* Headings sizing & feel */
+    h1.playfair{ font-size: var(--fs-h1); font-weight:600; color:#222; letter-spacing:-0.01em; margin:0; }
     h2.playfair{ font-size: var(--fs-h2); font-weight:600; }
     h3.playfair{ font-size: var(--fs-h3); font-weight:600; }
+
+    p, li, input, textarea, select, button{ color: #4a4548; font-size: var(--fs-base); }
+    small, .text-sm{ color:#6a6870; font-size: var(--fs-small); }
 
     /* HERO: quicker and reactive */
     .hero-wrap{ position:relative; overflow:hidden; }
@@ -61,72 +67,53 @@
     .hero-figure img{ will-change:transform; width:100%; height:100%; object-fit:cover; transform:translate3d(0,0,0) scale(1.06); filter:brightness(.98) saturate(.97); transition: transform var(--fast) var(--snappy-cubic); display:block; }
     .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,248,246,0.28), rgba(255,247,245,0.36)); z-index:-2; pointer-events:none; }
 
-    /* Use uploaded images as section backgrounds, use relative paths since images are ./images/ next to index.html */
-    #home .hero-figure{ background: none; }
-    /* Portfolio background: soft patterned image from user assets */
-    #portfolio{ position:relative; z-index:0; }
-    #portfolio::before{
-      content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/portfolio-bg.jpg'); background-size:cover; background-position:center; opacity:0.14; filter: saturate(.9) blur(1px); transform:scale(1.03); pointer-events:none;
-    }
-    #portfolio::after{ content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95)); }
+    /* Section background paths should be relative to index.html in same folder */
+    #portfolio::before{ content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/portfolio-bg.jpg'); background-size:cover; background-position:center; opacity:0.12; filter: saturate(.9) blur(1px); transform:scale(1.03); pointer-events:none; }
+    #portfolio::after{ content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.96)); }
 
-    /* Services background */
-    #services{ position:relative; overflow:hidden; }
-    #services::before{
-      content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/services-bg.jpg'); background-size:cover; background-position:right center; opacity:0.12; filter: grayscale(.08) contrast(.95) blur(1px); transform:scale(1.02); pointer-events:none;
-    }
+    #services::before{ content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/services-bg.jpg'); background-size:cover; background-position:right center; opacity:0.10; filter: grayscale(.08) contrast(.95) blur(1px); transform:scale(1.02); pointer-events:none; }
     #services::after{ content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95)); }
 
-    /* Subtle decorative texture for body using the brushset image */
     body::before{ content:''; position:fixed; inset:auto 0 0 0; height:360px; z-index:-5; background-image:url('./images/hero-brushes.jpg'); background-size:cover; background-position:center top; opacity:0.04; pointer-events:none; transform:translateY(10%); }
 
-    /* Particles canvas sits above hero image (more reactive) */
     #particles{ position:absolute; inset:0; z-index:-3; pointer-events:none; }
 
-    /* Floating accent elements — faster bob */
-    .floaty{ position:absolute; opacity:.14; filter: blur(0.6px); transform-origin:center; }
-    @keyframes floatQuick { 0%{transform: translateY(0) rotate(-2deg);} 50%{transform: translateY(-10px) rotate(2deg);} 100%{transform: translateY(0) rotate(-2deg);} }
-
-    /* Luxury text gradient */
-    .luxury-text{ background: linear-gradient(90deg,var(--gold), #ffd970); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-
-    /* CTA — immediate micro-interactions */
-    .btn-primary{ background: linear-gradient(90deg, var(--rose), var(--peach)); color:#fff; padding:.85rem 1.2rem; border-radius:12px; font-weight:700; letter-spacing:0.02em; font-size:var(--fs-small); box-shadow:0 8px 22px rgba(244,166,185,0.12); transition: transform var(--fast) var(--snappy-cubic), box-shadow var(--fast) var(--snappy-cubic); }
-    .btn-primary:hover{ transform: translateY(-4px) scale(1.02); box-shadow:0 14px 34px rgba(244,166,185,0.16); }
+    /* CTA styling tuned to larger scale */
+    .btn-primary{ background: linear-gradient(90deg, var(--rose), var(--peach)); color:#fff; padding:1rem 1.25rem; border-radius:12px; font-weight:700; letter-spacing:0.01em; font-size:1rem; box-shadow:0 10px 30px rgba(244,166,185,0.12); transition: transform var(--fast) var(--snappy-cubic), box-shadow var(--fast) var(--snappy-cubic); }
+    .btn-primary:hover{ transform: translateY(-4px) scale(1.02); box-shadow:0 18px 44px rgba(244,166,185,0.16); }
     .btn-primary:active{ transform: translateY(-1px) scale(0.995); transition: transform 80ms linear; }
-    /* small ripple effect on click */
+
+    .btn-outline{ border:2px solid rgba(34,34,34,0.06); padding:.85rem 1rem; border-radius:12px; background:transparent; font-weight:600; font-size:0.98rem; transition: transform var(--fast) var(--snappy-cubic); }
+    .btn-outline:hover{ transform: translateY(-3px); }
+
     .ripple{ position:relative; overflow:hidden; }
     .ripple span{ position:absolute; border-radius:50%; transform:scale(0); background:rgba(255,255,255,0.5); animation:rippleAnim 450ms ease-out; }
     @keyframes rippleAnim{ to{ transform:scale(6); opacity:0; } }
 
-    .btn-outline{ border:2px solid rgba(34,34,34,0.06); padding:.7rem .95rem; border-radius:12px; background:transparent; font-weight:600; transition: transform var(--fast) var(--snappy-cubic); }
-    .btn-outline:hover{ transform: translateY(-3px); }
-
-    /* Nav micro-interaction — snappy */
-    .nav-link{ position:relative; padding:6px 2px; transition: color var(--fast) var(--snappy-cubic); }
-    .nav-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:-6px; height:3px; width:52%; background:linear-gradient(90deg,var(--peach),var(--rose)); border-radius:3px; transition: transform var(--fast) var(--snappy-cubic); transform-origin:center; }
+    /* nav styling */
+    .nav-link{ position:relative; padding:8px 4px; transition: color var(--fast) var(--snappy-cubic); font-weight:600; color: #333; }
+    .nav-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:-7px; height:3px; width:52%; background:linear-gradient(90deg,var(--peach),var(--rose)); border-radius:3px; transition: transform var(--fast) var(--snappy-cubic); transform-origin:center; }
     .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); }
 
-    /* Portfolio: instant tilt and quick shadow */
+    /* Portfolio card */
     .portfolio-item{ border-radius:16px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); background:#fff; transition: box-shadow var(--fast) var(--snappy-cubic), transform var(--mid) var(--snappy-cubic); will-change:transform; }
     .portfolio-item .img-wrap{ transform-origin:center; transition: transform 120ms linear; }
 
-    /* Before/After */
-    .before-after{ position:relative; height:360px; border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); }
+    /* before/after */
+    .before-after{ position:relative; height:420px; border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); }
     .before-after img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .after-wrapper{ position:absolute; inset:0; overflow:hidden; width:55%; transition: width 80ms linear; }
-    .ba-handle{ position:absolute; left:55%; top:50%; transform:translate(-50%,-50%); width:52px; height:52px; background:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; border:3px solid var(--rose); cursor:ew-resize; box-shadow:0 6px 18px rgba(22,22,22,0.06); transition: box-shadow var(--fast); }
-    .ba-handle:active{ box-shadow:0 14px 30px rgba(22,22,22,0.12); }
+    .ba-handle{ position:absolute; left:55%; top:50%; transform:translate(-50%,-50%); width:56px; height:56px; background:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; border:3px solid var(--rose); cursor:ew-resize; box-shadow:0 8px 24px rgba(22,22,22,0.06); transition: box-shadow var(--fast); }
+    .ba-handle:active{ box-shadow:0 18px 36px rgba(22,22,22,0.12); }
 
-    /* Reveal animations — instant and snappy */
     .reveal{ opacity:0; transform:translateY(12px); transition: all 220ms var(--snappy-cubic); }
     .reveal.in{ opacity:1; transform:none; }
 
-    /* Fine typography details */
-    p, li, input, textarea, select, button{ color: #4a4548; }
-    small, .text-sm{ color:#6a6870; }
-
-    @media (max-width:768px){ h1.playfair{ font-size: clamp(1.6rem, 6vw, 2.4rem); } .before-after{ height:240px; } }
+    @media (max-width:768px){
+      :root{ --fs-base: 1rem; --fs-h1: clamp(1.8rem, 7vw, 2.6rem); --fs-h2: clamp(1.4rem, 5vw, 1.9rem); --fs-h3: 1.2rem; }
+      .before-after{ height:260px; }
+      .btn-primary{ padding:.9rem 1rem; font-size:.98rem; }
+    }
   </style>
 </head>
 <body>
@@ -139,8 +126,8 @@
           <span class="logo-script text-white">SM</span>
         </div>
         <div>
-          <a href="#home" class="playfair brand-title font-semibold">Makeovers by Simran Marwah</a>
-          <div class="text-xs text-gray-500">Bridal · Editorial · Events</div>
+          <a href="#home" class="playfair brand-title font-semibold" style="font-size:1.05rem;">Makeovers by Simran Marwah</a>
+          <div class="text-xs text-gray-500" style="font-size:0.92rem;">Bridal · Editorial · Events</div>
         </div>
       </div>
 
@@ -171,8 +158,7 @@
   <!-- HERO -->
   <section id="home" class="hero-wrap relative min-h-screen flex items-center justify-center pt-28 px-6" aria-labelledby="heroTitle">
     <div class="hero-figure" aria-hidden="true">
-      <!-- use forward slashes and relative path to images/ folder -->
-      <img id="heroImg" src="./images\pexels-kinkate-212236.jpg" alt="soft makeup brushes background" loading="lazy"/>
+      <img id="heroImg" src="./images/william-shu-tlOxSSBgwq8-unsplash.jpg" alt="soft makeup brushes background" loading="lazy"/>
     </div>
 
     <canvas id="particles" aria-hidden="true"></canvas>
@@ -186,7 +172,7 @@
 
     <div class="max-w-5xl mx-auto text-center z-10 px-4">
       <h1 id="heroTitle" class="playfair text-center reveal">Elegant Makeup — <span class="luxury-text">Crafted For You</span></h1>
-      <p class="mt-6 text-gray-600 max-w-2xl mx-auto text-lg reveal">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
+      <p class="mt-6 text-gray-600 max-w-2xl mx-auto text-lg reveal" style="font-size:1.05rem;">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
 
       <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 reveal">
         <button class="btn-primary shimmer ripple w-full md:w-auto" onclick="openBooking()">Book Consultation</button>
@@ -487,9 +473,7 @@
       handle.addEventListener('pointerdown',(ev)=>{ dragging=true; if(handle.setPointerCapture) handle.setPointerCapture(ev.pointerId); });
       window.addEventListener('pointerup',()=>{ dragging=false; });
       window.addEventListener('pointermove',(e)=>{ if(dragging) setPos(e.clientX); });
-      // touch fallback
       handle.addEventListener('touchstart',()=>dragging=true); window.addEventListener('touchend',()=>dragging=false);
-      // init
       const initX = container.getBoundingClientRect().left + container.getBoundingClientRect().width*0.55; setPos(initX);
       window.addEventListener('resize',()=> setPos(container.getBoundingClientRect().left + container.getBoundingClientRect().width*0.55));
     })();
@@ -507,7 +491,7 @@
       hero.addEventListener('mousemove', (e)=>{
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        heroImg.style.transform = `translate3d(${x*8}%, ${y*8}%, 0) scale(1.07)`; // slightly softer multiplier
+        heroImg.style.transform = `translate3d(${x*8}%, ${y*8}%, 0) scale(1.07)`;
       });
       hero.addEventListener('mouseleave', ()=> heroImg.style.transform = 'translate3d(0,0,0) scale(1.06)');
       window.addEventListener('scroll', ()=>{ const s = window.scrollY; heroImg.style.transform = `translate3d(0, ${s*0.03}px,0) scale(1.06)`; });
@@ -530,22 +514,20 @@
       card.addEventListener('pointerenter', ()=> wrap.style.transition = 'transform 90ms linear');
     });
 
-    // Particles canvas — faster reaction to cursor, disabled on narrow screens
+    // Particles canvas — faster reaction to cursor, disabled on narrow screens for perf
     (function(){
       const canvas = document.getElementById('particles');
       if(!canvas) return;
-      // disable particles on small screens for perf
       if(window.innerWidth < 700){ canvas.style.display = 'none'; return; }
 
       const ctx = canvas.getContext('2d');
       let W, H, dpr = window.devicePixelRatio || 1;
       function resize(){
-        // size canvas to container in CSS pixels but scale for DPR
         canvas.style.width = canvas.parentElement.clientWidth + 'px';
         canvas.style.height = canvas.parentElement.clientHeight + 'px';
         W = canvas.width = Math.floor(canvas.parentElement.clientWidth * dpr);
         H = canvas.height = Math.floor(canvas.parentElement.clientHeight * dpr);
-        ctx.setTransform(dpr,0,0,dpr,0,0); // make drawing coordinates in CSS px
+        ctx.setTransform(dpr,0,0,dpr,0,0);
       }
       window.addEventListener('resize', resize);
       resize();
