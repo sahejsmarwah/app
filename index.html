@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Makeovers by Simran — elegant, natural and bridal makeup. Book a tailored consultation." />
-  <title>Makeovers by Simran Marwah— Modern & Aesthetic Makeup</title>
+  <title>Makeovers by Simran Marwah — Modern & Aesthetic Makeup</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -57,31 +57,31 @@
 
     /* HERO: quicker and reactive */
     .hero-wrap{ position:relative; overflow:hidden; }
-    .hero-figure{ position:absolute; inset:0; z-index:-3; pointer-events:none; overflow:hidden; }
-    .hero-figure img{ will-change:transform; width:120%; height:120%; object-fit:cover; transform:translate3d(0,0,0) scale(1.06); filter:brightness(.98) saturate(.95); transition: transform var(--fast) var(--snappy-cubic); }
-    .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,245,240,0.6), rgba(255,249,247,0.85)); z-index:-2; }
+    .hero-figure{ position:absolute; inset:0; z-index:-4; pointer-events:none; overflow:hidden; }
+    .hero-figure img{ will-change:transform; width:100%; height:100%; object-fit:cover; transform:translate3d(0,0,0) scale(1.06); filter:brightness(.98) saturate(.97); transition: transform var(--fast) var(--snappy-cubic); display:block; }
+    .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,248,246,0.28), rgba(255,247,245,0.36)); z-index:-2; pointer-events:none; }
 
-    /* Use uploaded images as section backgrounds */
+    /* Use uploaded images as section backgrounds, use relative paths since images are ./images/ next to index.html */
     #home .hero-figure{ background: none; }
     /* Portfolio background: soft patterned image from user assets */
     #portfolio{ position:relative; z-index:0; }
     #portfolio::before{
-      content:''; position:absolute; inset:0; z-index:-2; background-image: url('/images/portfolio-bg.jpg'); background-size:cover; background-position:center; opacity:0.14; filter: saturate(.9) blur(1px); transform:scale(1.03); pointer-events:none;
+      content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/portfolio-bg.jpg'); background-size:cover; background-position:center; opacity:0.14; filter: saturate(.9) blur(1px); transform:scale(1.03); pointer-events:none;
     }
     #portfolio::after{ content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95)); }
 
     /* Services background */
     #services{ position:relative; overflow:hidden; }
     #services::before{
-      content:''; position:absolute; inset:0; z-index:-2; background-image: url('/images/services-bg.jpg'); background-size:cover; background-position:right center; opacity:0.12; filter: grayscale(.08) contrast(.95) blur(1px); transform:scale(1.02); pointer-events:none;
+      content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/services-bg.jpg'); background-size:cover; background-position:right center; opacity:0.12; filter: grayscale(.08) contrast(.95) blur(1px); transform:scale(1.02); pointer-events:none;
     }
     #services::after{ content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95)); }
 
     /* Subtle decorative texture for body using the brushset image */
-    body::before{ content:''; position:fixed; inset:auto 0 0 0; height:360px; z-index:-3; background-image:url('/images/hero-brushes.jpg'); background-size:cover; background-position:center top; opacity:0.04; pointer-events:none; transform:translateY(10%); }
+    body::before{ content:''; position:fixed; inset:auto 0 0 0; height:360px; z-index:-5; background-image:url('./images/hero-brushes.jpg'); background-size:cover; background-position:center top; opacity:0.04; pointer-events:none; transform:translateY(10%); }
 
     /* Particles canvas sits above hero image (more reactive) */
-    #particles{ position:absolute; inset:0; z-index:-1; pointer-events:none; }
+    #particles{ position:absolute; inset:0; z-index:-3; pointer-events:none; }
 
     /* Floating accent elements — faster bob */
     .floaty{ position:absolute; opacity:.14; filter: blur(0.6px); transform-origin:center; }
@@ -169,21 +169,23 @@
   </nav>
 
   <!-- HERO -->
-  <section id="home" class="hero-wrap relative min-h-screen flex items-center justify-center pt-28 px-6">
+  <section id="home" class="hero-wrap relative min-h-screen flex items-center justify-center pt-28 px-6" aria-labelledby="heroTitle">
     <div class="hero-figure" aria-hidden="true">
-      <img id="heroImg" src="./images\william-shu-tlOxSSBgwq8-unsplash.jpg" alt="soft makeup brushes background" loading="lazy"/>
+      <!-- use forward slashes and relative path to images/ folder -->
+      <img id="heroImg" src="./images/william-shu-tlOxSSBgwq8-unsplash.jpg" alt="soft makeup brushes background" loading="lazy"/>
     </div>
-    <canvas id="particles"></canvas>
-    <div class="hero-overlay"></div>
+
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="hero-overlay" aria-hidden="true"></div>
 
     <!-- decorative floaties -->
-    <svg class="floaty" style="top:8%; left:5%; width:380px; animation:floatQuick 5s ease-in-out infinite;" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+    <svg class="floaty" style="top:8%; left:5%; width:380px; animation:floatQuick 5s ease-in-out infinite;" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M0 160 C120 120 240 120 600 40 L600 200 L0 200 Z" fill="url(#g1)"/>
       <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffd7c2" stop-opacity="0.45"/><stop offset="1" stop-color="#f4a6b9" stop-opacity="0.18"/></linearGradient></defs>
     </svg>
 
     <div class="max-w-5xl mx-auto text-center z-10 px-4">
-      <h1 class="playfair text-center reveal" id="heroTitle">Elegant Makeup — <span class="luxury-text">Crafted For You</span></h1>
+      <h1 id="heroTitle" class="playfair text-center reveal">Elegant Makeup — <span class="luxury-text">Crafted For You</span></h1>
       <p class="mt-6 text-gray-600 max-w-2xl mx-auto text-lg reveal">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
 
       <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 reveal">
@@ -206,7 +208,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="portfolio-item reveal" tabindex="0">
           <div class="img-wrap">
-            <img src="/images/portfolio-bridal.jpg" alt="Bridal makeup" loading="lazy" class="w-full h-64 object-cover"/>
+            <img src="./images/portfolio-bridal.jpg" alt="Bridal makeup" loading="lazy" class="w-full h-64 object-cover"/>
           </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Bridal Romance</h3>
@@ -216,7 +218,7 @@
 
         <div class="portfolio-item reveal" tabindex="0">
           <div class="img-wrap">
-            <img src="/images/portfolio-editorial.jpg" alt="Editorial makeup" loading="lazy" class="w-full h-64 object-cover"/>
+            <img src="./images/portfolio-editorial.jpg" alt="Editorial makeup" loading="lazy" class="w-full h-64 object-cover"/>
           </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Editorial Edge</h3>
@@ -226,7 +228,7 @@
 
         <div class="portfolio-item reveal" tabindex="0">
           <div class="img-wrap">
-            <img src="/images/portfolio-evening.jpg" alt="Evening makeup" loading="lazy" class="w-full h-64 object-cover"/>
+            <img src="./images/portfolio-evening.jpg" alt="Evening makeup" loading="lazy" class="w-full h-64 object-cover"/>
           </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Evening Glam</h3>
@@ -236,7 +238,7 @@
 
         <div class="portfolio-item reveal" tabindex="0">
           <div class="img-wrap">
-            <img src="/images/portfolio-natural.jpg" alt="Natural makeup" loading="lazy" class="w-full h-64 object-cover"/>
+            <img src="./images/portfolio-natural.jpg" alt="Natural makeup" loading="lazy" class="w-full h-64 object-cover"/>
           </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Natural Radiance</h3>
@@ -246,7 +248,7 @@
 
         <div class="portfolio-item reveal" tabindex="0">
           <div class="img-wrap">
-            <img src="/images/portfolio-classic.jpg" alt="Classic makeup" loading="lazy" class="w-full h-64 object-cover"/>
+            <img src="./images/portfolio-classic.jpg" alt="Classic makeup" loading="lazy" class="w-full h-64 object-cover"/>
           </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Classic Beauty</h3>
@@ -256,7 +258,7 @@
 
         <div class="portfolio-item reveal" tabindex="0">
           <div class="img-wrap">
-            <img src="/images/portfolio-artist.jpg" alt="Makeup artist" loading="lazy" class="w-full h-64 object-cover"/>
+            <img src="./images/portfolio-artist.jpg" alt="Makeup artist" loading="lazy" class="w-full h-64 object-cover"/>
           </div>
           <div class="p-5 portfolio-caption">
             <h3 class="playfair">Bridal Excellence</h3>
@@ -281,9 +283,9 @@
       </div>
       <div class="md:w-1/2 reveal">
         <div id="ba" class="before-after">
-          <img src="/images/ba-before.jpg" alt="Before image" />
+          <img src="./images/ba-before.jpg" alt="Before image" loading="lazy" />
           <div class="after-wrapper" id="afterWrap">
-            <img src="/images/ba-after.jpg" alt="After image" />
+            <img src="./images/ba-after.jpg" alt="After image" loading="lazy" />
           </div>
           <div class="ba-handle" id="bahandle" aria-hidden="true">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path stroke="#333" stroke-width="1.6" d="M12 4v16M4 12h16"/></svg>
@@ -362,7 +364,7 @@
   <section id="about" class="py-16 px-6">
     <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 gap-8 items-center">
       <div class="reveal">
-        <img src="/images/about-simran.jpg" alt="Simran" loading="lazy" class="rounded-lg shadow-md" />
+        <img src="./images/about-simran.jpg" alt="Simran" loading="lazy" class="rounded-lg shadow-md" />
       </div>
 
       <div class="reveal">
@@ -480,8 +482,11 @@
     function prevTesti(){ testiIndex=(testiIndex-1+testiEls.length)%testiEls.length; showTesti(testiIndex); }
 
     // Before/After slider — more responsive drag
-    (function(){ const wrap=document.getElementById('afterWrap'); const handle=document.getElementById('bahandle'); const container=document.getElementById('ba'); if(!wrap||!handle||!container) return; let dragging=false; function setPos(x){ const rect=container.getBoundingClientRect(); let pct=Math.max(0, Math.min(1, (x-rect.left)/rect.width)); wrap.style.width=(pct*100)+'%'; handle.style.left=(pct*100)+'%'; }
-      handle.addEventListener('pointerdown',()=>{ dragging=true; handle.setPointerCapture && handle.setPointerCapture(event.pointerId); }); window.addEventListener('pointerup',()=>{ dragging=false; }); window.addEventListener('pointermove',(e)=>{ if(dragging) setPos(e.clientX); });
+    (function(){ const wrap=document.getElementById('afterWrap'); const handle=document.getElementById('bahandle'); const container=document.getElementById('ba'); if(!wrap||!handle||!container) return; let dragging=false;
+      function setPos(x){ const rect=container.getBoundingClientRect(); let pct=Math.max(0, Math.min(1, (x-rect.left)/rect.width)); wrap.style.width=(pct*100)+'%'; handle.style.left=(pct*100)+'%'; }
+      handle.addEventListener('pointerdown',(ev)=>{ dragging=true; if(handle.setPointerCapture) handle.setPointerCapture(ev.pointerId); });
+      window.addEventListener('pointerup',()=>{ dragging=false; });
+      window.addEventListener('pointermove',(e)=>{ if(dragging) setPos(e.clientX); });
       // touch fallback
       handle.addEventListener('touchstart',()=>dragging=true); window.addEventListener('touchend',()=>dragging=false);
       // init
@@ -493,44 +498,122 @@
     document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', function(e){ e.preventDefault(); const t=document.querySelector(this.getAttribute('href')); if(t){ window.scrollTo({ top: t.offsetTop-80, behavior:'smooth' }); } }));
 
     // Hero parallax following mouse — more reactive (immediate response)
-    (function(){ const heroImg = document.getElementById('heroImg'); const hero = document.querySelector('.hero-wrap'); if(!heroImg || !hero) return; let rect = hero.getBoundingClientRect(); window.addEventListener('resize', ()=> rect = hero.getBoundingClientRect()); hero.addEventListener('mousemove', (e)=>{
-      const x = (e.clientX - rect.left) / rect.width - 0.5; const y = (e.clientY - rect.top) / rect.height - 0.5; // stronger multiplier for reactive feel
-      heroImg.style.transform = `translate3d(${x*10}%, ${y*10}%, 0) scale(1.07)`; });
-    hero.addEventListener('mouseleave', ()=> heroImg.style.transform = 'translate3d(0,0,0) scale(1.06)');
-    window.addEventListener('scroll', ()=>{ const s = window.scrollY; // small additive tweak but keep immediate
-      heroImg.style.transform = `translate3d(0, ${s*0.03}px,0) scale(1.06)`; });
+    (function(){
+      const heroImg = document.getElementById('heroImg');
+      const hero = document.querySelector('.hero-wrap');
+      if(!heroImg || !hero) return;
+      let rect = hero.getBoundingClientRect();
+      window.addEventListener('resize', ()=> rect = hero.getBoundingClientRect());
+      hero.addEventListener('mousemove', (e)=>{
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroImg.style.transform = `translate3d(${x*8}%, ${y*8}%, 0) scale(1.07)`; // slightly softer multiplier
+      });
+      hero.addEventListener('mouseleave', ()=> heroImg.style.transform = 'translate3d(0,0,0) scale(1.06)');
+      window.addEventListener('scroll', ()=>{ const s = window.scrollY; heroImg.style.transform = `translate3d(0, ${s*0.03}px,0) scale(1.06)`; });
     })();
 
     // Portfolio tilt effect — immediate and snappy
     document.querySelectorAll('.portfolio-item').forEach(card=>{
-      const wrap = card.querySelector('.img-wrap'); card.addEventListener('pointermove', (e)=>{
-        const r = card.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width; const y = (e.clientY - r.top) / r.height; const rx = (y-0.5)*10; const ry = (x-0.5)*-12; wrap.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`; card.style.boxShadow = '0 18px 40px rgba(16,24,40,0.08)'; });
+      const wrap = card.querySelector('.img-wrap');
+      if(!wrap) return;
+      card.addEventListener('pointermove', (e)=>{
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rx = (y-0.5)*8;
+        const ry = (x-0.5)*-10;
+        wrap.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.04)`;
+        card.style.boxShadow = '0 18px 40px rgba(16,24,40,0.08)';
+      });
       card.addEventListener('pointerleave', ()=>{ wrap.style.transform = 'none'; card.style.boxShadow = 'none'; });
-      card.addEventListener('pointerenter', ()=> wrap.style.transition = 'transform 80ms linear');
+      card.addEventListener('pointerenter', ()=> wrap.style.transition = 'transform 90ms linear');
     });
 
-    // Particles canvas — faster reaction to cursor
-    (function(){ const canvas = document.getElementById('particles'); if(!canvas) return; const ctx = canvas.getContext('2d'); let W, H; function resize(){ W = canvas.width = canvas.clientWidth; H = canvas.height = canvas.clientHeight; }
-      window.addEventListener('resize', resize); resize();
+    // Particles canvas — faster reaction to cursor, disabled on narrow screens
+    (function(){
+      const canvas = document.getElementById('particles');
+      if(!canvas) return;
+      // disable particles on small screens for perf
+      if(window.innerWidth < 700){ canvas.style.display = 'none'; return; }
+
+      const ctx = canvas.getContext('2d');
+      let W, H, dpr = window.devicePixelRatio || 1;
+      function resize(){
+        // size canvas to container in CSS pixels but scale for DPR
+        canvas.style.width = canvas.parentElement.clientWidth + 'px';
+        canvas.style.height = canvas.parentElement.clientHeight + 'px';
+        W = canvas.width = Math.floor(canvas.parentElement.clientWidth * dpr);
+        H = canvas.height = Math.floor(canvas.parentElement.clientHeight * dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0); // make drawing coordinates in CSS px
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
       const particles = [];
       function rand(min,max){ return Math.random()*(max-min)+min; }
-      for(let i=0;i<40;i++){ particles.push({ x: rand(0,W), y: rand(0,H), r: rand(0.6,2.4), vx: rand(-0.4,0.4), vy: rand(-0.3,0.3), alpha: rand(0.06,0.26) }); }
-      let mouse = {x:-9999, y:-9999}; canvas.addEventListener('pointermove', (e)=>{ const rect=canvas.getBoundingClientRect(); mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; }); canvas.addEventListener('pointerleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
-      function draw(){ ctx.clearRect(0,0,W,H); for(const p of particles){ // faster movement
-          p.x += p.vx; p.y += p.vy; if(p.x< -10) p.x = W+10; if(p.x>W+10) p.x = -10; if(p.y< -10) p.y = H+10; if(p.y>H+10) p.y = -10; const dx = mouse.x - p.x; const dy = mouse.y - p.y; const d = Math.sqrt(dx*dx+dy*dy); if(d<160){ // stronger attraction
-              const force = (160-d)/160; p.vx += dx*0.0015*force; p.vy += dy*0.0015*force; // clamp velocity
-              p.vx = Math.max(Math.min(p.vx, 2), -2); p.vy = Math.max(Math.min(p.vy, 2), -2);
+      for(let i=0;i<40;i++){
+        particles.push({
+          x: rand(0, canvas.parentElement.clientWidth),
+          y: rand(0, canvas.parentElement.clientHeight),
+          r: rand(0.6,2.4),
+          vx: rand(-0.4,0.4),
+          vy: rand(-0.3,0.3),
+          alpha: rand(0.06,0.26)
+        });
+      }
+
+      let mouse = {x:-9999, y:-9999};
+      canvas.addEventListener('pointermove', (e)=>{
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.addEventListener('pointerleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
+
+      function draw(){
+        ctx.clearRect(0,0, canvas.parentElement.clientWidth, canvas.parentElement.clientHeight);
+        for(const p of particles){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < -10) p.x = canvas.parentElement.clientWidth + 10;
+          if(p.x > canvas.parentElement.clientWidth + 10) p.x = -10;
+          if(p.y < -10) p.y = canvas.parentElement.clientHeight + 10;
+          if(p.y > canvas.parentElement.clientHeight + 10) p.y = -10;
+
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if(d < 160){
+            const force = (160 - d) / 160;
+            p.vx += dx * 0.0015 * force;
+            p.vy += dy * 0.0015 * force;
+            p.vx = Math.max(Math.min(p.vx, 2), -2);
+            p.vy = Math.max(Math.min(p.vy, 2), -2);
           }
-          // slight friction to return to calm
           p.vx *= 0.995; p.vy *= 0.995;
-          ctx.beginPath(); ctx.fillStyle = `rgba(244,166,185,${p.alpha})`; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); }
-        requestAnimationFrame(draw); }
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(244,166,185,${p.alpha})`;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
       draw();
     })();
 
     // Click ripple for buttons
     document.addEventListener('pointerdown', (e)=>{
-      const btn = e.target.closest('.ripple'); if(!btn) return; const rect = btn.getBoundingClientRect(); const span = document.createElement('span'); const size = Math.max(rect.width, rect.height); span.style.width = span.style.height = size+'px'; span.style.left = (e.clientX - rect.left - size/2) + 'px'; span.style.top = (e.clientY - rect.top - size/2) + 'px'; btn.appendChild(span); setTimeout(()=> span.remove(), 600);
+      const btn = e.target.closest('.ripple');
+      if(!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const span = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      span.style.width = span.style.height = size+'px';
+      span.style.left = (e.clientX - rect.left - size/2) + 'px';
+      span.style.top = (e.clientY - rect.top - size/2) + 'px';
+      btn.appendChild(span);
+      setTimeout(()=> span.remove(), 600);
     });
 
   </script>
