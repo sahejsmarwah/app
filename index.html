@@ -8,7 +8,7 @@
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Serif for headings only -->
+  <!-- Fonts: system (Apple-like) + Playfair for headings -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -42,22 +42,27 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x:hidden;
+      margin:0;
     }
 
     .playfair{ font-family:'Playfair Display', serif; letter-spacing: -0.01em; }
-    .logo-script{ font-family: -apple-system, "SF Pro Text", "Great Vibes", system-ui, sans-serif; font-size: 1.4rem; line-height:1; }
+    .logo-script{ font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; font-size: 1.4rem; line-height:1; }
 
-    h1.playfair{ font-size: var(--fs-h1); font-weight:600; color:#222; margin:0; text-wrap:balance; }
-    h2.playfair{ font-size: var(--fs-h2); font-weight:600; }
-    h3.playfair{ font-size: var(--fs-h3); font-weight:600; }
+    h1.playfair{ font-size: var(--fs-h1); font-weight:600; color:#222; margin:0; }
+    h2.playfair{ font-size: var(--fs-h2); font-weight:600; margin:0; }
+    h3.playfair{ font-size: var(--fs-h3); font-weight:600; margin:0; }
 
     p, li, input, textarea, select, button{ color: #4a4548; font-size: var(--fs-base); }
     small, .text-sm{ color:#6a6870; font-size: var(--fs-small); }
 
-    /* ===== HERO ===== */
-    .hero-wrap{ position:relative; overflow:hidden; min-height:calc(100vh - 96px); display:flex; align-items:center; justify-content:center; padding-top:0; padding-bottom:4rem; }
-    @media (min-width:1024px){ .hero-wrap{ min-height:100vh; padding-bottom:0; } }
+    /* ===== NAV ===== */
+    nav .glass{ display:flex; align-items:center; justify-content:space-between; gap:1rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(6px); padding:0.6rem 1rem; border-radius:12px; }
+    .nav-link{ position:relative; padding:8px 6px; transition: color var(--fast) var(--snappy-cubic); font-weight:600; color: #333; }
+    .nav-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:-7px; height:3px; width:52%; background:linear-gradient(90deg,var(--peach),var(--rose)); border-radius:3px; transition: transform var(--fast) var(--snappy-cubic); transform-origin:center; }
+    .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); }
 
+    /* ===== HERO ===== */
+    .hero-wrap{ position:relative; overflow:hidden; min-height:calc(100vh - 96px); display:flex; align-items:center; justify-content:center; padding-top:0; }
     .hero-figure{ position:absolute; inset:0; z-index:-4; pointer-events:none; display:block; }
     .hero-figure img{
       position:absolute;
@@ -73,11 +78,11 @@
     }
     .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,248,246,0.28), rgba(255,247,245,0.36)); z-index:-3; pointer-events:none; }
 
-    /* particles canvas should match hero area */
-    #particles{ position:absolute; inset:0; z-index:-2; pointer-events:none; display:block; }
+    #particles{ position:absolute; inset:0; z-index:-2; pointer-events:none; }
 
-    /* Centered hero content */
     .hero-inner{ position:relative; z-index:10; display:flex; flex-direction:column; align-items:center; text-align:center; padding:2.5rem 1rem; gap:1.25rem; }
+
+    .luxury-text{ background: linear-gradient(90deg,var(--gold), #ffd970); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 
     /* CTA */
     .btn-primary{ background: linear-gradient(90deg, var(--rose), var(--peach)); color:#fff; padding:1rem 1.25rem; border-radius:12px; font-weight:700; letter-spacing:0.01em; font-size:1rem; box-shadow:0 10px 30px rgba(244,166,185,0.12); transition: transform var(--fast) var(--snappy-cubic), box-shadow var(--fast) var(--snappy-cubic); }
@@ -86,14 +91,8 @@
     .btn-outline:hover{ transform: translateY(-3px); }
     .ripple{ position:relative; overflow:hidden; }
 
-    /* NAV adjustments */
-    nav .glass{ display:flex; align-items:center; justify-content:space-between; gap:1rem; background: rgba(255,255,255,0.7); backdrop-filter: blur(6px); }
-    .nav-link{ position:relative; padding:8px 6px; transition: color var(--fast) var(--snappy-cubic); font-weight:600; color: #333; }
-    .nav-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:-7px; height:3px; width:52%; background:linear-gradient(90deg,var(--peach),var(--rose)); border-radius:3px; transition: transform var(--fast) var(--snappy-cubic); transform-origin:center; }
-    .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); }
-
     /* Portfolio */
-    #portfolio{ position:relative; z-index:0; }
+    #portfolio{ position:relative; z-index:0; padding-top:3rem; padding-bottom:3rem; }
     #portfolio::before{ content:''; position:absolute; inset:0; z-index:-2; background-image: url('./images/portfolio-bg.jpg'); background-size:cover; background-position:center; opacity:0.10; filter: saturate(.9) blur(1px); transform:scale(1.03); pointer-events:none; }
     #portfolio::after{ content:''; position:absolute; inset:0; z-index:-1; background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.98)); }
 
@@ -101,7 +100,7 @@
     .portfolio-item .img-wrap{ transform-origin:center; transition: transform 120ms linear; }
 
     /* Before/After */
-    .before-after{ position:relative; height:420px; border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); }
+    .before-after{ position:relative; height:420px; border-radius:14px; overflow:hidden; border:1px solid rgba(16,24,40,0.04); margin:auto; max-width:720px; }
     .before-after img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .after-wrapper{ position:absolute; inset:0; overflow:hidden; width:55%; transition: width 80ms linear; }
     .ba-handle{ position:absolute; left:55%; top:50%; transform:translate(-50%,-50%); width:56px; height:56px; background:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; border:3px solid var(--rose); cursor:ew-resize; box-shadow:0 8px 24px rgba(22,22,22,0.06); transition: box-shadow var(--fast); }
@@ -110,26 +109,26 @@
     .reveal{ opacity:0; transform:translateY(12px); transition: all 220ms var(--snappy-cubic); }
     .reveal.in{ opacity:1; transform:none; }
 
-    /* Accessibility + small-screen niceties */
-    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-    
-    /* RESPONSIVE TWEAKS */
+    /* Misc */
+    .glass{ background: rgba(255,255,255,0.85); border-radius: 10px; padding: 0.75rem; display:flex; align-items:center; gap:0.5rem; }
+
     @media (max-width:1024px){
       :root{ --fs-h1: clamp(2.0rem, 7vw, 3.2rem); --fs-h2: clamp(1.4rem, 5vw, 1.8rem); --fs-h3: 1.15rem; --fs-base: 1rem; }
       .hero-figure img{ width:140%; height:140%; }
       .before-after{ height:320px; }
       .hero-inner{ padding:1.5rem; gap:1rem; }
-      nav .glass{ padding:0.5rem 0.75rem; }
+      nav .glass{ padding:0.5rem; }
     }
 
     @media (max-width:640px){
-      .hero-wrap{ min-height:calc(70vh); padding-bottom:2rem; }
+      .hero-wrap{ min-height:70vh; padding-bottom:2rem; }
       .hero-figure img{ width:160%; height:160%; }
       .before-after{ height:260px; }
-      .portfolio-item .img-wrap img{ height:200px; }
-      #particles{ display:none; } /* disable for tiny screens */
-      .nav-link{ display:block; padding:10px 0; }
+      .portfolio-item .img-wrap img{ height:200px; object-position:center; }
+      #particles{ display:none; }
+      .nav-link{ display:block; padding:10px 0; text-align:center; }
       .btn-primary{ width:100%; padding:0.95rem; }
+      nav .glass{ flex-direction:row; gap:0.5rem; }
     }
   </style>
 </head>
@@ -137,38 +136,40 @@
 
   <!-- NAV -->
   <nav class="fixed top-4 left-0 right-0 z-50 px-4">
-    <div class="max-w-6xl mx-auto glass p-3 rounded-xl flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,var(--peach),var(--rose));">
-          <span class="logo-script text-white">SM</span>
+    <div class="max-w-6xl mx-auto glass rounded-xl">
+      <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--peach),var(--rose));">
+            <span class="logo-script text-white">SM</span>
+          </div>
+          <div style="line-height:1;">
+            <a href="#home" class="playfair font-semibold" style="font-size:1.02rem; color:#222;">Makeovers by Simran Marwah</a>
+            <div class="text-xs text-gray-500" style="font-size:0.82rem;">Bridal · Editorial · Events</div>
+          </div>
         </div>
-        <div class="leading-tight">
-          <a href="#home" class="playfair font-semibold" style="font-size:1.02rem;">Makeovers by Simran</a>
-          <div class="text-xs text-gray-500" style="font-size:0.82rem;">Bridal · Editorial · Events</div>
+
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#portfolio" class="nav-link">Portfolio</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <button id="bookCta" onclick="openBooking()" class="btn-primary ripple">Book</button>
         </div>
-      </div>
 
-      <div class="hidden md:flex items-center gap-6">
-        <a href="#portfolio" class="nav-link">Portfolio</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#contact" class="nav-link">Contact</a>
-        <button id="bookCta" onclick="openBooking()" class="btn-primary ripple">Book</button>
-      </div>
-
-      <div class="md:hidden">
-        <button id="burger" aria-label="Open menu" class="p-2 rounded-md bg-white/90" onclick="toggleMobile()">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        </button>
+        <div class="md:hidden">
+          <button id="burger" aria-label="Open menu" class="p-2 rounded-md bg-white/90" onclick="toggleMobile()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Mobile nav (centered) -->
-    <div id="mobileNav" class="hidden max-w-3xl mx-auto mt-3 p-4 rounded-xl bg-white/90 md:hidden shadow">
-      <a href="#portfolio" class="block py-2 text-center">Portfolio</a>
-      <a href="#services" class="block py-2 text-center">Services</a>
-      <a href="#about" class="block py-2 text-center">About</a>
-      <a href="#contact" class="block py-2 text-center">Contact</a>
+    <!-- Mobile nav -->
+    <div id="mobileNav" class="hidden max-w-3xl mx-auto mt-3 p-4 rounded-xl bg-white/95 md:hidden shadow">
+      <a href="#portfolio" class="block py-2">Portfolio</a>
+      <a href="#services" class="block py-2">Services</a>
+      <a href="#about" class="block py-2">About</a>
+      <a href="#contact" class="block py-2">Contact</a>
       <div class="mt-3">
         <button onclick="openBooking()" class="btn-primary w-full">Book</button>
       </div>
@@ -178,15 +179,16 @@
   <!-- HERO -->
   <section id="home" class="hero-wrap" aria-labelledby="heroTitle">
     <div class="hero-figure" aria-hidden="true">
-      <img id="heroImg" src="./images\pexels-kinkate-212236.jpg" alt="soft makeup brushes background" loading="lazy"/>
+      <!-- use your local image in ./images/ folder -->
+      <img id="heroImg" src="./images\pexels-828860-2688991.jpg" alt="soft makeup brushes background" loading="lazy"/>
     </div>
 
     <canvas id="particles" aria-hidden="true"></canvas>
     <div class="hero-overlay" aria-hidden="true"></div>
 
     <div class="hero-inner max-w-5xl mx-auto px-4">
-      <h1 id="heroTitle" class="playfair reveal">Elegant Makeup — <span class="luxury-text" style="background:linear-gradient(90deg,var(--gold), #ffd970); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">Crafted For You</span></h1>
-      <p class="mt-4 text-gray-600 max-w-2xl mx-auto text-lg reveal" style="font-size:1.03rem;">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
+      <h1 id="heroTitle" class="playfair reveal">Elegant Makeup — <span class="luxury-text">Crafted For You</span></h1>
+      <p class="mt-4 text-gray-600 max-w-2xl mx-auto text-lg reveal">Bespoke bridal, editorial and event makeup using premium products and techniques that photograph beautifully. Soft, timeless finishes tailored to your personality.</p>
 
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 reveal w-full">
         <button class="btn-primary ripple w-full sm:w-auto" onclick="openBooking()">Book Consultation</button>
@@ -198,7 +200,7 @@
   </section>
 
   <!-- PORTFOLIO -->
-  <section id="portfolio" class="py-16 px-4">
+  <section id="portfolio" class="py-12 px-4">
     <div class="max-w-6xl mx-auto text-center">
       <div class="mb-10 reveal">
         <h2 class="playfair luxury-text">Portfolio</h2>
@@ -206,7 +208,6 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Use the images you added to ./images/ -->
         <div class="portfolio-item reveal">
           <div class="img-wrap"><img src="./images/portfolio-bridal.jpg" alt="Bridal makeup" loading="lazy" class="w-full h-64 object-cover"/></div>
           <div class="p-5">
@@ -256,7 +257,7 @@
         </div>
       </div>
 
-      <div class="text-center mt-12 reveal">
+      <div class="text-center mt-8 reveal">
         <button class="btn-primary ripple" onclick="openBooking()">Reserve Your Date</button>
       </div>
     </div>
@@ -270,7 +271,7 @@
         <p class="text-gray-600 mt-3">Slide to see subtle technique changes — contour, color and finish that transform a look.</p>
       </div>
       <div class="md:w-1/2 mt-6 md:mt-0 reveal">
-        <div id="ba" class="before-after mx-auto">
+        <div id="ba" class="before-after">
           <img src="./images/ba-before.jpg" alt="Before image" loading="lazy" />
           <div class="after-wrapper" id="afterWrap"><img src="./images/ba-after.jpg" alt="After image" loading="lazy" /></div>
           <div class="ba-handle" id="bahandle" aria-hidden="true">
@@ -318,17 +319,125 @@
     </div>
   </section>
 
-  <!-- CONTACT, ABOUT, FOOTER omitted here for brevity but kept in your original file -->
-  <!-- KEEP THE REST OF YOUR PAGES (Testimonials, About, Contact, Footer, Booking modal) UNCHANGED -->
+  <!-- TESTIMONIALS -->
+  <section class="py-10 px-4">
+    <div class="max-w-4xl mx-auto text-center reveal">
+      <h3 class="playfair">Loved by Clients</h3>
+      <p class="text-gray-600 mt-2">Real stories, real confidence.</p>
 
-  <!-- Booking Modal (kept intact) -->
+      <div id="testimonials" class="mt-6 relative">
+        <div class="testimonial" data-index="0">
+          <p class="italic">"Simran made me feel beautiful and relaxed on my wedding morning. The makeup lasted through photos and dance — magical."</p>
+          <div class="mt-3 text-sm text-gray-500">— Asha</div>
+        </div>
+        <div class="testimonial hidden" data-index="1">
+          <p class="italic">"My shoot looks were on point — soft yet editorial. Simran knows how to work with lighting and cameras."</p>
+          <div class="mt-3 text-sm text-gray-500">— Riya</div>
+        </div>
+        <div class="testimonial hidden" data-index="2">
+          <p class="italic">"Gentle, skilled and professional. I received so many compliments at my event."</p>
+          <div class="mt-3 text-sm text-gray-500">— Meera</div>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 mt-4">
+          <button onclick="prevTesti()" class="px-3 py-2 bg-white/60 rounded">◀</button>
+          <button onclick="nextTesti()" class="px-3 py-2 bg-white/60 rounded">▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT & CONTACT -->
+  <section id="about" class="py-12 px-4">
+    <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 gap-8 items-center">
+      <div class="reveal">
+        <img src="./images/about-simran.jpg" alt="Simran" loading="lazy" class="rounded-lg shadow-md w-full object-cover" />
+      </div>
+
+      <div class="reveal">
+        <h3 class="playfair">About Simran</h3>
+        <p class="text-gray-600 mt-3">With 8+ years of professional experience, Simran crafts personalised makeup experiences that suit skin, style and event. From calm trial sessions to energised wedding mornings, every booking is handled with care.</p>
+
+        <div class="mt-6 grid grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg text-center bg-white/80 shadow">
+            <div class="text-xl font-bold text-gray-800">500+</div>
+            <div class="text-gray-600">Satisfied Clients</div>
+          </div>
+          <div class="p-4 rounded-lg text-center bg-white/80 shadow">
+            <div class="text-xl font-bold text-gray-800">8+</div>
+            <div class="text-gray-600">Years Experience</div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button class="btn-primary" onclick="openBooking()">Reserve a Date</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section id="contact" class="py-12 px-4">
+    <div class="max-w-4xl mx-auto reveal">
+      <div class="text-center mb-6">
+        <h3 class="playfair">Get in touch</h3>
+        <p class="text-gray-600 mt-2">Share your event date and vision — I’ll reply with availability and next steps.</p>
+      </div>
+
+      <form action="https://formspree.io/f/mldlknwv" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input name="name" required placeholder="Full name" class="p-4 rounded border border-gray-200" />
+        <input name="email" required type="email" placeholder="Email address" class="p-4 rounded border border-gray-200" />
+        <input name="phone" placeholder="Phone (optional)" class="p-4 rounded border border-gray-200" />
+        <select name="service" class="p-4 rounded border border-gray-200">
+          <option value="">Select Service</option>
+          <option value="bridal">Bridal</option>
+          <option value="event">Event</option>
+          <option value="consult">Consultation</option>
+        </select>
+
+        <textarea name="message" required rows="6" placeholder="Tell me about your vision and date" class="col-span-1 md:col-span-2 p-4 rounded border border-gray-200"></textarea>
+
+        <div class="col-span-1 md:col-span-2 text-right">
+          <button type="submit" class="btn-primary">Send Message</button>
+        </div>
+      </form>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-lg bg-white/80 text-center shadow">
+          <h4 class="font-semibold text-gray-700">Studio Location</h4>
+          <div class="text-gray-600 mt-2">Delhi, India</div>
+        </div>
+        <div class="p-4 rounded-lg bg-white/80 text-center shadow">
+          <h4 class="font-semibold text-gray-700">Contact</h4>
+          <div class="text-gray-600 mt-2">+91 98765 43210</div>
+          <div class="text-gray-500 text-sm mt-1">simran@makeovers.com</div>
+        </div>
+        <div class="p-4 rounded-lg bg-white/80 text-center shadow">
+          <h4 class="font-semibold text-gray-700">Hours</h4>
+          <div class="text-gray-600 mt-2">Mon–Sat: 9am–7pm</div>
+          <div class="text-gray-500 text-sm mt-1">Sun: By appointment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 px-4">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="playfair text-lg font-semibold text-gray-800">Makeovers by Simran</div>
+      <p class="text-gray-600 mt-2">Professional makeup artistry for life's most beautiful moments</p>
+      <div class="mt-4 text-sm text-gray-500">&copy; 2025 Makeovers by Simran Marwah</div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
   <div id="bookingModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40">
     <div class="bg-white rounded-xl p-6 max-w-lg w-full mx-4">
       <div class="flex justify-between items-center">
         <h4 class="playfair text-xl text-gray-800">Book a Consultation</h4>
         <button onclick="closeBooking()" aria-label="Close" class="text-gray-600">✕</button>
       </div>
-      <form action="https://formspree.io/f/your-form-id" method="POST" class="mt-4 grid grid-cols-1 gap-3">
+      <form action="https://formspree.io/f/mldlknwv" method="POST" class="mt-4 grid grid-cols-1 gap-3">
         <input name="name" required placeholder="Full name" class="p-3 rounded border border-gray-200" />
         <input name="email" required type="email" placeholder="Email address" class="p-3 rounded border border-gray-200" />
         <input name="date" type="date" class="p-3 rounded border border-gray-200" />
@@ -342,68 +451,62 @@
   </div>
 
   <script>
-    // mobile nav
-    function toggleMobile(){
-      const el = document.getElementById('mobileNav');
-      el.classList.toggle('hidden');
-    }
+    // Mobile nav toggle
+    function toggleMobile(){ const el=document.getElementById('mobileNav'); el.classList.toggle('hidden'); }
 
-    function openBooking(){ const m = document.getElementById('bookingModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
-    function closeBooking(){ const m = document.getElementById('bookingModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+    // Booking modal
+    function openBooking(){ const m=document.getElementById('bookingModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
+    function closeBooking(){ const m=document.getElementById('bookingModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
 
-    // reveal observer
-    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); },{threshold:0.08});
+    // Intersection reveal with snappy appearance
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } }); },{threshold:0.08});
     document.querySelectorAll('.reveal').forEach((el)=> obs.observe(el));
 
-    // before/after slider (snappy)
+    // Testimonials carousel (manual)
+    let testiIndex=0; const testiEls=document.querySelectorAll('#testimonials .testimonial');
+    function showTesti(i){ testiEls.forEach((el,idx)=> el.classList.toggle('hidden', idx!==i)); }
+    function nextTesti(){ testiIndex=(testiIndex+1)%testiEls.length; showTesti(testiIndex); }
+    function prevTesti(){ testiIndex=(testiIndex-1+testiEls.length)%testiEls.length; showTesti(testiIndex); }
+
+    // Before/After slider
     (function(){
-      const wrap = document.getElementById('afterWrap');
-      const handle = document.getElementById('bahandle');
-      const container = document.getElementById('ba');
-      if(!wrap || !handle || !container) return;
+      const wrap=document.getElementById('afterWrap');
+      const handle=document.getElementById('bahandle');
+      const container=document.getElementById('ba');
+      if(!wrap||!handle||!container) return;
       let dragging=false;
       function setPos(x){
-        const rect = container.getBoundingClientRect();
-        let pct = Math.max(0, Math.min(1, (x - rect.left)/rect.width));
-        wrap.style.width = (pct*100) + '%';
-        handle.style.left = (pct*100) + '%';
+        const rect=container.getBoundingClientRect();
+        let pct=Math.max(0, Math.min(1, (x-rect.left)/rect.width));
+        wrap.style.width=(pct*100)+'%';
+        handle.style.left=(pct*100)+'%';
       }
-      handle.addEventListener('pointerdown', (ev)=>{ dragging=true; if(handle.setPointerCapture) handle.setPointerCapture(ev.pointerId); });
-      window.addEventListener('pointerup', ()=> dragging=false);
-      window.addEventListener('pointermove', (e)=>{ if(dragging) setPos(e.clientX); });
-      handle.addEventListener('touchstart', ()=> dragging=true);
-      window.addEventListener('touchend', ()=> dragging=false);
-      // init
-      setTimeout(()=> {
-        const rect = container.getBoundingClientRect();
-        setPos(rect.left + rect.width * 0.55);
-      }, 60);
-      window.addEventListener('resize', ()=> {
-        const rect = container.getBoundingClientRect();
-        setPos(rect.left + rect.width * 0.55);
-      });
+      handle.addEventListener('pointerdown',(ev)=>{ dragging=true; if(handle.setPointerCapture) handle.setPointerCapture(ev.pointerId); });
+      window.addEventListener('pointerup',()=>{ dragging=false; });
+      window.addEventListener('pointermove',(e)=>{ if(dragging) setPos(e.clientX); });
+      handle.addEventListener('touchstart',()=>dragging=true);
+      window.addEventListener('touchend',()=>dragging=false);
+      setTimeout(()=>{
+        const rect=container.getBoundingClientRect();
+        setPos(rect.left + rect.width*0.55);
+      },60);
+      window.addEventListener('resize',()=>{ const rect=container.getBoundingClientRect(); setPos(rect.left + rect.width*0.55); });
     })();
 
-    // hero parallax (gentle, responsive)
+    // Hero parallax following mouse
     (function(){
       const heroImg = document.getElementById('heroImg');
       const hero = document.querySelector('.hero-wrap');
       if(!heroImg || !hero) return;
       let rect = hero.getBoundingClientRect();
       window.addEventListener('resize', ()=> rect = hero.getBoundingClientRect());
-
       hero.addEventListener('mousemove', (e)=>{
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        // smaller multiplier on small screens:
         const mul = window.innerWidth < 640 ? 3 : 8;
         heroImg.style.transform = `translate(calc(-50% + ${x*mul}%), calc(-50% + ${y*mul}%)) scale(1.07)`;
       });
-
-      hero.addEventListener('mouseleave', ()=> {
-        heroImg.style.transform = 'translate(-50%,-50%) scale(1.06)';
-      });
-
+      hero.addEventListener('mouseleave', ()=> { heroImg.style.transform = 'translate(-50%,-50%) scale(1.06)'; });
       window.addEventListener('scroll', ()=> {
         const s = window.scrollY;
         if(window.innerWidth >= 640){
@@ -412,7 +515,7 @@
       });
     })();
 
-    // portfolio tilt (snappy)
+    // Portfolio tilt
     document.querySelectorAll('.portfolio-item').forEach(card=>{
       const wrap = card.querySelector('.img-wrap');
       if(!wrap) return;
@@ -429,11 +532,10 @@
       card.addEventListener('pointerenter', ()=> wrap.style.transition = 'transform 90ms linear');
     });
 
-    // particles canvas - adaptive and disabled on small screens
+    // Particles canvas (disabled on small screens)
     (function(){
       const canvas = document.getElementById('particles');
       if(!canvas || window.innerWidth < 700) { if(canvas) canvas.style.display='none'; return; }
-
       const ctx = canvas.getContext('2d');
       let W, H;
       function resize(){
@@ -445,15 +547,12 @@
       }
       window.addEventListener('resize', resize);
       resize();
-
       const particles = [];
       function rand(min,max){ return Math.random()*(max-min)+min; }
       for(let i=0;i<40;i++) particles.push({ x:rand(0,W), y:rand(0,H), r:rand(0.6,2.4), vx:rand(-0.4,0.4), vy:rand(-0.3,0.3), alpha:rand(0.06,0.26) });
-
       let mouse = {x:-9999,y:-9999};
       canvas.addEventListener('pointermove', (e)=>{ const rect = canvas.getBoundingClientRect(); mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; });
       canvas.addEventListener('pointerleave', ()=> mouse = {x:-9999,y:-9999});
-
       function draw(){
         ctx.clearRect(0,0,W,H);
         for(const p of particles){
@@ -482,7 +581,7 @@
       draw();
     })();
 
-    // click ripple
+    // Click ripple
     document.addEventListener('pointerdown', (e)=>{
       const btn = e.target.closest('.ripple');
       if(!btn) return;
@@ -501,6 +600,10 @@
       setTimeout(()=> span.remove(), 650);
     });
 
+    // small CSS animation for ripple
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes rippleAnim{ to{ transform:scale(6); opacity:0; } }`;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
