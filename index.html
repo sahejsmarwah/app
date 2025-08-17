@@ -24,12 +24,16 @@
       --mid: 260ms;
       --snappy-cubic: cubic-bezier(.18,.9,.32,1);
 
+      /* sizes */
       --fs-base: 1.125rem;
       --fs-small: 0.92rem;
       --fs-h1: clamp(2.6rem, 4.2vw + 0.8rem, 4.2rem);
       --fs-h2: clamp(1.9rem, 3.2vw + 0.6rem, 2.8rem);
       --fs-h3: clamp(1.4rem, 2.6vw + 0.2rem, 1.75rem);
       --lead: 1.55;
+
+      /* dynamic nav height default (will be overridden by JS) */
+      --nav-height: 96px;
     }
 
     html,body{height:100%;}
@@ -56,13 +60,15 @@
     small, .text-sm{ color:#6a6870; font-size: var(--fs-small); }
 
     /* ===== NAV ===== */
-    nav .glass{ display:flex; align-items:center; justify-content:space-between; gap:1rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(6px); padding:0.6rem 1rem; border-radius:12px; }
+    nav { position: fixed; top: 12px; left: 0; right: 0; z-index: 80; padding: 0 1rem; }
+    nav .glass{ display:flex; align-items:center; justify-content:space-between; gap:1rem; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); padding:0.6rem 1rem; border-radius:12px; }
     .nav-link{ position:relative; padding:8px 6px; transition: color var(--fast) var(--snappy-cubic); font-weight:600; color: #333; }
     .nav-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:-7px; height:3px; width:52%; background:linear-gradient(90deg,var(--peach),var(--rose)); border-radius:3px; transition: transform var(--fast) var(--snappy-cubic); transform-origin:center; }
     .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); }
 
     /* ===== HERO ===== */
-    .hero-wrap{ position:relative; overflow:hidden; min-height:calc(100vh - 96px); display:flex; align-items:center; justify-content:center; padding-top:0; }
+    /* hero top padding & min-height are dynamic using --nav-height variable so content never sits behind nav */
+    .hero-wrap{ position:relative; overflow:hidden; min-height: calc(100vh - var(--nav-height)); display:flex; align-items:center; justify-content:center; padding-top: calc(var(--nav-height) + 18px); padding-bottom: 3.5rem; }
     .hero-figure{ position:absolute; inset:0; z-index:-4; pointer-events:none; display:block; }
     .hero-figure img{
       position:absolute;
@@ -80,7 +86,7 @@
 
     #particles{ position:absolute; inset:0; z-index:-2; pointer-events:none; }
 
-    .hero-inner{ position:relative; z-index:10; display:flex; flex-direction:column; align-items:center; text-align:center; padding:2.5rem 1rem; gap:1.25rem; }
+    .hero-inner{ position:relative; z-index:10; display:flex; flex-direction:column; align-items:center; text-align:center; padding:2.5rem 1rem; gap:1.25rem; max-width:1100px; margin:0 auto; }
 
     .luxury-text{ background: linear-gradient(90deg,var(--gold), #ffd970); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 
@@ -121,13 +127,14 @@
     }
 
     @media (max-width:640px){
-      .hero-wrap{ min-height:70vh; padding-bottom:2rem; }
+      .hero-wrap{ min-height: 70vh; padding-bottom:2rem; }
       .hero-figure img{ width:160%; height:160%; }
       .before-after{ height:260px; }
       .portfolio-item .img-wrap img{ height:200px; object-position:center; }
       #particles{ display:none; }
       .nav-link{ display:block; padding:10px 0; text-align:center; }
       .btn-primary{ width:100%; padding:0.95rem; }
+      nav { top: 10px; padding: 0 0.6rem; }
       nav .glass{ flex-direction:row; gap:0.5rem; }
     }
   </style>
@@ -135,7 +142,7 @@
 <body>
 
   <!-- NAV -->
-  <nav class="fixed top-4 left-0 right-0 z-50 px-4">
+  <nav id="mainNav" aria-label="Main navigation">
     <div class="max-w-6xl mx-auto glass rounded-xl">
       <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -179,8 +186,7 @@
   <!-- HERO -->
   <section id="home" class="hero-wrap" aria-labelledby="heroTitle">
     <div class="hero-figure" aria-hidden="true">
-      <!-- use your local image in ./images/ folder -->
-      <img id="heroImg" src="./images\pexels-828860-2688991.jpg" alt="soft makeup brushes background" loading="lazy"/>
+      <img id="heroImg" src="./images/william-shu-tlOxSSBgwq8-unsplash.jpg" alt="soft makeup brushes background" loading="lazy"/>
     </div>
 
     <canvas id="particles" aria-hidden="true"></canvas>
@@ -263,6 +269,7 @@
     </div>
   </section>
 
+  <!-- (rest of page unchanged) -->
   <!-- BEFORE / AFTER -->
   <section class="py-12 px-4">
     <div class="max-w-6xl mx-auto md:flex md:items-center md:gap-12">
@@ -451,12 +458,51 @@
   </div>
 
   <script>
-    // Mobile nav toggle
-    function toggleMobile(){ const el=document.getElementById('mobileNav'); el.classList.toggle('hidden'); }
+    /* ---------- Layout helpers to keep hero below the navbar (mobile-friendly) ---------- */
+    const adjustLayout = () => {
+      const nav = document.getElementById('mainNav');
+      const hero = document.querySelector('.hero-wrap');
+      const mobileNav = document.getElementById('mobileNav');
+      if(!nav || !hero) return;
+
+      // measure nav including its current open/closed mobile menu
+      let navHeight = nav.getBoundingClientRect().height;
+
+      // if mobileMenu is visible and not hidden, include its height too (so it doesn't overlap)
+      if (mobileNav && !mobileNav.classList.contains('hidden')) {
+        // place mobileNav directly below nav, so add its height as well
+        navHeight += mobileNav.getBoundingClientRect().height + 12; // small gap
+      }
+
+      // set CSS variable for use in styles
+      document.documentElement.style.setProperty('--nav-height', Math.ceil(navHeight) + 'px');
+
+      // also ensure hero top padding is at least navHeight + small gap
+      hero.style.paddingTop = (navHeight + 18) + 'px';
+
+      // set hero min-height so viewport minus nav remains visible
+      hero.style.minHeight = `calc(100vh - ${Math.ceil(navHeight)}px)`;
+    };
+
+    // run on load and resize
+    window.addEventListener('DOMContentLoaded', () => {
+      adjustLayout();
+      // small debounce for resize
+      let t;
+      window.addEventListener('resize', ()=> { clearTimeout(t); t = setTimeout(adjustLayout, 90); });
+    });
+
+    // If mobile nav toggles, re-adjust
+    function toggleMobile(){
+      const el = document.getElementById('mobileNav');
+      el.classList.toggle('hidden');
+      // toggling can change layout; recalc after next tick
+      setTimeout(adjustLayout, 80);
+    }
 
     // Booking modal
-    function openBooking(){ const m=document.getElementById('bookingModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
-    function closeBooking(){ const m=document.getElementById('bookingModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+    function openBooking(){ const m=document.getElementById('bookingModal'); m.classList.remove('hidden'); m.classList.add('flex'); adjustLayout(); }
+    function closeBooking(){ const m=document.getElementById('bookingModal'); m.classList.add('hidden'); m.classList.remove('flex'); adjustLayout(); }
 
     // Intersection reveal with snappy appearance
     const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } }); },{threshold:0.08});
@@ -468,7 +514,7 @@
     function nextTesti(){ testiIndex=(testiIndex+1)%testiEls.length; showTesti(testiIndex); }
     function prevTesti(){ testiIndex=(testiIndex-1+testiEls.length)%testiEls.length; showTesti(testiIndex); }
 
-    // Before/After slider
+    // Before/After slider (responsive)
     (function(){
       const wrap=document.getElementById('afterWrap');
       const handle=document.getElementById('bahandle');
@@ -490,7 +536,7 @@
         const rect=container.getBoundingClientRect();
         setPos(rect.left + rect.width*0.55);
       },60);
-      window.addEventListener('resize',()=>{ const rect=container.getBoundingClientRect(); setPos(rect.left + rect.width*0.55); });
+      window.addEventListener('resize',()=>{ setTimeout(()=>{ const rect=container.getBoundingClientRect(); setPos(rect.left + rect.width*0.55); },80); });
     })();
 
     // Hero parallax following mouse
@@ -515,7 +561,7 @@
       });
     })();
 
-    // Portfolio tilt
+    // Portfolio tilt (snappy)
     document.querySelectorAll('.portfolio-item').forEach(card=>{
       const wrap = card.querySelector('.img-wrap');
       if(!wrap) return;
@@ -604,6 +650,14 @@
     const style = document.createElement('style');
     style.innerHTML = `@keyframes rippleAnim{ to{ transform:scale(6); opacity:0; } }`;
     document.head.appendChild(style);
+
+    // call adjustLayout initially (in case mobile menu is hidden/show later)
+    window.addEventListener('load', () => {
+      // ensure layout recalc after everything settled
+      setTimeout(()=> {
+        if (typeof adjustLayout === 'function') adjustLayout();
+      }, 50);
+    });
   </script>
 </body>
 </html>
