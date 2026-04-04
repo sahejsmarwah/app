@@ -1,0 +1,30 @@
+{
+  "functions": {
+    "api/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/log",
+      "destination": "/api/log.js"
+    },
+    {
+      "source": "/api/create-order",
+      "destination": "/api/create-order.js"
+    },
+    {
+      "source": "/api/create-booking",
+      "destination": "/api/create-booking.js"
+    },
+    {
+      "source": "/api/verify-payment",
+      "destination": "/api/verify-payment.js"
+    },
+    {
+      "source": "/api/calendar-availability",
+      "destination": "/api/calendar-availability.js"
+    }
+  ]
+}
