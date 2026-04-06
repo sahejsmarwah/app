@@ -270,7 +270,8 @@ const Home = () => {
                     </div>
 
                     <AnimatePresence mode="wait">
-                        {transformationMode === 'reveal' ?                             <motion.div
+                        {transformationMode === 'reveal' ? (
+                            <motion.div
                                 key="reveal"
                                 onClick={() => setIsRevealed(!isRevealed)}
                                 initial={{ opacity: 0, scale: 0.98 }}
@@ -299,7 +300,7 @@ const Home = () => {
                                     )}>
                                         <span className="text-white text-xs font-bold tracking-[0.4em] uppercase">Tap or Hover to reveal color</span>
                                     </div>
-                                </div>div>
+                                </div>
 
                                 <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 flex gap-2 md:gap-4">
                                     <div className="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1.5 rounded-full border border-white/20 text-white text-[8px] md:text-[10px] font-bold tracking-widest uppercase">HD Finish</div>
@@ -480,7 +481,7 @@ const Home = () => {
                      <div className="relative group">
                         <div className="absolute -inset-4 bg-gradient-to-tr from-peach/20 to-rose/10 blur-3xl rounded-[40px] -z-10 group-hover:scale-110 transition-transform duration-1000" />
                         <img
-                            src="/images/WhatsApp Image 2026-04-06 at 9.27.31 PM.jpeg"
+                            src="/images/about-simran.jpg"
                             alt="Simran"
                             className="w-full aspect-[3/4] object-cover rounded-3xl md:rounded-[50px] shadow-2xl relative z-10 grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
                         />
