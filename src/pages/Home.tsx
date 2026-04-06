@@ -25,7 +25,7 @@ const Home = () => {
         { title: "Editorial Edge", desc: "Bold shapes and textures that photograph with impact.", img: "/images/image6 (1).jpg" },
         { title: "Evening Glam", desc: "Smoky, sculpted and perfectly balanced for night events.", img: "/images/IMG_1662.jpg" },
         { title: "Natural Radiance", desc: "Effortless finishes for daytime and intimate gatherings.", img: "/images/8351485A-2C7A-4D2B-9CA3-DE2CF20EB9E8.jpg" },
-        { title: "Classic Beauty", desc: "Timeless looks refined for photography and live events.", img: "/images/4B571197-04B7-42C8-8A17-0B1269F55570_Original.jpg" },
+        { title: "Classic Beauty", desc: "Timeless looks refined for photography and live events.", img: "/images/portfolio.jpg" },
         { title: "Bridal Excellence", desc: "Carefully planned bridal services with day-of touch-ups.", img: "/images/IMG_20211011_224108_Original.jpg" }
     ];
 
@@ -52,8 +52,8 @@ const Home = () => {
                         <div className="w-10 h-10 rounded-xl bg-charcoal flex items-center justify-center text-white font-serif font-bold text-lg">
                             SM
                         </div>
-                        <div className="hidden sm:block">
-                            <h1 className="text-xl font-serif font-bold text-charcoal leading-none">Makeovers <span className="text-rose italic">by Simran</span></h1>
+                        <div className="sm:block">
+                            <h1 className="text-lg sm:text-xl font-serif font-bold text-charcoal leading-none">Makeovers <span className="text-rose italic">by Simran</span></h1>
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@ const Home = () => {
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="font-serif text-6xl md:text-8xl font-bold text-charcoal leading-[1.1]"
+                        className="font-serif text-4xl sm:text-6xl md:text-8xl font-bold text-charcoal leading-[1.1]"
                     >
                         Elegant Makeup <br />
                         <span className="text-rose italic font-normal">Crafted For You</span>
@@ -168,7 +168,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="mt-8 text-lg md:text-xl text-muted max-w-2xl mx-auto leading-relaxed font-medium font-sans"
+                        className="mt-6 md:mt-8 text-base md:text-xl text-muted max-w-2xl mx-auto leading-relaxed font-medium font-sans"
                     >
                         Transform your beauty with artistry that celebrates your unique essence. Every brushstroke tells your story.
                     </motion.p>
@@ -202,18 +202,18 @@ const Home = () => {
             <section id="portfolio" className="py-24 px-4 bg-white relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1/2 bg-ivory/50 skew-y-3 origin-top-left -z-10" />
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-20 relative">
+                    <div className="text-center mb-12 md:mb-20 relative">
                         <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block">Our Work</span>
-                        <h2 className="font-serif text-5xl font-bold text-charcoal mb-4">Portfolio</h2>
+                        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-4">Portfolio</h2>
                         <div className="w-20 h-[2px] bg-gold opacity-30 mx-auto" />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {portfolio.map((item, idx) => (
                             <motion.div
                                 key={idx}
                                 whileHover={{ y: -8 }}
-                                className="group relative bg-[#fdfaf8] rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-700"
+                                className="group relative bg-[#fdfaf8] rounded-2xl md:rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-700"
                             >
                                 <div className="aspect-[4/5] overflow-hidden">
                                     <img
@@ -235,12 +235,12 @@ const Home = () => {
             {/* Transformation Section */}
             <section className="py-24 px-4 bg-white relative">
                 <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
-                        <div className="max-w-xl">
+                    <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-12 md:mb-20 gap-8">
+                        <div className="max-w-xl text-center md:text-left">
                             <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block">Transformation</span>
-                            <h2 className="font-serif text-5xl font-bold text-charcoal mb-6">The Art of Change</h2>
-                            <div className="w-16 h-[2px] bg-gold opacity-30 mb-8" />
-                            <p className="text-lg text-muted leading-relaxed">
+                            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-6">The Art of Change</h2>
+                            <div className="w-16 h-[2px] bg-gold opacity-30 mb-8 mx-auto md:mx-0" />
+                            <p className="text-base md:text-lg text-muted leading-relaxed">
                                 Witness the power of technique. Whether it's a subtle enhancement or a dramatic reveal, every look is a masterpiece created for you.
                             </p>
                         </div>
@@ -275,7 +275,7 @@ const Home = () => {
                                 initial={{ opacity: 0, scale: 0.98 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 1.02 }}
-                                className="relative aspect-[16/9] md:aspect-[21/9] rounded-[60px] overflow-hidden group border-[16px] border-[#fdfaf8] shadow-2xl"
+                                className="relative aspect-[4/3] md:aspect-[21/9] rounded-3xl md:rounded-[60px] overflow-hidden group border-[8px] md:border-[16px] border-[#fdfaf8] shadow-2xl"
                             >
                                 <div className="absolute inset-0 bg-charcoal" />
                                 <img
@@ -291,9 +291,8 @@ const Home = () => {
                                     </div>
                                 </div>
 
-                                <div className="absolute bottom-10 left-10 flex gap-4">
-                                    <div className="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 text-white text-[10px] font-bold tracking-widest">NOSTALGIC GRAIN</div>
-                                    <div className="bg-rose/20 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/20 text-white text-[10px] font-bold tracking-widest uppercase">HD Finish</div>
+                                <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 flex gap-2 md:gap-4">
+                                    <div className="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1.5 rounded-full border border-white/20 text-white text-[8px] md:text-[10px] font-bold tracking-widest uppercase">HD Finish</div>
                                 </div>
                             </motion.div>
                         ) : (
@@ -302,17 +301,17 @@ const Home = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
-                                className="grid grid-cols-12 gap-6 h-[600px]"
+                                className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 md:h-[600px]"
                             >
-                                <div className="col-span-12 md:col-span-8 relative rounded-[40px] overflow-hidden shadow-xl group">
+                                <div className="col-span-1 md:col-span-8 relative rounded-3xl md:rounded-[40px] overflow-hidden shadow-xl group aspect-[4/5] md:aspect-auto">
                                     <img src="/images/image6 (1).jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="Detail 1" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
                                 </div>
-                                <div className="col-span-6 md:col-span-4 flex flex-col gap-6">
-                                    <div className="flex-1 relative rounded-[40px] overflow-hidden shadow-xl group">
+                                <div className="col-span-1 md:col-span-4 flex flex-col gap-4 md:gap-6">
+                                    <div className="flex-1 relative rounded-3xl md:rounded-[40px] overflow-hidden shadow-xl group aspect-square md:aspect-auto">
                                         <img src="/images/IMG_1662.jpg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Detail 2" />
                                     </div>
-                                    <div className="flex-1 relative rounded-[40px] overflow-hidden shadow-xl group">
+                                    <div className="flex-1 relative rounded-3xl md:rounded-[40px] overflow-hidden shadow-xl group aspect-square md:aspect-auto">
                                         <img src="/images/8351485A-2C7A-4D2B-9CA3-DE2CF20EB9E8.jpg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Detail 3" />
                                     </div>
                                 </div>
@@ -325,9 +324,9 @@ const Home = () => {
             {/* Services Section */}
             <section id="services" className="py-24 px-4 bg-[#fdfaf8] relative">
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-20 relative">
+                     <div className="text-center mb-12 md:mb-20 relative">
                         <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block">What We Offer</span>
-                        <h2 className="font-serif text-5xl font-bold text-charcoal mb-4">Services & Pricing</h2>
+                        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-4">Services & Pricing</h2>
                         <div className="w-16 h-[2px] bg-gold opacity-30 mx-auto" />
                     </div>
 
@@ -361,8 +360,8 @@ const Home = () => {
                                 <div
                                     key={idx}
                                     className={clsx(
-                                        "p-10 rounded-[40px] transition-all duration-500 relative flex flex-col items-center text-center",
-                                        service.popular ? "bg-[#fef7f7] border border-rose-light/50 shadow-xl scale-105" : "bg-white border border-gray-100 text-charcoal"
+                                        "p-6 md:p-10 rounded-3xl md:rounded-[40px] transition-all duration-500 relative flex flex-col items-center text-center",
+                                        service.popular ? "bg-[#fef7f7] border border-rose-light/50 shadow-xl md:scale-105" : "bg-white border border-gray-100 text-charcoal"
                                     )}
                                 >
                                     {service.popular && (
@@ -414,10 +413,10 @@ const Home = () => {
                 <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gold/5 rounded-full blur-3xl opacity-50" />
 
                 <div className="max-w-4xl mx-auto text-center relative z-10">
-                    <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block">Kind Words</span>
-                    <h2 className="font-serif text-5xl font-bold text-charcoal mb-16">Loved by Clients</h2>
+                     <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block">Kind Words</span>
+                    <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-12 md:mb-16">Loved by Clients</h2>
 
-                    <div className="relative bg-[#fdfaf8] rounded-[50px] p-12 md:p-20 border border-white">
+                    <div className="relative bg-[#fdfaf8] rounded-3xl md:rounded-[50px] p-8 sm:p-12 md:p-20 border border-white">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTestimonial}
@@ -432,7 +431,7 @@ const Home = () => {
                                         <path d="M12 0C5.37 0 0 5.37 0 12c0 6.63 10 24 10 24s1.77-5.37 1.77-12c0-3.32-2.68-6-6-6 3.32 0 6.23-2.68 6.23-6s-2.91-6-6.23-6c3.32 0 6.23 2.68 6.23 6zM36 0c-6.63 0-12 5.37-12 12 0 6.63 10 24 10 24s1.77-5.37 1.77-12c0-3.32-2.68-6-6-6 3.32 0 6.23-2.68 6.23-6s-2.91-6-6.23-6c3.32 0 6.23 2.68 6.23 6z" />
                                     </svg>
                                 </div>
-                                <p className="text-xl md:text-3xl font-serif text-charcoal mb-10 leading-[1.6]">
+                                <p className="text-lg sm:text-2xl md:text-3xl font-serif text-charcoal mb-8 md:mb-10 leading-[1.6]">
                                     "{testimonials[activeTestimonial].text}"
                                 </p>
                                 <div className="text-gold font-bold uppercase tracking-[0.2em] text-[10px]">Simran Marwah — {testimonials[activeTestimonial].author}</div>
@@ -468,12 +467,12 @@ const Home = () => {
             {/* About Section */}
             <section id="about" className="py-24 px-4 bg-white relative">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-                    <div className="relative group">
+                     <div className="relative group">
                         <div className="absolute -inset-4 bg-gradient-to-tr from-peach/20 to-rose/10 blur-3xl rounded-[40px] -z-10 group-hover:scale-110 transition-transform duration-1000" />
                         <img
                             src="/images/portfolio.jpg"
                             alt="Simran"
-                            className="w-full aspect-[3/4] object-cover rounded-[50px] shadow-2xl relative z-10 grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
+                            className="w-full aspect-[3/4] object-cover rounded-3xl md:rounded-[50px] shadow-2xl relative z-10 grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
                         />
                         <div className="absolute -bottom-8 -right-8 bg-white p-8 rounded-[32px] shadow-xl z-20 hidden lg:block">
                             <div className="flex gap-8 text-center">
@@ -491,9 +490,9 @@ const Home = () => {
                     </div>
 
                     <div>
-                        <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block text-center md:text-left">The Artist</span>
-                        <h2 className="font-serif text-5xl font-bold text-charcoal mb-10 leading-tight text-center md:text-left">Meet Simran Marwah</h2>
-                        <div className="w-16 h-[2px] bg-gold opacity-30 mb-10 mx-auto md:mx-0" />
+                         <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em] mb-4 block text-center md:text-left">The Artist</span>
+                        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal mb-8 md:mb-10 leading-tight text-center md:text-left">Meet Simran Marwah</h2>
+                        <div className="w-16 h-[2px] bg-gold opacity-30 mb-8 md:mb-10 mx-auto md:mx-0" />
                         <p className="text-lg text-muted leading-relaxed mb-6 font-medium text-center md:text-left">
                             With over 8 years of professional experience, I believe in enhancing your natural beauty rather than masking it.
                         </p>
@@ -538,13 +537,13 @@ const Home = () => {
             />
 
             {/* Contact Section */}
-            <section id="contact" className="py-24 px-4 bg-[#fdfaf8] relative overflow-hidden">
+             <section id="contact" className="py-24 px-4 bg-[#fdfaf8] relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-peach/30 rounded-full blur-[120px] -mr-64 -mt-64" />
                 <div className="max-w-6xl mx-auto">
-                    <div className="bg-white rounded-[60px] shadow-2xl overflow-hidden grid lg:grid-cols-5 border border-white relative z-10">
-                        <div className="lg:col-span-2 bg-charcoal p-12 md:p-16 text-white relative">
+                    <div className="bg-white rounded-3xl md:rounded-[60px] shadow-2xl overflow-hidden grid lg:grid-cols-5 border border-white relative z-10">
+                         <div className="lg:col-span-2 bg-charcoal p-8 md:p-16 text-white relative">
                             <span className="text-[10px] font-bold text-rose uppercase tracking-[0.3em] mb-4 block">Get in touch</span>
-                            <h2 className="font-serif text-5xl font-bold mb-8">Let's Create Together</h2>
+                            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-8">Let's Create Together</h2>
                             <div className="w-12 h-[1px] bg-rose opacity-50 mb-10" />
                             <p className="text-gray-400 mb-12 text-lg leading-relaxed">Share your vision and event date — I’ll respond within 24 hours.</p>
 
@@ -574,7 +573,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        <div className="lg:col-span-3 p-10 md:p-16">
+                         <div className="lg:col-span-3 p-8 md:p-16">
                             <form
                                 id="contactForm"
                                 onSubmit={(e) => {

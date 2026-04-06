@@ -203,11 +203,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, initialSer
                         className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"
                     />
 
-                    <motion.div
+                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-xl bg-white rounded-[32px] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+                        className="relative w-full max-w-xl bg-white rounded-2xl md:rounded-[32px] shadow-2xl overflow-hidden max-h-[95vh] md:max-h-[90vh] overflow-y-auto"
                     >
                         <div className="flex h-2 bg-gray-100">
                             <motion.div
@@ -223,22 +223,22 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, initialSer
                             <X size={20} />
                         </button>
 
-                        <div className="p-8 md:p-12">
+                         <div className="p-5 sm:p-8 md:p-12">
                             {/* Step 1 — Service Selection */}
                             {step === 1 && (
                                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                                    <h2 className="font-serif text-3xl font-bold text-gray-900 mb-2">Select Service</h2>
-                                    <p className="text-gray-500 mb-8 font-medium">Choose the experience you're looking for.</p>
+                                     <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2">Select Service</h2>
+                                    <p className="text-sm md:text-base text-gray-500 mb-6 md:mb-8 font-medium">Choose the experience you're looking for.</p>
 
                                     <div className="space-y-4">
                                         {services.map((s) => (
                                             <button
                                                 key={s.id}
-                                                onClick={() => {
+                                                 onClick={() => {
                                                     setFormData({ ...formData, service: s.id });
                                                     handleNext();
                                                 }}
-                                                className={`w-full p-6 rounded-2xl border-2 text-left transition-all flex items-center justify-between group ${formData.service === s.id ? 'border-rose bg-rose/5' : 'border-gray-100 hover:border-peach'
+                                                className={`w-full p-4 md:p-6 rounded-xl md:rounded-2xl border-2 text-left transition-all flex items-center justify-between group ${formData.service === s.id ? 'border-rose bg-rose/5' : 'border-gray-100 hover:border-peach'
                                                     }`}
                                             >
                                                 <div>
@@ -258,8 +258,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, initialSer
                             {/* Step 2 — Details + Date/Time */}
                             {step === 2 && (
                                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                                    <h2 className="font-serif text-3xl font-bold text-gray-900 mb-2">Details & Schedule</h2>
-                                    <p className="text-gray-500 mb-8 font-medium">Tell us about yourself and pick a date & time.</p>
+                                     <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2">Details & Schedule</h2>
+                                    <p className="text-sm md:text-base text-gray-500 mb-6 md:mb-8 font-medium">Tell us about yourself and pick a date & time.</p>
 
                                     <div className="space-y-5">
                                         <div className="relative">
@@ -374,8 +374,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, initialSer
                             {/* Step 3 — Confirmation & Payment */}
                             {step === 3 && (
                                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                                    <h2 className="font-serif text-3xl font-bold text-gray-900 mb-2">Secure Booking</h2>
-                                    <p className="text-gray-500 mb-8 font-medium">Finalize with a refundable deposit.</p>
+                                     <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2">Secure Booking</h2>
+                                    <p className="text-sm md:text-base text-gray-500 mb-6 md:mb-8 font-medium">Finalize with a refundable deposit.</p>
 
                                     <div className="bg-ivory rounded-2xl p-6 border border-peach/20 mb-8">
                                         <div className="flex justify-between items-center mb-4">
@@ -424,10 +424,10 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, initialSer
 
                             {/* Step 4 — Success */}
                             {bookingStatus === 'success' && (
-                                <motion.div
+                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    className="text-center py-12"
+                                    className="text-center py-6 md:py-12"
                                 >
                                     <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8">
                                         <Check size={40} strokeWidth={3} />
