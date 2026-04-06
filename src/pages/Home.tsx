@@ -13,6 +13,7 @@ const Home = () => {
     const [transformationMode, setTransformationMode] = useState<'reveal' | 'grid'>('reveal');
     const heroRef = useRef<HTMLDivElement>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const [isRevealed, setIsRevealed] = useState(false);
 
     const testimonials = [
         { text: "Simran made me feel beautiful and relaxed on my wedding morning. The makeup lasted through photos and dance — magical.", author: "Asha" },
@@ -269,27 +270,36 @@ const Home = () => {
                     </div>
 
                     <AnimatePresence mode="wait">
-                        {transformationMode === 'reveal' ? (
-                            <motion.div
+                        {transformationMode === 'reveal' ?                             <motion.div
                                 key="reveal"
+                                onClick={() => setIsRevealed(!isRevealed)}
                                 initial={{ opacity: 0, scale: 0.98 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 1.02 }}
-                                className="relative aspect-[4/3] md:aspect-[21/9] rounded-3xl md:rounded-[60px] overflow-hidden group border-[8px] md:border-[16px] border-[#fdfaf8] shadow-2xl"
+                                className="relative aspect-[4/3] md:aspect-[21/9] rounded-3xl md:rounded-[60px] overflow-hidden group border-[8px] md:border-[16px] border-[#fdfaf8] shadow-2xl cursor-pointer"
                             >
                                 <div className="absolute inset-0 bg-charcoal" />
                                 <img
                                     src="/images/portfolio.jpg"
                                     alt="Transformation"
-                                    className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-105"
+                                    className={clsx(
+                                        "absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-105",
+                                        isRevealed ? "grayscale-0 scale-105" : "grayscale group-hover:grayscale-0"
+                                    )}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent opacity-60 group-hover:opacity-0 transition-opacity duration-700" />
+                                <div className={clsx(
+                                    "absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent transition-opacity duration-700",
+                                    isRevealed ? "opacity-0" : "opacity-60 group-hover:opacity-0"
+                                )} />
 
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                    <div className="bg-white/10 backdrop-blur-md border border-white/20 px-8 py-4 rounded-3xl opacity-100 group-hover:opacity-0 transition-all duration-500 transform group-hover:scale-110">
-                                        <span className="text-white text-xs font-bold tracking-[0.4em] uppercase">Hover to reveal color</span>
+                                    <div className={clsx(
+                                        "bg-white/10 backdrop-blur-md border border-white/20 px-8 py-4 rounded-3xl transition-all duration-500 transform group-hover:scale-110",
+                                        isRevealed ? "opacity-0 scale-110" : "opacity-100 group-hover:opacity-0"
+                                    )}>
+                                        <span className="text-white text-xs font-bold tracking-[0.4em] uppercase">Tap or Hover to reveal color</span>
                                     </div>
-                                </div>
+                                </div>div>
 
                                 <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 flex gap-2 md:gap-4">
                                     <div className="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1.5 rounded-full border border-white/20 text-white text-[8px] md:text-[10px] font-bold tracking-widest uppercase">HD Finish</div>
@@ -470,7 +480,7 @@ const Home = () => {
                      <div className="relative group">
                         <div className="absolute -inset-4 bg-gradient-to-tr from-peach/20 to-rose/10 blur-3xl rounded-[40px] -z-10 group-hover:scale-110 transition-transform duration-1000" />
                         <img
-                            src="/images/portfolio.jpg"
+                            src="/images/WhatsApp Image 2026-04-06 at 9.27.31 PM.jpeg"
                             alt="Simran"
                             className="w-full aspect-[3/4] object-cover rounded-3xl md:rounded-[50px] shadow-2xl relative z-10 grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
                         />
